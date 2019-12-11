@@ -1,0 +1,17 @@
+body {
+    background-color: rgb(51, 51, 51);
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 1px;
+    width: 500px;
+    font-size:250%;
+    cursor: pointer;
+    font-size: 250%;
+    color: rgb(102,102,102);
+    background-color:rgb(233, 233, 233);
+    box-shadow: 0 15px 0 0 rgb(187,187,187), 0 8px 3px 0 rgba(0,0,0,0.2)
+}
