@@ -203,8 +203,8 @@ const update = async () => {
 setInterval(update, UPDATERATE)
 update()
 
-//Helpers
 
+//Helpers
 const matchAll = (rgx: RegExp, str: string): RegExpMatchArray[] => {
     const match = str.match(rgx)
     if(match === null)
