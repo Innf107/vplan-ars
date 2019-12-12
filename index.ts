@@ -7,9 +7,12 @@ import axios = require('axios')
 import iso88592 = require('iso-8859-2')
 import fs = require('fs-jetpack')
 import Axios from 'axios'
+import http =require('http')
+import https = require('https')
 const lite = require('./lite')
 const app = express()
-const PORT = 5000
+const HTTPPORT = 5000
+const HTTPSPORT = 5001
 const UPDATERATE = 600_000
 
 let data: UntisData
@@ -164,8 +167,29 @@ app.put('/feedback', (req, res) => {
 app.get('/*', (req, res) => {
     res.sendFile(__dirname + '/public/404.html')
 })
+try {
+    const privateKey = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/privkey.pem', 'utf8');
+    const certificate = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/cert.pem', 'utf8');
+    const ca = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/chain.pem', 'utf8');
 
-app.listen(PORT, () => console.log(`listening on Port ${PORT}`))
+    const credentials = {
+        key: privateKey,
+        cert: certificate,
+        ca: ca
+    };
+
+    if(!privateKey || !certificate || !ca)
+        throw new Error("credentials do not exist!")
+
+    const httpsServer = https.createServer(credentials, app)
+    httpsServer.listen(HTTPSPORT, () => console.log(`HTTPS Server listening on port ${HTTPSPORT}`))
+}
+catch{
+    console.log('cannot create HTTPS Server')
+}
+
+const httpserver = http.createServer(app)
+httpserver.listen(HTTPPORT, () => console.log(`HTTP Server listening on Port ${HTTPPORT}`))
 
 
 interface UntisHour {

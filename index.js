@@ -41,9 +41,12 @@ var xcss = require("prophet-xcss");
 var iso88592 = require("iso-8859-2");
 var fs = require("fs-jetpack");
 var axios_1 = require("axios");
+var http = require("http");
+var https = require("https");
 var lite = require('./lite');
 var app = express();
-var PORT = 5000;
+var HTTPPORT = 5000;
+var HTTPSPORT = 5001;
 var UPDATERATE = 600000;
 var data;
 var parsePlan = function (n) { return __awaiter(_this, void 0, void 0, function () {
@@ -189,7 +192,25 @@ app.put('/feedback', function (req, res) {
 app.get('/*', function (req, res) {
     res.sendFile(__dirname + '/public/404.html');
 });
-app.listen(PORT, function () { return console.log("listening on Port " + PORT); });
+try {
+    var privateKey = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/privkey.pem', 'utf8');
+    var certificate = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/cert.pem', 'utf8');
+    var ca = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/chain.pem', 'utf8');
+    var credentials = {
+        key: privateKey,
+        cert: certificate,
+        ca: ca
+    };
+    if (!privateKey || !certificate || !ca)
+        throw new Error("credentials do not exist!");
+    var httpsServer = https.createServer(credentials, app);
+    httpsServer.listen(HTTPSPORT, function () { return console.log("HTTPS Server listening on port " + HTTPSPORT); });
+}
+catch (_a) {
+    console.log('cannot create HTTPS Server');
+}
+var httpserver = http.createServer(app);
+httpserver.listen(HTTPPORT, function () { return console.log("HTTP Server listening on Port " + HTTPPORT); });
 var update = function () { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {

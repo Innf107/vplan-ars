@@ -124,7 +124,7 @@ viewKlasseCollapsed : Model -> UntisKlasse -> List (Html Msg)
 viewKlasseCollapsed model klasse = [
         tr [A.class "klasse collapsed"] [
             th [A.class "klasse collapsed", A.colspan 5] [
-                button [A.class "klasse collapsed", onClick (UpdateExpandedDays (klasse.name::model.expandedKlassen))] [text <| "⮞" ++ klasse.name]
+                button [A.class "klasse collapsed", onClick (UpdateExpandedDays (klasse.name::model.expandedKlassen))] [text <| "►" ++ klasse.name]
             ]
         ]
     ]
@@ -133,7 +133,7 @@ viewKlasseExpanded : Model -> UntisKlasse -> List (Html Msg)
 viewKlasseExpanded model klasse =
         tr [A.class "klasse expanded"] [
             th [A.class "klasse expanded", A.colspan 5] [
-                button [A.class "klasse expanded", onClick (UpdateExpandedDays (delete klasse.name model.expandedKlassen))] [text <| "⮟" ++ klasse.name]
+                button [A.class "klasse expanded", onClick (UpdateExpandedDays (delete klasse.name model.expandedKlassen))] [text <| "▼" ++ klasse.name]
             ]
         ]
         ::List.map (\hour ->

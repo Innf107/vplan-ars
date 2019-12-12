@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="39dcbe99-b2f8-4b2f-92cf-e3ceecd3e620" name="Default Changelist" comment="" />
+    <list default="true" id="39dcbe99-b2f8-4b2f-92cf-e3ceecd3e620" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../lite" beforeDir="false" afterPath="$PROJECT_DIR$/../lite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/Main.elmo" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/Main.elmo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/d.dat" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/d.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.elm" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +45,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="DlMRiDBc" />
   </component>
@@ -45,7 +55,9 @@
     <option name="version" value="1" />
   </component>
   <component name="ProjectId" id="1UZF58g2rxk4aiIjKOVo3AnDVjE" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -120,11 +132,23 @@
       <workItem from="1575900199746" duration="8416000" />
       <workItem from="1575981175253" duration="14079000" />
       <workItem from="1576000696038" duration="2221000" />
-      <workItem from="1576067625572" duration="7005000" />
+      <workItem from="1576067625572" duration="8262000" />
+      <workItem from="1576154090330" duration="644000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
