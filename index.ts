@@ -9,11 +9,12 @@ import fs = require('fs-jetpack')
 import Axios from 'axios'
 import http =require('http')
 import https = require('https')
-const lite = require('./lite')
+import {split, mergeByWith, matchAll, wait} from './library'
+import lite = require('./lite')
 const app = express()
 const HTTPPORT = 5000
 const HTTPSPORT = 5001
-const UPDATERATE = 600_000
+const UPDATERATE = 590_000
 
 let data: UntisData
 
@@ -33,8 +34,6 @@ const parsePlan = async (n: number): Promise<UntisData> => {
         return {vplan:[]}
 
     const data = iso88592.decode(res.data.toString('binary')) as string
-
-    const refreshRgx = /<meta http-equiv="refresh" content="12; URL=subst_001.htm">/
 
     const dateRgx = /<div\s+class="mon_title">(.+?)( \(.+?)?<\/div>/
     const dateStr = data.match(dateRgx)[1]
@@ -63,6 +62,7 @@ const parsePlan = async (n: number): Promise<UntisData> => {
         content: motdContent,
     }
 
+    const refreshRgx = /<meta http-equiv="refresh" content="12; URL=subst_001.htm">/
     if(refreshRgx.test(data))
         return {
             vplan: [{
@@ -148,16 +148,15 @@ app.get('/json', (req, res) => {
 })
 
 app.put('/feedback', (req, res) => {
-    const date = new Date()
     const fileName = 'temp.txt'
     const filePath = `../data/Feedback`
     const file = fs.createWriteStream(`${filePath}/${fileName}`)
     file.on('open', _ => {
         req.on('data', x => file.write(x))
-        req.on('end', async () => {
+        req.on('end', () => {
             file.end()
             const content = fs.read(`${filePath}/${fileName}`)
-            await fs.renameAsync(`${filePath}/${fileName}`, content.replace(/\//g, '\\'))
+            fs.renameAsync(`${filePath}/${fileName}`, content.replace(/\//g, '\\'))
             res.sendStatus(200)
         })
     })
@@ -221,37 +220,8 @@ interface UntisData {
 
 const update = async () => {
     data = await parsePlan(1)
-    console.log(`updated at ${new Date()}`)
+    console.log(`updated vplan at ${new Date()}`)
 }
 
 setInterval(update, UPDATERATE)
 update()
-
-
-//Helpers
-const matchAll = (rgx: RegExp, str: string): RegExpMatchArray[] => {
-    const match = str.match(rgx)
-    if(match === null)
-        return []
-    else{
-        const remaining = str.replace(match[0], '')
-        return [match, ...matchAll(rgx, remaining)]
-    }
-}
-
-const wait = (time: number) => new Promise(resolve => setTimeout(() => resolve(time), time))
-
-function mergeByWith<T>(a: T[], b: T[], match: (x: T, y:T) => boolean, resolve: (x: T, y:T) => T) : T[]{
-    if(a[0] === undefined)
-        return b
-    if(b[0] === undefined)
-        return a
-
-    const [x, ...xs] = a
-    const [y, ...ys] = b
-
-    if(match(x, y))
-        return [resolve(x, y), ...mergeByWith(xs, ys, match, resolve)]
-    else
-        return [y, x, ...mergeByWith(xs, ys, match, resolve)]
-}

@@ -43,14 +43,15 @@ var fs = require("fs-jetpack");
 var axios_1 = require("axios");
 var http = require("http");
 var https = require("https");
-var lite = require('./lite');
+var library_1 = require("./library");
+var lite = require("./lite");
 var app = express();
 var HTTPPORT = 5000;
 var HTTPSPORT = 5001;
-var UPDATERATE = 600000;
+var UPDATERATE = 590000;
 var data;
 var parsePlan = function (n) { return __awaiter(_this, void 0, void 0, function () {
-    var url, res, data, refreshRgx, dateRgx, dateStr, tableRgx, tableStr, klassen, motdAffectedRowRgx, motdAffected, motdContentRowRgxG, motdContentRowRgx, motdContentRows, motdContent, motd, _a, _b, _c;
+    var url, res, data, dateRgx, dateStr, tableRgx, tableStr, klassen, motdAffectedRowRgx, motdAffected, motdContentRowRgxG, motdContentRowRgx, motdContentRows, motdContent, motd, refreshRgx, _a, _b, _c;
     return __generator(this, function (_d) {
         switch (_d.label) {
             case 0:
@@ -67,7 +68,6 @@ var parsePlan = function (n) { return __awaiter(_this, void 0, void 0, function 
                 if (res === null)
                     return [2 /*return*/, { vplan: [] }];
                 data = iso88592.decode(res.data.toString('binary'));
-                refreshRgx = /<meta http-equiv="refresh" content="12; URL=subst_001.htm">/;
                 dateRgx = /<div\s+class="mon_title">(.+?)( \(.+?)?<\/div>/;
                 dateStr = data.match(dateRgx)[1];
                 tableRgx = /<table\s+class="mon_list"\s*>[^]+?<\/table>/;
@@ -90,6 +90,7 @@ var parsePlan = function (n) { return __awaiter(_this, void 0, void 0, function 
                     affected: motdAffected,
                     content: motdContent
                 };
+                refreshRgx = /<meta http-equiv="refresh" content="12; URL=subst_001.htm">/;
                 if (refreshRgx.test(data))
                     return [2 /*return*/, {
                             vplan: [{
@@ -111,7 +112,7 @@ var parsePlan = function (n) { return __awaiter(_this, void 0, void 0, function 
         }
     });
 }); };
-var mergeData = function (a, b) { return mergeByWith(a, b, function (x, y) { return x.day === y.day; }, function (x, y) {
+var mergeData = function (a, b) { return library_1.mergeByWith(a, b, function (x, y) { return x.day === y.day; }, function (x, y) {
     return {
         day: x.day,
         motd: y.motd,
@@ -123,7 +124,7 @@ var compareDates = function (x, y) {
     var yDate = Date.parse(y.day.match(/[0-9.]+/)[0]);
     return xDate - yDate;
 };
-var mergeKlassen = function (a, b) { return mergeByWith(a, b, function (x, y) { return x.name === y.name; }, function (x, y) {
+var mergeKlassen = function (a, b) { return library_1.mergeByWith(a, b, function (x, y) { return x.name === y.name; }, function (x, y) {
     return {
         name: x.name,
         hours: x.hours.concat(y.hours)
@@ -144,7 +145,7 @@ var matchHours = function (childrenStr) {
     //                                                                         Stunde                                     Vertreter                                                Fach                                           Raum                                      Vertretungs-Text
     //                                                                             1 - 2                                         DOB                                                   MAT                                            E10                                          Stattstunde
     var hourRgx = /<tr class='list[^]*?'>\s*<td class="list" align="center">([^]+?)<\/td><td class="list" align="center">([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list" align="center">([^]+?)<\/td>\s*<\/tr>/;
-    var results = matchAll(hourRgx, childrenStr).map(function (match) {
+    var results = library_1.matchAll(hourRgx, childrenStr).map(function (match) {
         return {
             stunde: match[1],
             vertreter: match[2],
@@ -166,27 +167,17 @@ app.get('/json', function (req, res) {
     res.json(data || "Parsing...");
 });
 app.put('/feedback', function (req, res) {
-    var date = new Date();
     var fileName = 'temp.txt';
     var filePath = "../data/Feedback";
     var file = fs.createWriteStream(filePath + "/" + fileName);
     file.on('open', function (_) {
         req.on('data', function (x) { return file.write(x); });
-        req.on('end', function () { return __awaiter(_this, void 0, void 0, function () {
-            var content;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        file.end();
-                        content = fs.read(filePath + "/" + fileName);
-                        return [4 /*yield*/, fs.renameAsync(filePath + "/" + fileName, content.replace(/\//g, '\\'))];
-                    case 1:
-                        _a.sent();
-                        res.sendStatus(200);
-                        return [2 /*return*/];
-                }
-            });
-        }); });
+        req.on('end', function () {
+            file.end();
+            var content = fs.read(filePath + "/" + fileName);
+            fs.renameAsync(filePath + "/" + fileName, content.replace(/\//g, '\\'));
+            res.sendStatus(200);
+        });
     });
 });
 app.get('/*', function (req, res) {
@@ -217,33 +208,10 @@ var update = function () { return __awaiter(_this, void 0, void 0, function () {
             case 0: return [4 /*yield*/, parsePlan(1)];
             case 1:
                 data = _a.sent();
-                console.log("updated at " + new Date());
+                console.log("updated vplan at " + new Date());
                 return [2 /*return*/];
         }
     });
 }); };
 setInterval(update, UPDATERATE);
 update();
-//Helpers
-var matchAll = function (rgx, str) {
-    var match = str.match(rgx);
-    if (match === null)
-        return [];
-    else {
-        var remaining = str.replace(match[0], '');
-        return [match].concat(matchAll(rgx, remaining));
-    }
-};
-var wait = function (time) { return new Promise(function (resolve) { return setTimeout(function () { return resolve(time); }, time); }); };
-function mergeByWith(a, b, match, resolve) {
-    if (a[0] === undefined)
-        return b;
-    if (b[0] === undefined)
-        return a;
-    var x = a[0], xs = a.slice(1);
-    var y = b[0], ys = b.slice(1);
-    if (match(x, y))
-        return [resolve(x, y)].concat(mergeByWith(xs, ys, match, resolve));
-    else
-        return [y, x].concat(mergeByWith(xs, ys, match, resolve));
-}
