@@ -4,6 +4,7 @@ type Status a = Loading
               | Error String
               | Loaded a
 
+
 map : (a -> b) -> Status a -> Status b
 map f s = case s of
     Loading -> Loading
