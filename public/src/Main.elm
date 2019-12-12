@@ -96,6 +96,7 @@ viewError model error = [
         h1 [] [pre [] [text <| "Error getting VPlan: " ++ error]]
     ]
 
+
 viewLoaded : Model -> VPlan -> List (Html Msg)
 viewLoaded model vplan = [
         h1 [] [text "Vertretungsplan ARS"],
@@ -124,7 +125,7 @@ viewKlasseCollapsed : Model -> UntisKlasse -> List (Html Msg)
 viewKlasseCollapsed model klasse = [
         tr [A.class "klasse collapsed"] [
             th [A.class "klasse collapsed", A.colspan 5] [
-                button [A.class "klasse collapsed", onClick (UpdateExpandedDays (klasse.name::model.expandedKlassen))] [text <| "►" ++ klasse.name]
+                button [A.class "klasse collapsed", onClick (UpdateExpandedDays (klasse.name::model.expandedKlassen))] [text <| "➤" ++ klasse.name]
             ]
         ]
     ]
@@ -150,9 +151,9 @@ viewKlasseExpanded model klasse =
 viewMOTD : Model -> UntisDay -> Html Msg
 viewMOTD model day =
     ul [A.class "motd"] <|
-        (li [A.class "motd header"] [
-            button [A.class "motd header", E.onClick (UpdateMOTDExpansion (not model.expandedMOTD))] [text <| (if model.expandedMOTD then "⮟" else "⮞") ++ " Nachrichten zum Tag" ]
-        ])::(if model.expandedMOTD then List.map (\m -> li [A.class "motd elem"] [text m]) day.motd else [])
+        li [A.class "motd header"] [
+            button [A.class "motd header", E.onClick (UpdateMOTDExpansion (not model.expandedMOTD))] [text <| (if model.expandedMOTD then "⯆" else "➤") ++ " Nachrichten zum Tag" ]
+        ]::(if model.expandedMOTD then List.map (\m -> li [A.class "motd elem"] [text m]) day.motd else [])
 
 viewFeedback : Model -> Html Msg
 viewFeedback model = div [] [
