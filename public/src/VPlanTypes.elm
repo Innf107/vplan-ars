@@ -247,7 +247,7 @@ getHoursWithTeacher day str = day.klassen                                       
                                     ) k.hours)
                                 |> List.map
                                     (\k -> {k|hours=List.filter
-                                        (\h ->vertreterIsEqual (parseVertreter h.vertreter) str) k.hours})
+                                        (\h -> vertreterIsEqual (parseVertreter h.vertreter) str) k.hours})
 
 vertreterIsEqual : Result (List DeadEnd) VertreterVariant -> String -> Bool
 vertreterIsEqual y str = case y of

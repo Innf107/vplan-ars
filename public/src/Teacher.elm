@@ -42,11 +42,11 @@ update : Msg -> Model -> (Model, Cmd Msg)
 update msg model = case msg of
     NOP -> (model, Cmd.none)
     ReceivedUData res -> ({model|vplan=S.map .vplan <| S.fromResult errToStr res}, Cmd.none)
-    UpdateKuerzel str -> ({model|kuerzel=String.trim str,
+    UpdateKuerzel str -> ({model|kuerzel=String.toUpper <| String.trim str,
                          klassenWithTeacher=S.map (\v -> getAt model.selectedDay v) model.vplan
                          |> S.toMaybe
                          |> Maybe.andThen identity
-                         |> Maybe.map (\d -> getHoursWithTeacher d <| String.trim str)
+                         |> Maybe.map (\d -> getHoursWithTeacher d <| String.toUpper <| String.trim str)
                          |> Maybe.withDefault []},Cmd.none)
     UpdateSelectedDay d -> update (UpdateKuerzel model.kuerzel) {model|selectedDay=d}
 

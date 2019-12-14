@@ -6874,6 +6874,7 @@ var $author$project$Status$toMaybe = function (s) {
 			return $elm$core$Maybe$Just(x);
 	}
 };
+var $elm$core$String$toUpper = _String_toUpper;
 var $elm$core$String$trim = _String_trim;
 var $elm$core$Maybe$withDefault = F2(
 	function (_default, maybe) {
@@ -6920,7 +6921,8 @@ var $author$project$Teacher$update = F2(
 											return A2(
 												$author$project$VPlanTypes$getHoursWithTeacher,
 												d,
-												$elm$core$String$trim(str));
+												$elm$core$String$toUpper(
+													$elm$core$String$trim(str)));
 										},
 										A2(
 											$elm$core$Maybe$andThen,
@@ -6932,7 +6934,8 @@ var $author$project$Teacher$update = F2(
 														return A2($author$project$VPlanTypes$getAt, model.selectedDay, v);
 													},
 													model.vplan))))),
-								kuerzel: $elm$core$String$trim(str)
+								kuerzel: $elm$core$String$toUpper(
+									$elm$core$String$trim(str))
 							}),
 						$elm$core$Platform$Cmd$none);
 				default:
