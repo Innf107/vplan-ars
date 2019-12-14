@@ -37,3 +37,8 @@ export const matchAll = (rgx: RegExp, str: string): RegExpMatchArray[] => {
 }
 
 export const wait = (time: number) => new Promise(resolve => setTimeout(() => resolve(time), time))
+
+export function log<T>(msg: string, x: T): T{
+    console.log(`${msg} ${x}`)
+    return x
+}

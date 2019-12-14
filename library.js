@@ -35,3 +35,8 @@ exports.matchAll = function (rgx, str) {
     }
 };
 exports.wait = function (time) { return new Promise(function (resolve) { return setTimeout(function () { return resolve(time); }, time); }); };
+function log(msg, x) {
+    console.log(msg + " " + x);
+    return x;
+}
+exports.log = log;

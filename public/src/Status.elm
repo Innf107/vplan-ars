@@ -44,3 +44,15 @@ fromResult : (a -> String) -> Result a b -> Status b
 fromResult f r = case r of
     Err e -> Error <| f e
     Ok x  -> Loaded x
+
+withDefault : a -> Status a -> a
+withDefault d s = case s of
+    Loading  -> d
+    Error _  -> d
+    Loaded x -> x
+
+withDefaults : a -> a -> Status a -> a
+withDefaults x y s = case s of
+    Loading  -> x
+    Error _  -> y
+    Loaded z -> z

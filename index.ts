@@ -9,8 +9,7 @@ import fs = require('fs-jetpack')
 import Axios from 'axios'
 import http =require('http')
 import https = require('https')
-import {split, mergeByWith, matchAll, wait} from './library'
-import lite = require('./lite')
+import {split, mergeByWith, matchAll, wait, log} from './library'
 const app = express()
 const HTTPPORT = 5000
 const HTTPSPORT = 5001
@@ -31,7 +30,7 @@ const parsePlan = async (n: number): Promise<UntisData> => {
     } as any).catch(_ => null)
 
     if(res === null)
-        return {vplan:[]}
+        return log("resIsNull: ", {vplan:[]})
 
     const data = iso88592.decode(res.data.toString('binary')) as string
 
@@ -46,9 +45,9 @@ const parsePlan = async (n: number): Promise<UntisData> => {
         hours: matchHours(match[3])
     } as UntisKlasse})
 
-    if(!klassen) 
-        return {vplan:[]}
-    
+    if(!klassen)
+        return log("!klassen", {vplan:[]})
+
     const motdAffectedRowRgx = /<td class="info" align="left">([^B][^]+?)<\/td>/
     const motdAffected = data.match(motdAffectedRowRgx)[1].split(',').map(x => x.trim())
     const motdContentRowRgxG = /<td class='info' colspan="2">[^]+?<\/td>/g
@@ -119,9 +118,9 @@ const matchKlassen = (tableStr: string) : RegExpMatchArray[] => {
 }
 
 const matchHours = (childrenStr: string): UntisHour[] => {
-    //                                                                         Stunde                                     Vertreter                                                Fach                                           Raum                                      Vertretungs-Text
+//                                                                             Stunde                                     Vertreter                                                Fach                                           Raum                                      Vertretungs-Text
 //                                                                             1 - 2                                         DOB                                                   MAT                                            E10                                          Stattstunde
-    const hourRgx  = /<tr class='list[^]*?'>\s*<td class="list" align="center">([^]+?)<\/td><td class="list" align="center">([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list" align="center">([^]+?)<\/td>\s*<\/tr>/
+    const hourRgx  = /<tr class='list[^]*?'>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list"(?: align="center")>([^]+?)<\/td>\s*<\/tr>/
 
     const results = matchAll(hourRgx, childrenStr).map(match => {return {
         stunde: match[1],
@@ -137,11 +136,12 @@ const matchHours = (childrenStr: string): UntisHour[] => {
 app.use(xcss([`./public`]))
 
 
-app.use('/lite', lite)
 app.get('/pro', (req, res) => res.sendFile(__dirname + '/public/index.html'))
 app.get('/main.css', (req, res) => res.sendFile(__dirname + '/public/main.css'))
 app.get('/select.css', (req, res) => res.sendFile(__dirname + '/select.css'))
+app.get('/teacher.css', (req, res) => res.sendFile(__dirname + '/teacher.css'))
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/select.html'))
+app.get('/teacher', (req, res) => res.sendFile(__dirname + '/public/teacher.html'))
 
 app.get('/json', (req, res) => {
     res.json(data || "Parsing...")

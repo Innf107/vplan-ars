@@ -34,11 +34,11 @@ init _ = ({
           },
         Http.get {
             url="/json",
-            expect=Http.expectJson LoadedVPlan vPlanDecoder
+            expect=Http.expectJson ReceivedUData uDataDecoder
         })
 
 type Msg = NOP
-         | LoadedVPlan (Result (Http.Error) UntisData)
+         | ReceivedUData (Result (Http.Error) UntisData)
          | UpdateLoadingText
          | UpdateExpandedDays (List String)
          | UpdateSelectedDay Int
@@ -53,7 +53,7 @@ update msg model = case msg of
     NOP -> (model, Cmd.none)
     UpdateLoadingText -> ({model|loadingText=String.left (String.length model.loadingText + 1 |> modBy 11) "Loading..."}, Cmd.none)
     UpdateExpandedDays newKlassen -> ({model|expandedKlassen=newKlassen}, Cmd.none)
-    LoadedVPlan res -> ({model|vplan=S.map .vplan (S.fromResult errToStr res)}, Cmd.none)
+    ReceivedUData res -> ({model|vplan=S.map .vplan (S.fromResult errToStr res)}, Cmd.none)
     UpdateSelectedDay d -> ({model|selectedDay=d}, Cmd.none)
     UpdateFeedbackText t -> ({model|feedbackText=t}, Cmd.none)
     UpdateMOTDExpansion n -> ({model|expandedMOTD=n}, Cmd.none)
@@ -93,7 +93,7 @@ viewLoading model = [
 
 viewError : Model -> String -> List (Html Msg)
 viewError model error = [
-        h1 [] [pre [] [text <| "Error getting VPlan: " ++ error]]
+        h1 [] [pre [] [text <| "Error: " ++ error]]
     ]
 
 

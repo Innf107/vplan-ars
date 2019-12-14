@@ -44,7 +44,6 @@ var axios_1 = require("axios");
 var http = require("http");
 var https = require("https");
 var library_1 = require("./library");
-var lite = require("./lite");
 var app = express();
 var HTTPPORT = 5000;
 var HTTPSPORT = 5001;
@@ -66,7 +65,7 @@ var parsePlan = function (n) { return __awaiter(_this, void 0, void 0, function 
             case 1:
                 res = _d.sent();
                 if (res === null)
-                    return [2 /*return*/, { vplan: [] }];
+                    return [2 /*return*/, library_1.log("resIsNull: ", { vplan: [] })];
                 data = iso88592.decode(res.data.toString('binary'));
                 dateRgx = /<div\s+class="mon_title">(.+?)( \(.+?)?<\/div>/;
                 dateStr = data.match(dateRgx)[1];
@@ -79,7 +78,7 @@ var parsePlan = function (n) { return __awaiter(_this, void 0, void 0, function 
                     };
                 });
                 if (!klassen)
-                    return [2 /*return*/, { vplan: [] }];
+                    return [2 /*return*/, library_1.log("!klassen", { vplan: [] })];
                 motdAffectedRowRgx = /<td class="info" align="left">([^B][^]+?)<\/td>/;
                 motdAffected = data.match(motdAffectedRowRgx)[1].split(',').map(function (x) { return x.trim(); });
                 motdContentRowRgxG = /<td class='info' colspan="2">[^]+?<\/td>/g;
@@ -142,9 +141,9 @@ var matchKlassen = function (tableStr) {
     }
 };
 var matchHours = function (childrenStr) {
-    //                                                                         Stunde                                     Vertreter                                                Fach                                           Raum                                      Vertretungs-Text
+    //                                                                             Stunde                                     Vertreter                                                Fach                                           Raum                                      Vertretungs-Text
     //                                                                             1 - 2                                         DOB                                                   MAT                                            E10                                          Stattstunde
-    var hourRgx = /<tr class='list[^]*?'>\s*<td class="list" align="center">([^]+?)<\/td><td class="list" align="center">([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list" align="center">([^]+?)<\/td>\s*<\/tr>/;
+    var hourRgx = /<tr class='list[^]*?'>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list"(?: align="center")>([^]+?)<\/td>\s*<\/tr>/;
     var results = library_1.matchAll(hourRgx, childrenStr).map(function (match) {
         return {
             stunde: match[1],
@@ -158,11 +157,12 @@ var matchHours = function (childrenStr) {
 };
 //API
 app.use(xcss(["./public"]));
-app.use('/lite', lite);
 app.get('/pro', function (req, res) { return res.sendFile(__dirname + '/public/index.html'); });
 app.get('/main.css', function (req, res) { return res.sendFile(__dirname + '/public/main.css'); });
 app.get('/select.css', function (req, res) { return res.sendFile(__dirname + '/select.css'); });
+app.get('/teacher.css', function (req, res) { return res.sendFile(__dirname + '/teacher.css'); });
 app.get('/', function (req, res) { return res.sendFile(__dirname + '/public/select.html'); });
+app.get('/teacher', function (req, res) { return res.sendFile(__dirname + '/public/teacher.html'); });
 app.get('/json', function (req, res) {
     res.json(data || "Parsing...");
 });

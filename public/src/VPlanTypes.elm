@@ -53,8 +53,8 @@ uDayDecoder = D.map3 UntisDay
                 (D.field "klassen" (D.list uKlasseDecoder))
                 (D.at ["motd", "content"] (D.list D.string))
 
-vPlanDecoder : Decoder UntisData
-vPlanDecoder = D.map UntisData
+uDataDecoder : Decoder UntisData
+uDataDecoder = D.map UntisData
                     (D.field "vplan" (D.list uDayDecoder))
 
 errToStr : Http.Error -> String
@@ -228,3 +228,31 @@ parseStr = getChompedString <| chompWhile (\x -> Char.isAlphaNum x || String.con
 
 listToStr : (a -> String) -> List a -> String
 listToStr f xs = "[" ++ String.join "," (List.map f xs) ++ "]"
+
+
+isWhiteSpace : String -> Bool
+isWhiteSpace = String.isEmpty << String.trim
+
+find : (a -> Bool) -> List a -> Maybe a
+find f l = case l of
+    [] -> Nothing
+    (x::xs) -> if f x
+               then Just x
+               else find f xs
+
+getHoursWithTeacher : UntisDay -> String -> List UntisKlasse
+getHoursWithTeacher day str = day.klassen                                                          -- TODO
+                                |> List.filter  (\k -> List.any
+                                    (\x -> vertreterIsEqual (parseVertreter x.vertreter) str
+                                    ) k.hours)
+                                |> List.map
+                                    (\k -> {k|hours=List.filter
+                                        (\h ->vertreterIsEqual (parseVertreter h.vertreter) str) k.hours})
+
+vertreterIsEqual : Result (List DeadEnd) VertreterVariant -> String -> Bool
+vertreterIsEqual y str = case y of
+     Err _ -> False
+     Ok z -> case z of
+         VertreterPlain v -> v == str
+         VertreterStrike s -> s == str
+         VertreterReplace f t -> f == str || t == str
