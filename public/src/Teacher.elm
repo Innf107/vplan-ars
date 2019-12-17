@@ -115,4 +115,3 @@ viewKlasse model klasse =
                 ]
             )
         klasse.hours
-

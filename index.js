@@ -169,6 +169,10 @@ app.get('/index.js', library_1.staticFile('public/index.js'));
 app.get('/teacher.js', library_1.staticFile('public/teacher.js'));
 app.get('/personal', library_1.staticFile('public/personal.html'));
 app.get('/personal.js', library_1.staticFile('public/personal.js'));
+app.get('/json/kuerzel', function (req, res) {
+    var json = JSON.parse(fs.read('kuerzel.json'));
+    res.send(Object.keys(json).map(function (k) { return { key: k, value: json[k] }; }));
+});
 app.get('/json', function (req, res) {
     res.json(data || "Parsing...");
 });
@@ -187,7 +191,7 @@ app.put('/feedback', function (req, res) {
     });
 });
 app.get('/*', function (req, res) {
-    res.sendFile(__dirname + '/public/404.html');
+    res.status(404).sendFile(__dirname + '/public/404.html');
 });
 try {
     var privateKey = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/privkey.pem', 'utf8');

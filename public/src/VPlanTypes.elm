@@ -90,12 +90,15 @@ showStunde txt = [H.text txt]
 showVertreter : String -> (List (H.Html msg))
 showVertreter txt = case (parseVertreter txt) of
     Err _ -> [H.pre [] [H.text "An error occured!"]]
-    Ok  v -> case v of
-        VertreterPlain x     -> [H.p [A.class "vertreter plain"] [H.text x]]
-        VertreterStrike s    -> [H.s [A.class "vertreter strike"] [H.text s]]
-        VertreterReplace x y -> [H.s [A.class "vertreter strike replace"] [H.text x],
-                        H.strong [A.class "vertreter arrow replace"] [H.text " —> "],
-                        H.strong [A.class "vertreter second replace"] [H.text y]]
+    Ok  v -> showParsedVertreter v
+
+showParsedVertreter : VertreterVariant -> (List (H.Html msg))
+showParsedVertreter v = case v of
+                        VertreterPlain x     -> [H.p [A.class "vertreter plain"] [H.text x]]
+                        VertreterStrike s    -> [H.s [A.class "vertreter strike"] [H.text s]]
+                        VertreterReplace x y -> [H.s [A.class "vertreter strike replace"] [H.text x],
+                                        H.strong [A.class "vertreter arrow replace"] [H.text " —> "],
+                                        H.strong [A.class "vertreter second replace"] [H.text y]]
 
 showFach : String -> List (H.Html msg)
 showFach txt = case (parseFach txt) of
@@ -257,6 +260,12 @@ vertreterIsEqual y str = case y of
          VertreterStrike s -> s == str
          VertreterReplace f t -> f == str || t == str
 
+vertreterMap : (String -> String) -> VertreterVariant -> VertreterVariant
+vertreterMap f v = case v of
+    VertreterPlain x -> VertreterPlain <| f x
+    VertreterStrike x -> VertreterStrike <| f x
+    VertreterReplace a b -> VertreterReplace (f a) (f b)
+
 type alias StorageItem = {
         key: String,
         value: String
@@ -279,3 +288,11 @@ sSave : StorageItem -> List StorageItem -> List StorageItem
 sSave i l = case l of
     [] -> [i]
     ({key, value}::xs) -> if key == i.key then {key=key, value=i.value}::xs else {key=key, value=value}::(sSave i xs)
+
+
+resolveKuerzel : Bool -> List StorageItem -> Result a VertreterVariant -> VertreterVariant
+resolveKuerzel d kuerzel ve = case d of
+    False -> Result.withDefault (VertreterPlain "Error") ve
+    True  -> case ve of
+        Err _ -> VertreterPlain "Error!"
+        Ok v  -> vertreterMap (\x -> sGet x kuerzel |> Maybe.withDefault x) v

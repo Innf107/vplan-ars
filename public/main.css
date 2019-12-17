@@ -9,6 +9,11 @@
     --motdHeaderBG:rgb(54, 84, 124);
     --motdElemFG: rgb(207, 207, 207);
     --motdElemBG: #393a3d;
+    --switchActiveBG: rgb(0, 123, 0);
+    --swithActiveFG: white;
+    --switchInActiveBG: rgb(59, 59, 59);
+    --switchActiveFG: white;
+
 }
 
 body {
@@ -195,3 +200,17 @@ button.motd.header{
     background-color: var(--motdHeaderBG);
 }
 /*</MOTD>*/
+
+.resolveKuerzel{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    font-size:300%;
+    background-color: var(--switchInActiveBG);
+    color: var(--switchInActiveFG)
+}
+
+.resolveKuerzel.active{
+    background-color: var(--switchActiveBG);
+    color: var(--swithActiveFG);
+}

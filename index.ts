@@ -148,6 +148,10 @@ app.get('/index.js', staticFile('public/index.js'))
 app.get('/teacher.js', staticFile('public/teacher.js'))
 app.get('/personal', staticFile('public/personal.html'))
 app.get('/personal.js', staticFile('public/personal.js'))
+app.get('/json/kuerzel', (req, res) => {
+    var json = JSON.parse(fs.read('kuerzel.json'))
+    res.send(Object.keys(json).map(k => {return {key:k, value:json[k]}}))
+})
 
 app.get('/json', (req, res) => {
     res.json(data || "Parsing...")
@@ -170,7 +174,7 @@ app.put('/feedback', (req, res) => {
 })
 
 app.get('/*', (req, res) => {
-    res.sendFile(__dirname + '/public/404.html')
+    res.status(404).sendFile(__dirname + '/public/404.html')
 })
 try {
     const privateKey = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/privkey.pem', 'utf8');

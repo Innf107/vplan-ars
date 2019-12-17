@@ -96,7 +96,7 @@ viewDay model vplan day = let dayAmount = List.length vplan in
         div [A.class "inputContainer"] [
             p [] [text "Klasse"],
             input [A.id "klasse", A.placeholder "Klasse", A.value (model.storage |> sGet "klasse" |> Maybe.withDefault ""),
-                   E.onInput (\s -> UpdateStorage <| sSave {key="klasse", value=s} model.storage)] []
+                   onInput (\s -> UpdateStorage <| sSave {key="klasse", value=s} model.storage)] []
         ],
         case getVisible day.klassen model.storage of
             [] -> h1 [] [text "Keine Ergebnisse"]

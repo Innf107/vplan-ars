@@ -14,36 +14,47 @@ main = Browser.document {init=init, subscriptions=subs, update=update, view=view
 
 type alias Model = {
         vplan: Status VPlan,
+        kuerzel: Status (List StorageItem),
         loadingText: String,
         selectedDay: Int,
         expandedKlassen: List String,
         inFeedback: Bool,
         expandedMOTD: Bool,
-        feedbackText: String
+        feedbackText: String,
+        resolveKuerzel: Bool
     }
 
 init : () -> (Model, Cmd Msg)
 init _ = ({
             vplan=Loading,
+            kuerzel=Loading,
             loadingText="",
             selectedDay=0,
             expandedKlassen=[],
             inFeedback=False,
             expandedMOTD=False,
-            feedbackText=""
+            feedbackText="",
+            resolveKuerzel=False
           },
+        Cmd.batch [
         Http.get {
             url="/json",
             expect=Http.expectJson ReceivedUData uDataDecoder
-        })
+        },
+        Http.get {
+            url="/json/kuerzel",
+            expect=Http.expectJson ReceivedKuerzel decodeStorage
+        }])
 
 type Msg = NOP
          | ReceivedUData (Result (Http.Error) UntisData)
+         | ReceivedKuerzel (Result Http.Error (List StorageItem))
          | UpdateLoadingText
          | UpdateExpandedDays (List String)
          | UpdateSelectedDay Int
          | UpdateFeedbackText String
          | UpdateMOTDExpansion Bool
+         | UpdateKuerzelResolve Bool
          | SelectFeedback Bool
          | SendFeedback
 
@@ -54,9 +65,11 @@ update msg model = case msg of
     UpdateLoadingText -> ({model|loadingText=String.left (String.length model.loadingText + 1 |> modBy 11) "Loading..."}, Cmd.none)
     UpdateExpandedDays newKlassen -> ({model|expandedKlassen=newKlassen}, Cmd.none)
     ReceivedUData res -> ({model|vplan=S.map .vplan (S.fromResult errToStr res)}, Cmd.none)
+    ReceivedKuerzel res -> ({model|kuerzel=S.fromResult errToStr res}, Cmd.none)
     UpdateSelectedDay d -> ({model|selectedDay=d}, Cmd.none)
     UpdateFeedbackText t -> ({model|feedbackText=t}, Cmd.none)
     UpdateMOTDExpansion n -> ({model|expandedMOTD=n}, Cmd.none)
+    UpdateKuerzelResolve n -> ({model|resolveKuerzel=n}, Cmd.none)
     SelectFeedback fb -> ({model|inFeedback=fb}, Cmd.none)
     SendFeedback -> ({model|inFeedback=False, feedbackText=""}, Http.request {
             method = "PUT",
@@ -114,6 +127,7 @@ viewDay model vplan day =
         L.lazy (\day_ -> h3 [A.class "dateHeader"] [text day_]) day.day,
         L.lazy (\() -> button [A.class "bleft",  onClick <| UpdateSelectedDay ((model.selectedDay - 1) |> modBy dayAmount)] [text "<—"]) (),
         L.lazy (\() -> button [A.class "bright", onClick <| UpdateSelectedDay ((model.selectedDay + 1) |> modBy dayAmount)] [text "—>"]) (),
+        button [A.classList [("resolveKuerzel", True), ("active", model.resolveKuerzel)], onClick (UpdateKuerzelResolve (not model.resolveKuerzel))] [text "Kürzel auflösen"],
         viewMOTD model day,
         table [] (day.klassen |> List.concatMap (\k -> if List.member k.name model.expandedKlassen then viewKlasseExpanded model k else viewKlasseCollapsed model k)),
         button [A.class "enterFeedback", onClick <| SelectFeedback True] [text "Feedback?"]
@@ -138,7 +152,7 @@ viewKlasseExpanded model klasse =
         ::List.map (\hour ->
             tr [A.class "klasse expanded"] [
                     td [A.class "klasse expanded"] <| showStunde hour.stunde,
-                    td [A.class "klasse expanded"] <| showVertreter hour.vertreter,
+                    td [A.class "klasse expanded"] <| showParsedVertreter <| resolveKuerzel model.resolveKuerzel (model.kuerzel |> S.withDefault []) <| parseVertreter hour.vertreter,
                     td [A.class "klasse expanded"] <| showFach hour.fach,
                     td [A.class "klasse expanded"] <| showRaum hour.raum,
                     td [A.class "klasse expanded"] <| showVText hour.vtext
