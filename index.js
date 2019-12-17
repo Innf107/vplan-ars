@@ -43,6 +43,7 @@ var fs = require("fs-jetpack");
 var axios_1 = require("axios");
 var http = require("http");
 var https = require("https");
+var sanitize = require("sanitize-filename");
 var library_1 = require("./library");
 var app = express();
 var HTTPPORT = 5000;
@@ -157,12 +158,17 @@ var matchHours = function (childrenStr) {
 };
 //API
 app.use(xcss(["./public"]));
-app.get('/pro', function (req, res) { return res.sendFile(__dirname + '/public/index.html'); });
-app.get('/main.css', function (req, res) { return res.sendFile(__dirname + '/public/main.css'); });
-app.get('/select.css', function (req, res) { return res.sendFile(__dirname + '/select.css'); });
-app.get('/teacher.css', function (req, res) { return res.sendFile(__dirname + '/teacher.css'); });
-app.get('/', function (req, res) { return res.sendFile(__dirname + '/public/select.html'); });
-app.get('/teacher', function (req, res) { return res.sendFile(__dirname + '/public/teacher.html'); });
+app.get('/pro', library_1.staticFile('public/index.html'));
+app.get('/main.css', library_1.staticFile('public/main.css'));
+app.get('/select.css', library_1.staticFile('select.css'));
+app.get('/teacher.css', library_1.staticFile('teacher.css'));
+app.get('/', library_1.staticFile('public/select.html'));
+app.get('/teacher', library_1.staticFile('public/teacher.html'));
+app.get('/robots.txt', library_1.staticFile('robots.txt'));
+app.get('/index.js', library_1.staticFile('public/index.js'));
+app.get('/teacher.js', library_1.staticFile('public/teacher.js'));
+app.get('/personal', library_1.staticFile('public/personal.html'));
+app.get('/personal.js', library_1.staticFile('public/personal.js'));
 app.get('/json', function (req, res) {
     res.json(data || "Parsing...");
 });
@@ -175,7 +181,7 @@ app.put('/feedback', function (req, res) {
         req.on('end', function () {
             file.end();
             var content = fs.read(filePath + "/" + fileName);
-            fs.renameAsync(filePath + "/" + fileName, content.replace(/\//g, '\\'));
+            fs.renameAsync(filePath + "/" + fileName, sanitize(content.replace(/\//g, '\\')));
             res.sendStatus(200);
         });
     });

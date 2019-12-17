@@ -1,6 +1,6 @@
 module VPlanTypes exposing (..)
 
-import Json.Decode as D exposing (Decoder)
+import Json.Decode as JD exposing (Decoder)
 import Json.Encode as JE
 import Http
 import Html as H
@@ -35,27 +35,27 @@ type alias UntisHour = {
     }
 
 uHourDecoder : Decoder UntisHour
-uHourDecoder = D.map5 UntisHour
-                (D.field "stunde" D.string)
-                (D.field "vertreter" D.string)
-                (D.field "fach" D.string)
-                (D.field "raum" D.string)
-                (D.field "vtext" D.string)
+uHourDecoder = JD.map5 UntisHour
+                (JD.field "stunde" JD.string)
+                (JD.field "vertreter" JD.string)
+                (JD.field "fach" JD.string)
+                (JD.field "raum" JD.string)
+                (JD.field "vtext" JD.string)
 
 uKlasseDecoder : Decoder UntisKlasse
-uKlasseDecoder = D.map2 UntisKlasse
-                (D.field "name" D.string)
-                (D.field "hours" (D.list uHourDecoder))
+uKlasseDecoder = JD.map2 UntisKlasse
+                (JD.field "name" JD.string)
+                (JD.field "hours" (JD.list uHourDecoder))
 
 uDayDecoder : Decoder UntisDay
-uDayDecoder = D.map3 UntisDay
-                (D.field "day" D.string)
-                (D.field "klassen" (D.list uKlasseDecoder))
-                (D.at ["motd", "content"] (D.list D.string))
+uDayDecoder = JD.map3 UntisDay
+                (JD.field "day" JD.string)
+                (JD.field "klassen" (JD.list uKlasseDecoder))
+                (JD.at ["motd", "content"] (JD.list JD.string))
 
 uDataDecoder : Decoder UntisData
-uDataDecoder = D.map UntisData
-                    (D.field "vplan" (D.list uDayDecoder))
+uDataDecoder = JD.map UntisData
+                    (JD.field "vplan" (JD.list uDayDecoder))
 
 errToStr : Http.Error -> String
 errToStr e = case e of
@@ -82,7 +82,7 @@ delete a b = case (a, b) of
         else y::(delete x ys)
 
 onClick : msg -> H.Attribute msg
-onClick msg = E.on "click" (D.succeed msg)
+onClick msg = E.on "click" (JD.succeed msg)
 
 showStunde : String -> List (H.Html msg)
 showStunde txt = [H.text txt]
@@ -256,3 +256,26 @@ vertreterIsEqual y str = case y of
          VertreterPlain v -> v == str
          VertreterStrike s -> s == str
          VertreterReplace f t -> f == str || t == str
+
+type alias StorageItem = {
+        key: String,
+        value: String
+    }
+
+decodeStorage : Decoder (List StorageItem)
+decodeStorage = JD.list <| JD.map2 StorageItem
+                    (JD.field "key" JD.string)
+                    (JD.field "value" JD.string)
+
+encodeStorage : List StorageItem -> JE.Value
+encodeStorage = JE.list (\i -> JE.object [("key", JE.string i.key), ("value", JE.string i.value)])
+
+sGet : String -> List StorageItem -> Maybe String
+sGet k st = case st of
+    [] -> Nothing
+    ({key, value}::xs) -> if key == k then Just value else sGet k xs
+
+sSave : StorageItem -> List StorageItem -> List StorageItem
+sSave i l = case l of
+    [] -> [i]
+    ({key, value}::xs) -> if key == i.key then {key=key, value=i.value}::xs else {key=key, value=value}::(sSave i xs)

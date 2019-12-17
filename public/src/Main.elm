@@ -74,16 +74,14 @@ subs model = case model.vplan of
                 Loading -> Time.every 50 (\_ -> UpdateLoadingText)
                 _ -> Sub.none
 
-css : Html Msg
-css = link [A.rel "stylesheet", A.href "main.css"] []
 
 view : Model -> Browser.Document Msg
 view model = {
             title="VPlan ARS",
             body=case model.vplan of
-                Loading -> css::viewLoading model
-                Error e -> css::viewError model e
-                Loaded x-> css::viewLoaded model x
+                Loading -> viewLoading model
+                Error e -> viewError model e
+                Loaded x-> viewLoaded model x
         }
 
 viewLoading : Model -> List (Html Msg)

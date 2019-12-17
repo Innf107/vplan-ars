@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var path = require("path");
 function split(a, f) {
     if (a.length === 0)
         return [[], []];
@@ -40,3 +41,4 @@ function log(msg, x) {
     return x;
 }
 exports.log = log;
+exports.staticFile = function (_path) { return function (req, res) { return res.sendFile(path.resolve(_path)); }; };

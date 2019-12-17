@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Inoffizieller Vertretungsplan der ARS">-->
+    <title>Main</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="personal.css">
+</head>
+<body></body>
+    <script src="personal.js"></script>
+    <script>
+        //Get all localStorage items
+        var localStorageItems = [];
+        for(var i = 0; i < localStorage.length; i++){
+            var key = localStorage.key(i);
+            localStorageItems.push({key: key, value: localStorage.getItem(key)});
+        }
+        
+        var app = Elm.Personal.init({flags:localStorageItems});
+        app.ports.saveToStorage.subscribe(function(data) {
+            data.forEach(function (x) {localStorage.setItem(x.key, x.value)})
+        });
+    </script>
+</body>
+</html>

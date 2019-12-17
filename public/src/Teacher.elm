@@ -50,14 +50,12 @@ update msg model = case msg of
                          |> Maybe.withDefault []},Cmd.none)
     UpdateSelectedDay d -> update (UpdateKuerzel model.kuerzel) {model|selectedDay=d}
 
-css : Html Msg
-css = link [A.rel "stylesheet", A.href "main.css"] []
 
 view : Model -> Browser.Document Msg
 view model = {
         title="VPlan Lehrer",
         body=
-            css::(link [A.rel "stylesheet", A.href "teacher.css"] [])::(case model.vplan of
+            (case model.vplan of
                 Loading  -> viewLoading model
                 Error e  -> viewError model e
                 Loaded v -> viewLoaded model v

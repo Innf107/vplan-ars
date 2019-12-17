@@ -40,6 +40,18 @@ toMaybe s = case s of
     Error _ -> Nothing
     Loaded x-> Just x
 
+toList : Status a -> List a
+toList s = case s of
+    Loading -> []
+    Error _ -> []
+    Loaded x-> [x]
+
+listAndThen : (a -> List a) -> Status a -> List a
+listAndThen f s = case s of
+    Loading -> []
+    Error _ -> []
+    Loaded x-> f x
+
 fromResult : (a -> String) -> Result a b -> Status b
 fromResult f r = case r of
     Err e -> Error <| f e

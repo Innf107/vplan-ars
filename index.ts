@@ -9,7 +9,8 @@ import fs = require('fs-jetpack')
 import Axios from 'axios'
 import http =require('http')
 import https = require('https')
-import {split, mergeByWith, matchAll, wait, log} from './library'
+import sanitize = require('sanitize-filename')
+import {split, mergeByWith, matchAll, wait, log, staticFile} from './library'
 const app = express()
 const HTTPPORT = 5000
 const HTTPSPORT = 5001
@@ -136,12 +137,17 @@ const matchHours = (childrenStr: string): UntisHour[] => {
 app.use(xcss([`./public`]))
 
 
-app.get('/pro', (req, res) => res.sendFile(__dirname + '/public/index.html'))
-app.get('/main.css', (req, res) => res.sendFile(__dirname + '/public/main.css'))
-app.get('/select.css', (req, res) => res.sendFile(__dirname + '/select.css'))
-app.get('/teacher.css', (req, res) => res.sendFile(__dirname + '/teacher.css'))
-app.get('/', (req, res) => res.sendFile(__dirname + '/public/select.html'))
-app.get('/teacher', (req, res) => res.sendFile(__dirname + '/public/teacher.html'))
+app.get('/pro', staticFile('public/index.html'))
+app.get('/main.css', staticFile('public/main.css'))
+app.get('/select.css', staticFile('select.css'))
+app.get('/teacher.css', staticFile('teacher.css'))
+app.get('/', staticFile('public/select.html'))
+app.get('/teacher', staticFile('public/teacher.html'))
+app.get('/robots.txt', staticFile('robots.txt'))
+app.get('/index.js', staticFile('public/index.js'))
+app.get('/teacher.js', staticFile('public/teacher.js'))
+app.get('/personal', staticFile('public/personal.html'))
+app.get('/personal.js', staticFile('public/personal.js'))
 
 app.get('/json', (req, res) => {
     res.json(data || "Parsing...")
@@ -156,7 +162,7 @@ app.put('/feedback', (req, res) => {
         req.on('end', () => {
             file.end()
             const content = fs.read(`${filePath}/${fileName}`)
-            fs.renameAsync(`${filePath}/${fileName}`, content.replace(/\//g, '\\'))
+            fs.renameAsync(`${filePath}/${fileName}`, sanitize(content.replace(/\//g, '\\')))
             res.sendStatus(200)
         })
     })

@@ -1,3 +1,6 @@
+import express = require('express')
+import path = require('path')
+
 export function split<T>(a: T[], f: (x:T) => boolean) : [T[], T[]] {
     if(a.length === 0)
         return [[], []]
@@ -42,3 +45,5 @@ export function log<T>(msg: string, x: T): T{
     console.log(`${msg} ${x}`)
     return x
 }
+
+export const staticFile = (_path: string) => (req, res) => res.sendFile(path.resolve(_path))
