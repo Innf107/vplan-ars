@@ -18,18 +18,27 @@ main = Browser.document {init=init, subscriptions=subs, update=update, view=view
 type alias Model = {panic: Maybe String,
                     storage: List StorageItem,
                     vplan: Status VPlan,
+                    kuerzel: Status (List StorageItem),
                     selectedDay: Int,
-                    visibleKlassen: List UntisKlasse}
+                    visibleKlassen: List UntisKlasse,
+                    resolveKuerzel: Bool
+                    }
 
 init : JD.Value -> (Model, Cmd Msg)
 init storageItems = (let model = {panic=Nothing,
                                   storage=[],
                                   vplan=Loading,
+                                  kuerzel=Loading,
                                   selectedDay=0,
-                                  visibleKlassen=[]
+                                  visibleKlassen=[],
+                                  resolveKuerzel=False
                                   }
                         in
-                        getStorage model storageItems, Http.get {url="/json", expect=Http.expectJson ReceivedData uDataDecoder})
+                        getStorage model storageItems,
+                         Cmd.batch [
+                            Http.get {url="/json", expect=Http.expectJson ReceivedData uDataDecoder},
+                            Http.get {url="/json/kuerzel", expect=Http.expectJson ReceivedKuerzel decodeStorage}
+                            ])
 
 getStorage : Model -> JD.Value -> Model
 getStorage model storageItems = case JD.decodeValue decodeStorage storageItems of
@@ -41,8 +50,10 @@ subs model = Sub.none
 
 type Msg = NOP
          | ReceivedData (Result Http.Error UntisData)
+         | ReceivedKuerzel (Result Http.Error (List StorageItem))
          | UpdateSelectedDay Int
          | UpdateStorage (List StorageItem)
+         | UpdateKuerzelResolve Bool
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model = case msg of
@@ -50,8 +61,10 @@ update msg model = case msg of
     ReceivedData res -> case res of
         Ok udata -> ({model|vplan=Loaded udata.vplan}, Cmd.none)
         Err e -> ({model|vplan=Error (errToStr e)}, Cmd.none)
+    ReceivedKuerzel res -> ({model|kuerzel=res |> S.fromResult errToStr}, Cmd.none)
     UpdateSelectedDay d -> ({model|selectedDay=d}, Cmd.none)
     UpdateStorage st -> ({model|storage=st}, saveToStorage <| encodeStorage st)
+    UpdateKuerzelResolve n -> ({model|resolveKuerzel=n}, Cmd.none)
 
 view : Model -> Browser.Document Msg
 view model = {
@@ -91,6 +104,7 @@ viewDay model vplan day = let dayAmount = List.length vplan in
         L.lazy (\day_ -> h3 [A.class "dateHeader"] [text day_]) day.day,
         L.lazy (\() -> button [A.class "bleft",  E.onClick <| UpdateSelectedDay ((model.selectedDay - 1) |> modBy dayAmount)] [text "<—"]) (),
         L.lazy (\() -> button [A.class "bright", E.onClick <| UpdateSelectedDay ((model.selectedDay + 1) |> modBy dayAmount)] [text "—>"]) (),
+        button [A.classList [("resolveKuerzel", True), ("active", model.resolveKuerzel)], onClick (UpdateKuerzelResolve (not model.resolveKuerzel))] [text "Kürzel auflösen"],
 
 
         div [A.class "inputContainer"] [
@@ -116,8 +130,7 @@ viewKlasse model klasse =
         ::List.map (\hour ->
             tr [A.class "klasse expanded"] [
                     td [A.class "klasse expanded"] <| showStunde hour.stunde,
-                    td [A.class "klasse expanded"] <| showVertreter hour.vertreter,
-                    td [A.class "klasse expanded"] <| showFach hour.fach,
+                    td [A.class "klasse expanded"] <| showParsedVertreter <| resolveKuerzel model.resolveKuerzel (model.kuerzel |> S.withDefault []) <| parseVertreter hour.vertreter,                    td [A.class "klasse expanded"] <| showFach hour.fach,
                     td [A.class "klasse expanded"] <| showRaum hour.raum,
                     td [A.class "klasse expanded"] <| showVText hour.vtext
                 ]
