@@ -313,3 +313,17 @@ viewKlasse klasse kuerzel =
                 ]
             )
         klasse.hours
+
+strFromBool : Bool -> String
+strFromBool b = case b of
+    True -> "true"
+    False-> "false"
+
+boolFromString : String -> Bool
+boolFromString s = case s of
+    "true" -> True
+    "false"-> False
+    _ -> False
+
+sGetBool : String -> List StorageItem -> Bool
+sGetBool k s = Maybe.withDefault False <| Maybe.map boolFromString <| sGet k s

@@ -20,8 +20,7 @@ type alias Model = {panic: Maybe String,
                     vplan: Status VPlan,
                     kuerzel: Status (List StorageItem),
                     selectedDay: Int,
-                    visibleKlassen: List UntisKlasse,
-                    resolveKuerzel: Bool
+                    visibleKlassen: List UntisKlasse
                     }
 
 init : JD.Value -> (Model, Cmd Msg)
@@ -30,8 +29,7 @@ init storageItems = (let model = {panic=Nothing,
                                   vplan=Loading,
                                   kuerzel=Loading,
                                   selectedDay=0,
-                                  visibleKlassen=[],
-                                  resolveKuerzel=False
+                                  visibleKlassen=[]
                                   }
                         in
                         getStorage model storageItems,
@@ -53,7 +51,6 @@ type Msg = NOP
          | ReceivedKuerzel (Result Http.Error (List StorageItem))
          | UpdateSelectedDay Int
          | UpdateStorage (List StorageItem)
-         | UpdateKuerzelResolve Bool
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model = case msg of
@@ -64,7 +61,6 @@ update msg model = case msg of
     ReceivedKuerzel res -> ({model|kuerzel=res |> S.fromResult errToStr}, Cmd.none)
     UpdateSelectedDay d -> ({model|selectedDay=d}, Cmd.none)
     UpdateStorage st -> ({model|storage=st}, saveToStorage <| encodeStorage st)
-    UpdateKuerzelResolve n -> ({model|resolveKuerzel=n}, Cmd.none)
 
 view : Model -> Browser.Document Msg
 view model = {
@@ -104,7 +100,7 @@ viewDay model vplan day = let dayAmount = List.length vplan in
         L.lazy (\day_ -> h3 [A.class "dateHeader"] [text day_]) day.day,
         L.lazy (\() -> button [A.class "bleft",  E.onClick <| UpdateSelectedDay ((model.selectedDay - 1) |> modBy dayAmount)] [text "<—"]) (),
         L.lazy (\() -> button [A.class "bright", E.onClick <| UpdateSelectedDay ((model.selectedDay + 1) |> modBy dayAmount)] [text "—>"]) (),
-        button [A.classList [("resolveKuerzel", True), ("active", model.resolveKuerzel)], onClick (UpdateKuerzelResolve (not model.resolveKuerzel))] [text "Kürzel auflösen"],
+        button [A.classList [("resolveKuerzel", True), ("active", sGet "resolveKuerzel" model.storage |> Maybe.map boolFromString |> Maybe.withDefault False)], onClick (UpdateStorage (sSave {key="resolveKuerzel", value=strFromBool <| Maybe.withDefault False <| Maybe.map not <| Maybe.map boolFromString <| sGet "resolveKuerzel" model.storage} model.storage))] [text "Kürzel auflösen"],
 
 
         div [A.class "inputContainer"] [
@@ -114,7 +110,7 @@ viewDay model vplan day = let dayAmount = List.length vplan in
         ],
         case getVisible day.klassen model.storage of
             [] -> h1 [] [text "Keine Ergebnisse"]
-            ks -> table [] <| List.concatMap (\ k -> viewKlasse k (model.kuerzel |> S.withDefault [])) ks
+            ks -> table [] <| List.concatMap (\ k -> viewKlasse k (if model.storage |> sGetBool "resolveKuerzel" then model.kuerzel |> S.withDefault [] else [])) ks
     ]
 
 getVisible : List UntisKlasse -> List StorageItem -> List UntisKlasse
