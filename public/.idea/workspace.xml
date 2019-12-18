@@ -4,12 +4,20 @@
     <list default="true" id="39dcbe99-b2f8-4b2f-92cf-e3ceecd3e620" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../TODO" beforeDir="false" afterPath="$PROJECT_DIR$/../TODO" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/Main.elmo" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/Main.elmo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/Personal.elmi" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/Personal.elmi" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/Personal.elmo" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/Personal.elmo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/Teacher.elmi" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/Teacher.elmi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/Teacher.elmo" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/Teacher.elmo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmi" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmo" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/d.dat" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/d.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/personal.js" beforeDir="false" afterPath="$PROJECT_DIR$/personal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.elm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Personal.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Personal.elm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Teacher.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Teacher.elm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VPlanTypes.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/VPlanTypes.elm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teacher.js" beforeDir="false" afterPath="$PROJECT_DIR$/teacher.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -143,7 +151,8 @@
       <workItem from="1576181155541" duration="2000" />
       <workItem from="1576350763951" duration="12582000" />
       <workItem from="1576514798671" duration="10692000" />
-      <workItem from="1576595224080" duration="6756000" />
+      <workItem from="1576595224080" duration="6935000" />
+      <workItem from="1576673007943" duration="2297000" />
     </task>
     <servers />
   </component>

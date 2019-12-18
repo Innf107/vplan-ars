@@ -784,11 +784,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region._.L === region.ah.L)
+	if (region._.K === region.ah.K)
 	{
-		return 'on line ' + region._.L;
+		return 'on line ' + region._.K;
 	}
-	return 'on lines ' + region._.L + ' through ' + region.ah.L;
+	return 'on lines ' + region._.K + ' through ' + region.ah.K;
 }
 
 
@@ -4191,7 +4191,7 @@ function _Browser_getViewport()
 		aO: {
 			T: _Browser_window.pageXOffset,
 			U: _Browser_window.pageYOffset,
-			I: _Browser_doc.documentElement.clientWidth,
+			H: _Browser_doc.documentElement.clientWidth,
 			B: _Browser_doc.documentElement.clientHeight
 		}
 	};
@@ -4202,7 +4202,7 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		I: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		H: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
 		B: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
@@ -4227,13 +4227,13 @@ function _Browser_getViewportOf(id)
 	{
 		return {
 			aH: {
-				I: node.scrollWidth,
+				H: node.scrollWidth,
 				B: node.scrollHeight
 			},
 			aO: {
 				T: node.scrollLeft,
 				U: node.scrollTop,
-				I: node.clientWidth,
+				H: node.clientWidth,
 				B: node.clientHeight
 			}
 		};
@@ -4268,13 +4268,13 @@ function _Browser_getElement(id)
 			aO: {
 				T: x,
 				U: y,
-				I: _Browser_doc.documentElement.clientWidth,
+				H: _Browser_doc.documentElement.clientWidth,
 				B: _Browser_doc.documentElement.clientHeight
 			},
 			aV: {
 				T: x + rect.left,
 				U: y + rect.top,
-				I: rect.width,
+				H: rect.width,
 				B: rect.height
 			}
 		};
@@ -6253,7 +6253,7 @@ var $elm$http$Http$get = function (r) {
 		{ae: $elm$http$Http$emptyBody, V: r.V, aY: _List_Nil, a3: 'GET', bg: $elm$core$Maybe$Nothing, bi: $elm$core$Maybe$Nothing, ab: r.ab});
 };
 var $author$project$VPlanTypes$UntisData = function (vplan) {
-	return {H: vplan};
+	return {G: vplan};
 };
 var $author$project$VPlanTypes$UntisDay = F3(
 	function (day, klassen, motd) {
@@ -6266,7 +6266,7 @@ var $elm$json$Json$Decode$at = F2(
 var $elm$json$Json$Decode$map3 = _Json_map3;
 var $author$project$VPlanTypes$UntisKlasse = F2(
 	function (name, hours) {
-		return {a_: hours, N: name};
+		return {a_: hours, M: name};
 	});
 var $author$project$VPlanTypes$UntisHour = F5(
 	function (stunde, vertreter, fach, raum, vtext) {
@@ -6311,7 +6311,7 @@ var $author$project$VPlanTypes$uDataDecoder = A2(
 		$elm$json$Json$Decode$list($author$project$VPlanTypes$uDayDecoder)));
 var $author$project$Main$init = function (_v0) {
 	return _Utils_Tuple2(
-		{y: _List_Nil, z: false, A: '', K: false, S: $author$project$Status$Loading, M: '', E: false, u: 0, H: $author$project$Status$Loading},
+		{y: _List_Nil, z: false, A: '', J: false, S: $author$project$Status$Loading, L: '', N: false, u: 0, G: $author$project$Status$Loading},
 		$elm$core$Platform$Cmd$batch(
 			_List_fromArray(
 				[
@@ -6599,7 +6599,7 @@ var $elm$time$Time$every = F2(
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
 var $author$project$Main$subs = function (model) {
-	var _v0 = model.H;
+	var _v0 = model.G;
 	if (!_v0.$) {
 		return A2(
 			$elm$time$Time$every,
@@ -6690,12 +6690,12 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							M: A2(
+							L: A2(
 								$elm$core$String$left,
 								A2(
 									$elm$core$Basics$modBy,
 									11,
-									$elm$core$String$length(model.M) + 1),
+									$elm$core$String$length(model.L) + 1),
 								'Loading...')
 						}),
 					$elm$core$Platform$Cmd$none);
@@ -6712,10 +6712,10 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							H: A2(
+							G: A2(
 								$author$project$Status$map,
 								function ($) {
-									return $.H;
+									return $.G;
 								},
 								A2($author$project$Status$fromResult, $author$project$VPlanTypes$errToStr, res))
 						}),
@@ -6755,20 +6755,20 @@ var $author$project$Main$update = F2(
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{E: n}),
+						{N: n}),
 					$elm$core$Platform$Cmd$none);
 			case 9:
 				var fb = msg.a;
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{K: fb}),
+						{J: fb}),
 					$elm$core$Platform$Cmd$none);
 			default:
 				return _Utils_Tuple2(
 					_Utils_update(
 						model,
-						{A: '', K: false}),
+						{A: '', J: false}),
 					$elm$http$Http$request(
 						{
 							ae: A2($elm$http$Http$stringBody, 'application/text', model.A),
@@ -6993,11 +6993,11 @@ var $author$project$Main$viewKlasseCollapsed = F2(
 										$elm$html$Html$Attributes$class('klasse collapsed'),
 										$author$project$VPlanTypes$onClick(
 										$author$project$Main$UpdateExpandedDays(
-											A2($elm$core$List$cons, klasse.N, model.y)))
+											A2($elm$core$List$cons, klasse.M, model.y)))
 									]),
 								_List_fromArray(
 									[
-										$elm$html$Html$text('➤' + klasse.N)
+										$elm$html$Html$text('➤' + klasse.M)
 									]))
 							]))
 					]))
@@ -7451,37 +7451,21 @@ var $elm$core$Maybe$withDefault = F2(
 			return _default;
 		}
 	});
-var $elm$core$Result$withDefault = F2(
-	function (def, result) {
-		if (!result.$) {
-			var a = result.a;
-			return a;
+var $author$project$VPlanTypes$resolveKuerzel = F2(
+	function (kuerzel, ve) {
+		if (ve.$ === 1) {
+			return $author$project$VPlanTypes$VertreterPlain('Error!');
 		} else {
-			return def;
-		}
-	});
-var $author$project$VPlanTypes$resolveKuerzel = F3(
-	function (d, kuerzel, ve) {
-		if (!d) {
+			var v = ve.a;
 			return A2(
-				$elm$core$Result$withDefault,
-				$author$project$VPlanTypes$VertreterPlain('Error'),
-				ve);
-		} else {
-			if (ve.$ === 1) {
-				return $author$project$VPlanTypes$VertreterPlain('Error!');
-			} else {
-				var v = ve.a;
-				return A2(
-					$author$project$VPlanTypes$vertreterMap,
-					function (x) {
-						return A2(
-							$elm$core$Maybe$withDefault,
-							x,
-							A2($author$project$VPlanTypes$sGet, x, kuerzel));
-					},
-					v);
-			}
+				$author$project$VPlanTypes$vertreterMap,
+				function (x) {
+					return A2(
+						$elm$core$Maybe$withDefault,
+						x,
+						A2($author$project$VPlanTypes$sGet, x, kuerzel));
+				},
+				v);
 		}
 	});
 var $elm$html$Html$p = _VirtualDom_node('p');
@@ -7947,11 +7931,11 @@ var $author$project$Main$viewKlasseExpanded = F2(
 										$elm$html$Html$Attributes$class('klasse expanded'),
 										$author$project$VPlanTypes$onClick(
 										$author$project$Main$UpdateExpandedDays(
-											A2($author$project$VPlanTypes$delete, klasse.N, model.y)))
+											A2($author$project$VPlanTypes$delete, klasse.M, model.y)))
 									]),
 								_List_fromArray(
 									[
-										$elm$html$Html$text('▼' + klasse.N)
+										$elm$html$Html$text('▼' + klasse.M)
 									]))
 							]))
 					])),
@@ -7980,9 +7964,8 @@ var $author$project$Main$viewKlasseExpanded = F2(
 										$elm$html$Html$Attributes$class('klasse expanded')
 									]),
 								$author$project$VPlanTypes$showParsedVertreter(
-									A3(
+									A2(
 										$author$project$VPlanTypes$resolveKuerzel,
-										model.E,
 										A2($author$project$Status$withDefault, _List_Nil, model.S),
 										$author$project$VPlanTypes$parseVertreter(hour.bk)))),
 								A2(
@@ -8165,10 +8148,10 @@ var $author$project$Main$viewDay = F3(
 							_List_fromArray(
 								[
 									_Utils_Tuple2('resolveKuerzel', true),
-									_Utils_Tuple2('active', model.E)
+									_Utils_Tuple2('active', model.N)
 								])),
 							$author$project$VPlanTypes$onClick(
-							$author$project$Main$UpdateKuerzelResolve(!model.E))
+							$author$project$Main$UpdateKuerzelResolve(!model.N))
 						]),
 					_List_fromArray(
 						[
@@ -8181,7 +8164,7 @@ var $author$project$Main$viewDay = F3(
 					A2(
 						$elm$core$List$concatMap,
 						function (k) {
-							return A2($elm$core$List$member, k.N, model.y) ? A2($author$project$Main$viewKlasseExpanded, model, k) : A2($author$project$Main$viewKlasseCollapsed, model, k);
+							return A2($elm$core$List$member, k.M, model.y) ? A2($author$project$Main$viewKlasseExpanded, model, k) : A2($author$project$Main$viewKlasseCollapsed, model, k);
 						},
 						day.a2)),
 					A2(
@@ -8289,7 +8272,7 @@ var $author$project$Main$viewLoaded = F2(
 						$elm$html$Html$text('Vertretungsplan ARS')
 					])),
 				function () {
-				var _v0 = model.K;
+				var _v0 = model.J;
 				if (_v0) {
 					return $author$project$Main$viewFeedback(model);
 				} else {
@@ -8318,14 +8301,14 @@ var $author$project$Main$viewLoading = function (model) {
 			_List_Nil,
 			_List_fromArray(
 				[
-					$elm$html$Html$text(model.M)
+					$elm$html$Html$text(model.L)
 				]))
 		]);
 };
 var $author$project$Main$view = function (model) {
 	return {
 		ae: function () {
-			var _v0 = model.H;
+			var _v0 = model.G;
 			switch (_v0.$) {
 				case 0:
 					return $author$project$Main$viewLoading(model);

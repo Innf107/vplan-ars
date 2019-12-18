@@ -11,6 +11,7 @@ import http =require('http')
 import https = require('https')
 import sanitize = require('sanitize-filename')
 import {split, mergeByWith, matchAll, wait, log, staticFile} from './library'
+import userLog = require('./userLog')
 const app = express()
 const HTTPPORT = 5000
 const HTTPSPORT = 5001
@@ -136,6 +137,12 @@ const matchHours = (childrenStr: string): UntisHour[] => {
 //API
 app.use(xcss([`./public`]))
 
+let totalUsers = 0
+
+app.use(userLog((reqPath, lastVisit) => {
+    if(lastVisit === null)
+        totalUsers++;
+}))
 
 app.get('/pro', staticFile('public/index.html'))
 app.get('/main.css', staticFile('public/main.css'))
@@ -148,6 +155,7 @@ app.get('/index.js', staticFile('public/index.js'))
 app.get('/teacher.js', staticFile('public/teacher.js'))
 app.get('/personal', staticFile('public/personal.html'))
 app.get('/personal.js', staticFile('public/personal.js'))
+app.get('/usersTotal', (req, res) => res.send(totalUsers))
 app.get('/json/kuerzel', (req, res) => {
     var json = JSON.parse(fs.read('kuerzel.json'))
     res.send(Object.keys(json).map(k => {return {key:k, value:json[k]}}))
@@ -231,7 +239,10 @@ interface UntisData {
 const update = async () => {
     data = await parsePlan(1)
     console.log(`updated vplan at ${new Date()}`)
+
+    fs.write('../data/totalUsers', totalUsers.toString())
 }
 
+fs.readAsync('../data/totalUsers').then(s => totalUsers = Number.parseInt(s))
 setInterval(update, UPDATERATE)
 update()

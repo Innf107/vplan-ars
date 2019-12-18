@@ -152,7 +152,7 @@ viewKlasseExpanded model klasse =
         ::List.map (\hour ->
             tr [A.class "klasse expanded"] [
                     td [A.class "klasse expanded"] <| showStunde hour.stunde,
-                    td [A.class "klasse expanded"] <| showParsedVertreter <| resolveKuerzel model.resolveKuerzel (model.kuerzel |> S.withDefault []) <| parseVertreter hour.vertreter,
+                    td [A.class "klasse expanded"] <| showParsedVertreter <| resolveKuerzel (model.kuerzel |> S.withDefault []) <| parseVertreter hour.vertreter,
                     td [A.class "klasse expanded"] <| showFach hour.fach,
                     td [A.class "klasse expanded"] <| showRaum hour.raum,
                     td [A.class "klasse expanded"] <| showVText hour.vtext

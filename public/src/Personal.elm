@@ -114,27 +114,9 @@ viewDay model vplan day = let dayAmount = List.length vplan in
         ],
         case getVisible day.klassen model.storage of
             [] -> h1 [] [text "Keine Ergebnisse"]
-            ks -> table [] <| List.concatMap (viewKlasse model) ks
+            ks -> table [] <| List.concatMap (\ k -> viewKlasse k (model.kuerzel |> S.withDefault [])) ks
     ]
 
 getVisible : List UntisKlasse -> List StorageItem -> List UntisKlasse
 getVisible klassen storage = storage |> sGet "klasse" |> Maybe.map (\k -> List.filter (\x -> String.contains k x.name) klassen) |> Maybe.withDefault klassen
-
-viewKlasse : Model -> UntisKlasse -> List (Html Msg)
-viewKlasse model klasse =
-        tr [A.class "klasse expanded"] [
-            th [A.class "klasse expanded", A.colspan 5] [
-                button [A.class "klasse expanded"] [text klasse.name]
-            ]
-        ]
-        ::List.map (\hour ->
-            tr [A.class "klasse expanded"] [
-                    td [A.class "klasse expanded"] <| showStunde hour.stunde,
-                    td [A.class "klasse expanded"] <| showParsedVertreter <| resolveKuerzel model.resolveKuerzel (model.kuerzel |> S.withDefault []) <| parseVertreter hour.vertreter,                    td [A.class "klasse expanded"] <| showFach hour.fach,
-                    td [A.class "klasse expanded"] <| showRaum hour.raum,
-                    td [A.class "klasse expanded"] <| showVText hour.vtext
-                ]
-            )
-        klasse.hours
-
 

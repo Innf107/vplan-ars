@@ -95,23 +95,6 @@ viewDay model vplan day = let dayAmount = List.length vplan in
             "" -> text ""
             _  -> case model.klassenWithTeacher of
                 [] -> h1 [] [text "Keine Ergebnisse"]
-                _  -> table [] <| List.concatMap (viewKlasse model) model.klassenWithTeacher
+                --TODO: Add kuerzel
+                _  -> table [] <| List.concatMap (\k -> viewKlasse k []) model.klassenWithTeacher
     ]
-
-viewKlasse : Model -> UntisKlasse -> List (Html Msg)
-viewKlasse model klasse =
-        tr [A.class "klasse expanded"] [
-            th [A.class "klasse expanded", A.colspan 5] [
-                button [A.class "klasse expanded"] [text klasse.name]
-            ]
-        ]
-        ::List.map (\hour ->
-            tr [A.class "klasse expanded"] [
-                    td [A.class "klasse expanded"] <| showStunde hour.stunde,
-                    td [A.class "klasse expanded"] <| showVertreter hour.vertreter,
-                    td [A.class "klasse expanded"] <| showFach hour.fach,
-                    td [A.class "klasse expanded"] <| showRaum hour.raum,
-                    td [A.class "klasse expanded"] <| showVText hour.vtext
-                ]
-            )
-        klasse.hours

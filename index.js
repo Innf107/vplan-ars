@@ -45,6 +45,7 @@ var http = require("http");
 var https = require("https");
 var sanitize = require("sanitize-filename");
 var library_1 = require("./library");
+var userLog = require("./userLog");
 var app = express();
 var HTTPPORT = 5000;
 var HTTPSPORT = 5001;
@@ -158,6 +159,11 @@ var matchHours = function (childrenStr) {
 };
 //API
 app.use(xcss(["./public"]));
+var totalUsers = 0;
+app.use(userLog(function (reqPath, lastVisit) {
+    if (lastVisit === null)
+        totalUsers++;
+}));
 app.get('/pro', library_1.staticFile('public/index.html'));
 app.get('/main.css', library_1.staticFile('public/main.css'));
 app.get('/select.css', library_1.staticFile('select.css'));
@@ -169,6 +175,7 @@ app.get('/index.js', library_1.staticFile('public/index.js'));
 app.get('/teacher.js', library_1.staticFile('public/teacher.js'));
 app.get('/personal', library_1.staticFile('public/personal.html'));
 app.get('/personal.js', library_1.staticFile('public/personal.js'));
+app.get('/usersTotal', function (req, res) { return res.send(totalUsers); });
 app.get('/json/kuerzel', function (req, res) {
     var json = JSON.parse(fs.read('kuerzel.json'));
     res.send(Object.keys(json).map(function (k) { return { key: k, value: json[k] }; }));
@@ -219,9 +226,11 @@ var update = function () { return __awaiter(_this, void 0, void 0, function () {
             case 1:
                 data = _a.sent();
                 console.log("updated vplan at " + new Date());
+                fs.write('../data/totalUsers', totalUsers.toString());
                 return [2 /*return*/];
         }
     });
 }); };
+fs.readAsync('../data/totalUsers').then(function (s) { return totalUsers = Number.parseInt(s); });
 setInterval(update, UPDATERATE);
 update();

@@ -3,7 +3,7 @@ module VPlanTypes exposing (..)
 import Json.Decode as JD exposing (Decoder)
 import Json.Encode as JE
 import Http
-import Html as H
+import Html as H exposing (..)
 import Html.Events as E
 import Html.Attributes as A
 import Parser exposing (..)
@@ -290,9 +290,26 @@ sSave i l = case l of
     ({key, value}::xs) -> if key == i.key then {key=key, value=i.value}::xs else {key=key, value=value}::(sSave i xs)
 
 
-resolveKuerzel : Bool -> List StorageItem -> Result a VertreterVariant -> VertreterVariant
-resolveKuerzel d kuerzel ve = case d of
-    False -> Result.withDefault (VertreterPlain "Error") ve
-    True  -> case ve of
+resolveKuerzel : List StorageItem -> Result a VertreterVariant -> VertreterVariant
+resolveKuerzel kuerzel ve = case ve of
         Err _ -> VertreterPlain "Error!"
         Ok v  -> vertreterMap (\x -> sGet x kuerzel |> Maybe.withDefault x) v
+
+
+viewKlasse : UntisKlasse -> List StorageItem -> List (Html msg)
+viewKlasse klasse kuerzel =
+        tr [A.class "klasse expanded"] [
+            th [A.class "klasse expanded", A.colspan 5] [
+                button [A.class "klasse expanded"] [text klasse.name]
+            ]
+        ]
+        ::List.map (\hour ->
+            tr [A.class "klasse expanded"] [
+                    td [A.class "klasse expanded"] <| showStunde hour.stunde,
+                    td [A.class "klasse expanded"] <| showParsedVertreter <| resolveKuerzel kuerzel <| parseVertreter hour.vertreter,
+                    td [A.class "klasse expanded"] <| showFach hour.fach,
+                    td [A.class "klasse expanded"] <| showRaum hour.raum,
+                    td [A.class "klasse expanded"] <| showVText hour.vtext
+                ]
+            )
+        klasse.hours
