@@ -175,7 +175,7 @@ app.get('/index.js', library_1.staticFile('public/index.js'));
 app.get('/teacher.js', library_1.staticFile('public/teacher.js'));
 app.get('/personal', library_1.staticFile('public/personal.html'));
 app.get('/personal.js', library_1.staticFile('public/personal.js'));
-app.get('/usersTotal', function (req, res) { return res.send(totalUsers); });
+app.get('/usersTotal', function (req, res) { return res.send(totalUsers.toString()); });
 app.get('/json/kuerzel', function (req, res) {
     var json = JSON.parse(fs.read('kuerzel.json'));
     res.send(Object.keys(json).map(function (k) { return { key: k, value: json[k] }; }));

@@ -155,7 +155,7 @@ app.get('/index.js', staticFile('public/index.js'))
 app.get('/teacher.js', staticFile('public/teacher.js'))
 app.get('/personal', staticFile('public/personal.html'))
 app.get('/personal.js', staticFile('public/personal.js'))
-app.get('/usersTotal', (req, res) => res.send(totalUsers))
+app.get('/usersTotal', (req, res) => res.send(totalUsers.toString()))
 app.get('/json/kuerzel', (req, res) => {
     var json = JSON.parse(fs.read('kuerzel.json'))
     res.send(Object.keys(json).map(k => {return {key:k, value:json[k]}}))
