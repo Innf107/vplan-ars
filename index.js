@@ -213,12 +213,15 @@ try {
         throw new Error("credentials do not exist!");
     var httpsServer = https.createServer(credentials, app);
     httpsServer.listen(HTTPSPORT, function () { return console.log("HTTPS Server listening on port " + HTTPSPORT); });
+    var httpserver = express();
+    httpserver.get('*', function (req, res) { return res.redirect("https://" + req.headers.host + req.url); });
+    httpserver.listen(HTTPPORT, function () { return console.log("HTTP Server listening on Port " + HTTPPORT); });
 }
 catch (_a) {
+    var httpserver = http.createServer(app);
+    httpserver.listen(HTTPPORT, function () { return console.log("HTTP Server listening on Port " + HTTPPORT); });
     console.log('cannot create HTTPS Server');
 }
-var httpserver = http.createServer(app);
-httpserver.listen(HTTPPORT, function () { return console.log("HTTP Server listening on Port " + HTTPPORT); });
 var update = function () { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {

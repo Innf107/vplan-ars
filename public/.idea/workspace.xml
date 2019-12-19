@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="39dcbe99-b2f8-4b2f-92cf-e3ceecd3e620" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../kuerzel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../kuerzel.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/Main.elmo" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/Main.elmo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/Personal.elmi" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/Personal.elmi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/Personal.elmo" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/Personal.elmo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmi" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmo" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/d.dat" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/d.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/personal.js" beforeDir="false" afterPath="$PROJECT_DIR$/personal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.elm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Personal.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Personal.elm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VPlanTypes.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/VPlanTypes.elm" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -147,7 +137,9 @@
       <workItem from="1576350763951" duration="12582000" />
       <workItem from="1576514798671" duration="10692000" />
       <workItem from="1576595224080" duration="6935000" />
-      <workItem from="1576673007943" duration="4115000" />
+      <workItem from="1576673007943" duration="4749000" />
+      <workItem from="1576759439587" duration="20000" />
+      <workItem from="1576760922709" duration="297000" />
     </task>
     <servers />
   </component>

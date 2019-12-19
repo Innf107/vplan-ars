@@ -200,13 +200,17 @@ try {
 
     const httpsServer = https.createServer(credentials, app)
     httpsServer.listen(HTTPSPORT, () => console.log(`HTTPS Server listening on port ${HTTPSPORT}`))
+    
+    const httpserver = express()
+    httpserver.get('*', (req, res) => res.redirect(`https://${req.headers.host}${req.url}`))
+    httpserver.listen(HTTPPORT, () => console.log(`HTTP Server listening on Port ${HTTPPORT}`))
 }
 catch{
+    const httpserver = http.createServer(app)
+    httpserver.listen(HTTPPORT, () => console.log(`HTTP Server listening on Port ${HTTPPORT}`))
     console.log('cannot create HTTPS Server')
 }
 
-const httpserver = http.createServer(app)
-httpserver.listen(HTTPPORT, () => console.log(`HTTP Server listening on Port ${HTTPPORT}`))
 
 
 interface UntisHour {
