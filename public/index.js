@@ -6266,7 +6266,7 @@ var $elm$json$Json$Decode$at = F2(
 var $elm$json$Json$Decode$map3 = _Json_map3;
 var $author$project$VPlanTypes$UntisKlasse = F2(
 	function (name, hours) {
-		return {a_: hours, N: name};
+		return {a_: hours, M: name};
 	});
 var $author$project$VPlanTypes$UntisHour = F5(
 	function (stunde, vertreter, fach, raum, vtext) {
@@ -6311,7 +6311,7 @@ var $author$project$VPlanTypes$uDataDecoder = A2(
 		$elm$json$Json$Decode$list($author$project$VPlanTypes$uDayDecoder)));
 var $author$project$Main$init = function (_v0) {
 	return _Utils_Tuple2(
-		{y: _List_Nil, z: false, A: '', K: false, S: $author$project$Status$Loading, M: '', E: false, u: 0, H: $author$project$Status$Loading},
+		{y: _List_Nil, z: false, A: '', K: false, R: $author$project$Status$Loading, S: '', E: false, u: 0, H: $author$project$Status$Loading},
 		$elm$core$Platform$Cmd$batch(
 			_List_fromArray(
 				[
@@ -6690,12 +6690,12 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							M: A2(
+							S: A2(
 								$elm$core$String$left,
 								A2(
 									$elm$core$Basics$modBy,
 									11,
-									$elm$core$String$length(model.M) + 1),
+									$elm$core$String$length(model.S) + 1),
 								'Loading...')
 						}),
 					$elm$core$Platform$Cmd$none);
@@ -6726,7 +6726,7 @@ var $author$project$Main$update = F2(
 					_Utils_update(
 						model,
 						{
-							S: A2($author$project$Status$fromResult, $author$project$VPlanTypes$errToStr, res)
+							R: A2($author$project$Status$fromResult, $author$project$VPlanTypes$errToStr, res)
 						}),
 					$elm$core$Platform$Cmd$none);
 			case 5:
@@ -6993,11 +6993,11 @@ var $author$project$Main$viewKlasseCollapsed = F2(
 										$elm$html$Html$Attributes$class('klasse collapsed'),
 										$author$project$VPlanTypes$onClick(
 										$author$project$Main$UpdateExpandedDays(
-											A2($elm$core$List$cons, klasse.N, model.y)))
+											A2($elm$core$List$cons, klasse.M, model.y)))
 									]),
 								_List_fromArray(
 									[
-										$elm$html$Html$text('➤' + klasse.N)
+										$elm$html$Html$text('➤' + klasse.M)
 									]))
 							]))
 					]))
@@ -7931,11 +7931,11 @@ var $author$project$Main$viewKlasseExpanded = F2(
 										$elm$html$Html$Attributes$class('klasse expanded'),
 										$author$project$VPlanTypes$onClick(
 										$author$project$Main$UpdateExpandedDays(
-											A2($author$project$VPlanTypes$delete, klasse.N, model.y)))
+											A2($author$project$VPlanTypes$delete, klasse.M, model.y)))
 									]),
 								_List_fromArray(
 									[
-										$elm$html$Html$text('▼' + klasse.N)
+										$elm$html$Html$text('▼' + klasse.M)
 									]))
 							]))
 					])),
@@ -7966,7 +7966,7 @@ var $author$project$Main$viewKlasseExpanded = F2(
 								$author$project$VPlanTypes$showParsedVertreter(
 									A2(
 										$author$project$VPlanTypes$resolveKuerzel,
-										model.E ? A2($author$project$Status$withDefault, _List_Nil, model.S) : _List_Nil,
+										model.E ? A2($author$project$Status$withDefault, _List_Nil, model.R) : _List_Nil,
 										$author$project$VPlanTypes$parseVertreter(hour.bk)))),
 								A2(
 								$elm$html$Html$td,
@@ -8164,7 +8164,7 @@ var $author$project$Main$viewDay = F3(
 					A2(
 						$elm$core$List$concatMap,
 						function (k) {
-							return A2($elm$core$List$member, k.N, model.y) ? A2($author$project$Main$viewKlasseExpanded, model, k) : A2($author$project$Main$viewKlasseCollapsed, model, k);
+							return A2($elm$core$List$member, k.M, model.y) ? A2($author$project$Main$viewKlasseExpanded, model, k) : A2($author$project$Main$viewKlasseCollapsed, model, k);
 						},
 						day.a2)),
 					A2(
@@ -8297,12 +8297,12 @@ var $author$project$Main$viewLoading = function (model) {
 	return _List_fromArray(
 		[
 			A2(
-			$elm$html$Html$h1,
-			_List_Nil,
+			$elm$html$Html$div,
 			_List_fromArray(
 				[
-					$elm$html$Html$text(model.M)
-				]))
+					$elm$html$Html$Attributes$class('spinner')
+				]),
+			_List_Nil)
 		]);
 };
 var $author$project$Main$view = function (model) {

@@ -1,0 +1,18 @@
+{
+    "short_name": "VPlan",
+    "name": "Vertretungsplan ARS",
+    "description": "Inoffizieller Vertretungsplan der Adolf Reichwein Schule",
+    "icons": [
+      {
+        "src":"logoMain.png",
+        "type":"image/png",
+        "sizes":"1000x1000"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#3367D6",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#3583ff"
+  }
+  

@@ -10,7 +10,7 @@ import Axios from 'axios'
 import http =require('http')
 import https = require('https')
 import sanitize = require('sanitize-filename')
-import {split, mergeByWith, matchAll, wait, log, staticFile} from './library'
+import {split, mergeByWith, matchAll, wait, log, logOnly, staticFile} from './library'
 import userLog = require('./userLog')
 const app = express()
 const HTTPPORT = 5000
@@ -145,6 +145,7 @@ app.use(userLog((reqPath, lastVisit) => {
 }))
 
 app.get('/pro', staticFile('public/index.html'))
+app.get('/beta', staticFile('public/beta.html'))
 app.get('/main.css', staticFile('public/main.css'))
 app.get('/select.css', staticFile('select.css'))
 app.get('/teacher.css', staticFile('teacher.css'))
@@ -155,6 +156,9 @@ app.get('/index.js', staticFile('public/index.js'))
 app.get('/teacher.js', staticFile('public/teacher.js'))
 app.get('/personal', staticFile('public/personal.html'))
 app.get('/personal.js', staticFile('public/personal.js'))
+app.get('/sw.js', staticFile('public/sw.js'))
+app.get('/manifest.webmanifest', staticFile('manifest.webmanifest'))
+app.get('/logoMain.png', staticFile('logoMain.png'))
 app.get('/usersTotal', (req, res) => res.send(totalUsers.toString()))
 app.get('/json/kuerzel', (req, res) => {
     var json = JSON.parse(fs.read('kuerzel.json'))
@@ -185,17 +189,17 @@ app.get('/*', (req, res) => {
     res.status(404).sendFile(__dirname + '/public/404.html')
 })
 try {
-    const privateKey = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/privkey.pem', 'utf8');
-    const certificate = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/cert.pem', 'utf8');
-    const ca = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/chain.pem', 'utf8');
+    const privateKey = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/privkey.pem', 'utf8') || logOnly("private key not found for vplan-ars.spdns.de. trying localhost...", fs.read('localhost-key.pem', 'utf8')) || logOnly('private key for localhost does not exist either!', undefined)
+    const certificate = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/cert.pem', 'utf8') || logOnly("certificate not found for vplan-ars.spdns.de. trying localhost...", fs.read('localhost.pem', 'utf8')) || logOnly('certificate for localhost does not exist either!', undefined)
+    const ca = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/chain.pem', 'utf8')
 
     const credentials = {
         key: privateKey,
         cert: certificate,
-        ca: ca
-    };
+        //ca
+    }
 
-    if(!privateKey || !certificate || !ca)
+    if(!privateKey || !certificate)
         throw new Error("credentials do not exist!")
 
     const httpsServer = https.createServer(credentials, app)

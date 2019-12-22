@@ -46,4 +46,9 @@ export function log<T>(msg: string, x: T): T{
     return x
 }
 
+export function logOnly<T>(msg: string, x: T): T{
+    console.log(msg)
+    return x
+}
+
 export const staticFile = (_path: string) => (req, res) => res.sendFile(path.resolve(_path))

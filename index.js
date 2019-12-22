@@ -165,6 +165,7 @@ app.use(userLog(function (reqPath, lastVisit) {
         totalUsers++;
 }));
 app.get('/pro', library_1.staticFile('public/index.html'));
+app.get('/beta', library_1.staticFile('public/beta.html'));
 app.get('/main.css', library_1.staticFile('public/main.css'));
 app.get('/select.css', library_1.staticFile('select.css'));
 app.get('/teacher.css', library_1.staticFile('teacher.css'));
@@ -175,6 +176,9 @@ app.get('/index.js', library_1.staticFile('public/index.js'));
 app.get('/teacher.js', library_1.staticFile('public/teacher.js'));
 app.get('/personal', library_1.staticFile('public/personal.html'));
 app.get('/personal.js', library_1.staticFile('public/personal.js'));
+app.get('/sw.js', library_1.staticFile('public/sw.js'));
+app.get('/manifest.webmanifest', library_1.staticFile('manifest.webmanifest'));
+app.get('/logoMain.png', library_1.staticFile('logoMain.png'));
 app.get('/usersTotal', function (req, res) { return res.send(totalUsers.toString()); });
 app.get('/json/kuerzel', function (req, res) {
     var json = JSON.parse(fs.read('kuerzel.json'));
@@ -201,15 +205,14 @@ app.get('/*', function (req, res) {
     res.status(404).sendFile(__dirname + '/public/404.html');
 });
 try {
-    var privateKey = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/privkey.pem', 'utf8');
-    var certificate = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/cert.pem', 'utf8');
+    var privateKey = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/privkey.pem', 'utf8') || library_1.logOnly("private key not found for vplan-ars.spdns.de. trying localhost...", fs.read('localhost-key.pem', 'utf8')) || library_1.logOnly('private key for localhost does not exist either!', undefined);
+    var certificate = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/cert.pem', 'utf8') || library_1.logOnly("certificate not found for vplan-ars.spdns.de. trying localhost...", fs.read('localhost.pem', 'utf8')) || library_1.logOnly('certificate for localhost does not exist either!', undefined);
     var ca = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/chain.pem', 'utf8');
     var credentials = {
         key: privateKey,
-        cert: certificate,
-        ca: ca
+        cert: certificate
     };
-    if (!privateKey || !certificate || !ca)
+    if (!privateKey || !certificate)
         throw new Error("credentials do not exist!");
     var httpsServer = https.createServer(credentials, app);
     httpsServer.listen(HTTPSPORT, function () { return console.log("HTTPS Server listening on port " + HTTPSPORT); });

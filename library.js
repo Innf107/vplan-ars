@@ -41,4 +41,9 @@ function log(msg, x) {
     return x;
 }
 exports.log = log;
+function logOnly(msg, x) {
+    console.log(msg);
+    return x;
+}
+exports.logOnly = logOnly;
 exports.staticFile = function (_path) { return function (req, res) { return res.sendFile(path.resolve(_path)); }; };

@@ -47,7 +47,7 @@ init _ = ({
         }])
 
 type Msg = NOP
-         | ReceivedUData (Result (Http.Error) UntisData)
+         | ReceivedUData (Result Http.Error UntisData)
          | ReceivedKuerzel (Result Http.Error (List StorageItem))
          | UpdateLoadingText
          | UpdateExpandedDays (List String)
@@ -99,7 +99,8 @@ view model = {
 
 viewLoading : Model -> List (Html Msg)
 viewLoading model = [
-        h1 [] [text model.loadingText]
+        --h1 [] [text model.loadingText]
+        div [A.class "spinner"] []
     ]
 
 viewError : Model -> String -> List (Html Msg)

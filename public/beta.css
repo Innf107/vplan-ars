@@ -1,12 +1,11 @@
 :root {
-    --klasseBG: rgb(34, 55, 82);
+    --klasseBG: rgba(58, 86, 255, 0.88);
     --klasseFG: rgb(207, 207, 207);
-    --headerFG: rgb(53, 131, 255);
-    --subHeaderFG: rgb(40, 100, 197);
-    --siteBG: #1c1e1f;
+    --headerFG: #00000;
+    --subHeaderFG: #00000;
     --expandedBG: #404346;
     --motdHeaderFG: rgb(207, 207, 207);
-    --motdHeaderBG:rgb(54, 84, 124);
+    --motdHeaderBG: rgb(54, 84, 124);
     --motdElemFG: rgb(207, 207, 207);
     --motdElemBG: #393a3d;
     --switchActiveBG: rgb(0, 123, 0);
@@ -16,18 +15,15 @@
 
 }
 
-.spinner {
-    display: inline-block;
-    width: 2rem;
-    height: 2rem;
-    vertical-align: text-bottom;
-    border: 0.25em solid currentColor;
-    border-right-color: transparent;
-    border-radius: 50%;
-    animation: spinner-border .75s linear infinite;
-}
-
 body {
+    background: url(http://cdn.wallpaperhi.com/1920x1080/20130821/ayanami%20rei%20neon%20genesis%20evangelion_www.wallpaperhi.com_77.jpg);
+    -webkit-background-size: auto;
+    -moz-background-size: auto;
+    -o-background-size: auto;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-position: top center;
+    background-attachment: fixed;
     color: white;
     background-color: var(--siteBG);
     font-family: Roboto, Helvetica, Arial, sans-serif;
@@ -37,7 +33,7 @@ button {
     border: 0
 }
 button:hover{
-    background-color: rgb(0, 225, 255);
+    background-color: indigo;
 }
 button:focus {
     outline: none;
@@ -61,8 +57,11 @@ h3 {
 }
 
 .bleft,
-.bright{
+.bright {
     position: absolute;
+    border-radius: 40px;
+    color: white;
+    background-color: #393a3d;
     font-size: 200% + 350%;
     padding: 0.5% 2% 0.5% 2% + 0% 1% 0% 1%;
 }
@@ -82,6 +81,7 @@ table {
 }
 
 button.klasse {
+
     font-size: 200%;
     color: var(--klasseFG);
     background-color: var(--klasseBG);
@@ -91,6 +91,7 @@ button.klasse {
 }
 
 th.klasse {
+    box-shadow: 0px 3px 0 0 rgb(187,187,187);
     font-size: 150% + 190%;
 }
 
@@ -105,7 +106,6 @@ td{
 
 table, td, th, ul, li{
     border-collapse: collapse;
-    border: 1px solid #000000;
 }
 
 pre{
@@ -113,16 +113,17 @@ pre{
 }
 
 .backButton {
-    font-size: 200%;
-    color: rgb(58, 58, 58);
+    font-size: 150%;
+    color: #393a3d;
     position: absolute;
     left: 20px;
-    top:  20px;
+    top: 20px;
     text-decoration: none;
-    background-color: rgb(228, 228, 228);
+    color: white;
+    background-color: #393a3d;
     padding: 10px;
     border-radius: 40cm;
-    box-shadow: 0px 3px 0 0 rgb(187,187,187);
+    box-shadow: 0px 3px 0 0 #393a3d;
 }
 
 /*<Feedback>*/
@@ -214,6 +215,7 @@ button.motd.header{
 
 .resolveKuerzel{
     display:block;
+    color: black;
     margin-left:auto;
     margin-right:auto;
     font-size:300%;

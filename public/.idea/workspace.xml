@@ -2,10 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="39dcbe99-b2f8-4b2f-92cf-e3ceecd3e620" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../kuerzel.json" beforeDir="false" afterPath="$PROJECT_DIR$/../kuerzel.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TODO" beforeDir="false" afterPath="$PROJECT_DIR$/../TODO" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../library.js" beforeDir="false" afterPath="$PROJECT_DIR$/../library.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../library.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../library.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/select.html" beforeDir="false" afterPath="$PROJECT_DIR$/select.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.elm" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,6 +60,11 @@
   </component>
   <component name="ProjectId" id="1UZF58g2rxk4aiIjKOVo3AnDVjE" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -61,23 +74,12 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="ls" />
       <command value="sh build.sh" />
-    </option>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
     </option>
   </component>
   <component name="RunManager" selected="Shell Script.build.sh">
@@ -88,6 +90,7 @@
     <configuration name="buildFast.sh" type="ShConfigurationType">
       <option name="SCRIPT_PATH" value="$PROJECT_DIR$/buildFast.sh" />
       <option name="SCRIPT_OPTIONS" value="" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="" />
       <option name="INTERPRETER_PATH" value="/bin/bash" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <method v="2" />
@@ -95,6 +98,7 @@
     <configuration name="build.sh" type="ShConfigurationType">
       <option name="SCRIPT_PATH" value="$PROJECT_DIR$/build.sh" />
       <option name="SCRIPT_OPTIONS" value="" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="" />
       <option name="INTERPRETER_PATH" value="/bin/bash" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <method v="2" />
@@ -110,6 +114,18 @@
         <entry key="$PROJECT_DIR$/../../VPlanAkka" value="PREVIEW" />
         <entry key="$USER_HOME$/IdeaProjects/workbench-example-app" value="PREVIEW" />
       </map>
+    </option>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
     </option>
   </component>
   <component name="SvnConfiguration">
@@ -140,11 +156,21 @@
       <workItem from="1576673007943" duration="4749000" />
       <workItem from="1576759439587" duration="20000" />
       <workItem from="1576760922709" duration="297000" />
+      <workItem from="1576785248803" duration="1200000" />
+      <workItem from="1576857680011" duration="600000" />
+      <workItem from="1576941869257" duration="1170000" />
+      <workItem from="1576943179758" duration="868000" />
+      <workItem from="1577028337580" duration="1417000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+    <option name="exactExcludedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/sw.js" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -158,5 +184,15 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="488" y="173" key="SettingsEditor" timestamp="1576943166549">
+      <screen x="62" y="0" width="1858" height="1080" />
+    </state>
+    <state x="488" y="173" key="SettingsEditor/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1576943166549" />
+    <state x="672" y="366" key="com.intellij.ide.util.TipDialog" timestamp="1577047064124">
+      <screen x="62" y="0" width="1858" height="1080" />
+    </state>
+    <state x="672" y="366" key="com.intellij.ide.util.TipDialog/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577047064124" />
   </component>
 </project>

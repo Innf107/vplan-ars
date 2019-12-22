@@ -1,14 +1,35 @@
 <!DOCTYPE HTML>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <!--<meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Inoffizieller Vertretungsplan der ARS">-->
-  <title>Main</title>
-  <link rel="stylesheet" href="main.css">
+    <meta charset="UTF-8">
+    <meta name="theme-color" content="#2864c5">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Inoffizieller Vertretungsplan der ARS">-->
+    <title>Main</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+    @keyframes spinner {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .spinner {
+        display: block;
+        margin-top:5%;
+        margin-left:auto;
+        margin-right:auto;
+        width: 10rem;
+        height: 10rem;
+        border: 1em solid rgb(0, 204, 255);
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: spinner 1s linear infinite;
+    }
+    </style>
 </head>
-<body></body>
-  <script src="index.js"></script>
-  <script>Elm.Main.init()</script>
+<body>
+    <script src="index.js"></script>
+    <script>Elm.Main.init()</script>
 </body>
 </html>
