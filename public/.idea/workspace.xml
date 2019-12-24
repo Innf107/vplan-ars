@@ -8,11 +8,10 @@
       <change beforePath="$PROJECT_DIR$/../library.js" beforeDir="false" afterPath="$PROJECT_DIR$/../library.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../library.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../library.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/select.html" beforeDir="false" afterPath="$PROJECT_DIR$/select.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.elm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VPlanTypes.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/VPlanTypes.elm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/../tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../userLog.js" beforeDir="false" afterPath="$PROJECT_DIR$/../userLog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../userLog.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../userLog.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,6 +160,8 @@
       <workItem from="1576941869257" duration="1170000" />
       <workItem from="1576943179758" duration="868000" />
       <workItem from="1577028337580" duration="1417000" />
+      <workItem from="1577047025140" duration="600000" />
+      <workItem from="1577191412288" duration="422000" />
     </task>
     <servers />
   </component>
@@ -190,9 +191,9 @@
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
     <state x="488" y="173" key="SettingsEditor/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1576943166549" />
-    <state x="672" y="366" key="com.intellij.ide.util.TipDialog" timestamp="1577047064124">
+    <state x="672" y="366" key="com.intellij.ide.util.TipDialog" timestamp="1577191414602">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
-    <state x="672" y="366" key="com.intellij.ide.util.TipDialog/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577047064124" />
+    <state x="672" y="366" key="com.intellij.ide.util.TipDialog/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577191414602" />
   </component>
 </project>

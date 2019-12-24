@@ -6228,6 +6228,42 @@ var $author$project$Personal$getStorage = F2(
 var $author$project$VPlanTypes$UntisData = function (vplan) {
 	return {C: vplan};
 };
+var $elm$core$Basics$composeL = F3(
+	function (g, f, x) {
+		return g(
+			f(x));
+	});
+var $elm$core$Dict$fromList = function (assocs) {
+	return A3(
+		$elm$core$List$foldl,
+		F2(
+			function (_v0, dict) {
+				var key = _v0.a;
+				var value = _v0.b;
+				return A3($elm$core$Dict$insert, key, value, dict);
+			}),
+		$elm$core$Dict$empty,
+		assocs);
+};
+var $elm$json$Json$Decode$keyValuePairs = _Json_decodeKeyValuePairs;
+var $elm$json$Json$Decode$dict = function (decoder) {
+	return A2(
+		$elm$json$Json$Decode$map,
+		$elm$core$Dict$fromList,
+		$elm$json$Json$Decode$keyValuePairs(decoder));
+};
+var $elm$core$Tuple$second = function (_v0) {
+	var y = _v0.b;
+	return y;
+};
+var $author$project$VPlanTypes$dictToList = A2(
+	$elm$core$Basics$composeL,
+	$elm$core$List$map($elm$core$Tuple$second),
+	$elm$core$Dict$toList);
+var $author$project$VPlanTypes$d2ListDecoder = A2(
+	$elm$core$Basics$composeL,
+	$elm$json$Json$Decode$map($author$project$VPlanTypes$dictToList),
+	$elm$json$Json$Decode$dict);
 var $author$project$VPlanTypes$UntisDay = F3(
 	function (day, klassen, motd) {
 		return {aY: day, a3: klassen, a5: motd};
@@ -6261,7 +6297,7 @@ var $author$project$VPlanTypes$uKlasseDecoder = A3(
 	A2(
 		$elm$json$Json$Decode$field,
 		'hours',
-		$elm$json$Json$Decode$list($author$project$VPlanTypes$uHourDecoder)));
+		$author$project$VPlanTypes$d2ListDecoder($author$project$VPlanTypes$uHourDecoder)));
 var $author$project$VPlanTypes$uDayDecoder = A4(
 	$elm$json$Json$Decode$map3,
 	$author$project$VPlanTypes$UntisDay,
@@ -6269,7 +6305,7 @@ var $author$project$VPlanTypes$uDayDecoder = A4(
 	A2(
 		$elm$json$Json$Decode$field,
 		'klassen',
-		$elm$json$Json$Decode$list($author$project$VPlanTypes$uKlasseDecoder)),
+		$author$project$VPlanTypes$d2ListDecoder($author$project$VPlanTypes$uKlasseDecoder)),
 	A2(
 		$elm$json$Json$Decode$at,
 		_List_fromArray(
@@ -6281,7 +6317,7 @@ var $author$project$VPlanTypes$uDataDecoder = A2(
 	A2(
 		$elm$json$Json$Decode$field,
 		'vplan',
-		$elm$json$Json$Decode$list($author$project$VPlanTypes$uDayDecoder)));
+		$author$project$VPlanTypes$d2ListDecoder($author$project$VPlanTypes$uDayDecoder)));
 var $author$project$Personal$init = function (storageItems) {
 	return _Utils_Tuple2(
 		function () {
@@ -6506,10 +6542,6 @@ var $elm$core$List$filter = F2(
 			_List_Nil,
 			list);
 	});
-var $elm$core$Tuple$second = function (_v0) {
-	var y = _v0.b;
-	return y;
-};
 var $elm$html$Html$Attributes$classList = function (classes) {
 	return $elm$html$Html$Attributes$class(
 		A2(

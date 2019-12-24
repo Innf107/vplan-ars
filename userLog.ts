@@ -18,7 +18,7 @@ const userLog = (onUserReq: (reqPath: string, lastVisit: Date) => void) => (req:
     if(req.method === "GET"){
         const cookies = parseCookies(req);
         onUserReq(req.path, cookies['accessTimestamp'] ? new Date(Number.parseInt(cookies['accessTimestamp'])) : null)
-        res.cookie('accessTimestamp', Date.now(), {maxAge:99999999})
+        res.cookie('accessTimestamp', Date.now(), {maxAge:999999999999})
     }
     next()
 }

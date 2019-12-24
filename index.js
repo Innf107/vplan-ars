@@ -52,9 +52,9 @@ var HTTPSPORT = 5001;
 var UPDATERATE = 590000;
 var data;
 var parsePlan = function (n) { return __awaiter(_this, void 0, void 0, function () {
-    var url, res, data, dateRgx, dateStr, tableRgx, tableStr, klassen, motdAffectedRowRgx, motdAffected, motdContentRowRgxG, motdContentRowRgx, motdContentRows, motdContent, motd, refreshRgx, _a, _b, _c;
-    return __generator(this, function (_d) {
-        switch (_d.label) {
+    var url, res, data, dateRgx, dateStr, tableRgx, tableStr, klassen, motdAffectedRowRgx, motdAffected, motdContentRowRgxG, motdContentRowRgx, motdContentRows, motdContent, motd, refreshRgx, _a, _b, _c, _d, _e, _f;
+    return __generator(this, function (_g) {
+        switch (_g.label) {
             case 0:
                 url = "https://vplan.ars-hochtaunus.de/subst_" + n.toString().padStart(3, '0') + ".htm";
                 return [4 /*yield*/, axios_1["default"].get(url, {
@@ -65,22 +65,22 @@ var parsePlan = function (n) { return __awaiter(_this, void 0, void 0, function 
                         responseEncoding: 'binary'
                     })["catch"](function (_) { return null; })];
             case 1:
-                res = _d.sent();
+                res = _g.sent();
                 if (res === null)
-                    return [2 /*return*/, library_1.log("resIsNull: ", { vplan: [] })];
+                    return [2 /*return*/, library_1.log("resIsNull: ", { vplan: {} })];
                 data = iso88592.decode(res.data.toString('binary'));
                 dateRgx = /<div\s+class="mon_title">(.+?)( \(.+?)?<\/div>/;
                 dateStr = data.match(dateRgx)[1];
                 tableRgx = /<table\s+class="mon_list"\s*>[^]+?<\/table>/;
                 tableStr = data.match(tableRgx)[0];
-                klassen = matchKlassen(tableStr).map(function (match) {
-                    return {
-                        name: match[2],
-                        hours: matchHours(match[3])
-                    };
-                });
+                klassen = library_1.mapToObj(matchKlassen(tableStr), (function (match) {
+                    return [match[2], {
+                            name: match[2],
+                            hours: matchHours(match[3])
+                        }];
+                }));
                 if (!klassen)
-                    return [2 /*return*/, library_1.log("!klassen", { vplan: [] })];
+                    return [2 /*return*/, library_1.log("!klassen", { vplan: {} })];
                 motdAffectedRowRgx = /<td class="info" align="left">([^B][^]+?)<\/td>/;
                 motdAffected = data.match(motdAffectedRowRgx)[1].split(',').map(function (x) { return x.trim(); });
                 motdContentRowRgxG = /<td class='info' colspan="2">[^]+?<\/td>/g;
@@ -94,43 +94,46 @@ var parsePlan = function (n) { return __awaiter(_this, void 0, void 0, function 
                 refreshRgx = /<meta http-equiv="refresh" content="12; URL=subst_001.htm">/;
                 if (refreshRgx.test(data))
                     return [2 /*return*/, {
-                            vplan: [{
-                                    day: dateStr,
-                                    motd: motd,
-                                    klassen: klassen
-                                }]
+                            vplan: (_e = {}, _e[dateStr] = {
+                                day: dateStr,
+                                motd: motd,
+                                klassen: klassen
+                            }, _e)
                         }];
                 _a = {};
-                _b = mergeData;
-                _c = [[{
-                            day: dateStr,
-                            motd: motd,
-                            klassen: klassen
-                        }]];
+                _b = library_1.sortKeysBy;
+                _c = mergeData;
+                _d = [(_f = {}, _f[dateStr] = {
+                        day: dateStr,
+                        motd: motd,
+                        klassen: klassen
+                    }, _f)];
                 return [4 /*yield*/, parsePlan(n + 1)];
-            case 2: return [2 /*return*/, (_a.vplan = _b.apply(void 0, _c.concat([(_d.sent()).vplan])),
+            case 2: return [2 /*return*/, (_a.vplan = _b.apply(void 0, [_c.apply(void 0, _d.concat([((_g.sent()).vplan)])), compareDates]),
                     _a)];
         }
     });
 }); };
-var mergeData = function (a, b) { return library_1.mergeByWith(a, b, function (x, y) { return x.day === y.day; }, function (x, y) {
+var mergeData = function (a, b) { return library_1.mergeObjWith(a, b, function (x, y) {
     return {
         day: x.day,
         motd: y.motd,
-        klassen: x.klassen.concat(y.klassen)
-    };
-}).sort(compareDates); };
-var compareDates = function (x, y) {
-    var xDate = Date.parse(x.day.match(/[0-9.]+/)[0]);
-    var yDate = Date.parse(y.day.match(/[0-9.]+/)[0]);
-    return xDate - yDate;
-};
-var mergeKlassen = function (a, b) { return library_1.mergeByWith(a, b, function (x, y) { return x.name === y.name; }, function (x, y) {
-    return {
-        name: x.name,
-        hours: x.hours.concat(y.hours)
+        klassen: library_1.mergeObjWith(x.klassen, y.klassen, function (x, y) { return { name: x.name, hours: library_1.mergeObjWith(x.hours, y.hours, function (x, y) { return y; }) }; })
     };
 }); };
+var compareDates = function (x, y) {
+    var xDate = Date.parse(x.match(/[0-9.]+/)[0]);
+    var yDate = Date.parse(y.match(/[0-9.]+/)[0]);
+    return xDate - yDate;
+};
+/*
+const mergeKlassen = (a: UntisKlasse[], b: UntisKlasse[]) : UntisKlasse[] => mergeByWith(a, b,
+    (x, y) => x.name === y.name,
+    (x, y) => {return {
+        name:x.name,
+        hours: x.hours.concat(y.hours)
+    }})
+*/
 var matchKlassen = function (tableStr) {
     var klasseRgx1 = /(<tr\s+class=["']list .+?["']>\s*<td class=["']list inline_header["'].*?>[^]+?<\/td>\s*<\/tr>[^]+?)(?:(?:<tr\s+class=['"]list .+?['"]><td class=['"]list inline_header['"].*?>)|(?:<\/table>))/;
     var klasseRgx = /(<tr\s+class=["']list .+?["']>\s*<td class=["']list inline_header["'].*?>([^]+?)<\/td>\s*<\/tr>([^]+))/;
@@ -146,15 +149,13 @@ var matchHours = function (childrenStr) {
     //                                                                             Stunde                                     Vertreter                                                Fach                                           Raum                                      Vertretungs-Text
     //                                                                             1 - 2                                         DOB                                                   MAT                                            E10                                          Stattstunde
     var hourRgx = /<tr class='list[^]*?'>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list"(?: align="center")>([^]+?)<\/td>\s*<\/tr>/;
-    var results = library_1.matchAll(hourRgx, childrenStr).map(function (match) {
-        return {
+    var results = library_1.mapToObj(library_1.matchAll(hourRgx, childrenStr), (function (match) { return [match[1], {
             stunde: match[1],
             vertreter: match[2],
             fach: match[3],
             raum: match[4],
             vtext: match[5]
-        };
-    });
+        }]; }));
     return results;
 };
 //API

@@ -10,7 +10,7 @@ import Axios from 'axios'
 import http =require('http')
 import https = require('https')
 import sanitize = require('sanitize-filename')
-import {split, mergeByWith, matchAll, wait, log, logOnly, staticFile} from './library'
+import {split, mergeByWith, matchAll, wait, log, logOnly, staticFile, mapToObj, mergeObjWith, sortKeysBy} from './library'
 import userLog = require('./userLog')
 const app = express()
 const HTTPPORT = 5000
@@ -32,7 +32,7 @@ const parsePlan = async (n: number): Promise<UntisData> => {
     } as any).catch(_ => null)
 
     if(res === null)
-        return log("resIsNull: ", {vplan:[]})
+        return log("resIsNull: ", {vplan:{}})
 
     const data = iso88592.decode(res.data.toString('binary')) as string
 
@@ -42,13 +42,13 @@ const parsePlan = async (n: number): Promise<UntisData> => {
     const tableRgx = /<table\s+class="mon_list"\s*>[^]+?<\/table>/
     const tableStr = data.match(tableRgx)[0]
     
-    const klassen = matchKlassen(tableStr).map(match => {return{
+    const klassen = mapToObj(matchKlassen(tableStr), (match => {return [match[2], {
         name: match[2],
         hours: matchHours(match[3])
-    } as UntisKlasse})
+    } as UntisKlasse]}))
 
     if(!klassen)
-        return log("!klassen", {vplan:[]})
+        return log("!klassen", {vplan:{}})
 
     const motdAffectedRowRgx = /<td class="info" align="left">([^B][^]+?)<\/td>/
     const motdAffected = data.match(motdAffectedRowRgx)[1].split(',').map(x => x.trim())
@@ -65,45 +65,48 @@ const parsePlan = async (n: number): Promise<UntisData> => {
 
     const refreshRgx = /<meta http-equiv="refresh" content="12; URL=subst_001.htm">/
     if(refreshRgx.test(data))
-        return {
-            vplan: [{
-            day: dateStr,
-            motd,
-            klassen,
-        } as UntisDay]}
+        return  {
+            vplan: {[dateStr]: {
+                day: dateStr,
+                motd,
+                klassen,
+            } as UntisDay}
+        }
 
 
     return {
-        vplan: mergeData([{
+        vplan: sortKeysBy(mergeData({[dateStr]: {
             day: dateStr,
             motd,
             klassen,
-        } as UntisDay], (await parsePlan(n + 1)).vplan)
+        } as UntisDay}, ((await parsePlan(n + 1)).vplan)), compareDates)
     }
 }  
 
-const mergeData = (a: UntisDay[], b: UntisDay[]) : UntisDay[] => mergeByWith(a, b, 
-    (x, y) => x.day === y.day, 
+
+const mergeData = (a: {[day:string]:UntisDay}, b: {[day:string]:UntisDay}) : {[day:string]:UntisDay} => mergeObjWith(a, b, 
     (x, y) => {return {
         day: x.day,
         motd: y.motd,
-        klassen: x.klassen.concat(y.klassen), //TODO: mergeKlassen(x.klassen, y.klassen)
-    }}).sort(compareDates)
+        klassen: mergeObjWith (x.klassen, y.klassen,
+            (x, y) => {return {name:x.name, hours: mergeObjWith (x.hours, y.hours, (x, y) => y)}}), //TODO: mergeKlassen(x.klassen, y.klassen)
+    }})
 
-const compareDates = (x: UntisDay, y: UntisDay) => {
-    const xDate = Date.parse(x.day.match(/[0-9.]+/)[0])
-    const yDate = Date.parse(y.day.match(/[0-9.]+/)[0])
+
+const compareDates = (x: string, y: string) => {
+    const xDate = Date.parse(x.match(/[0-9.]+/)[0])
+    const yDate = Date.parse(y.match(/[0-9.]+/)[0])
     return xDate - yDate
 }
 
-
+/*
 const mergeKlassen = (a: UntisKlasse[], b: UntisKlasse[]) : UntisKlasse[] => mergeByWith(a, b, 
     (x, y) => x.name === y.name,
     (x, y) => {return {
         name:x.name,
         hours: x.hours.concat(y.hours)
     }})
-
+*/
 const matchKlassen = (tableStr: string) : RegExpMatchArray[] => {
     const klasseRgx1 = /(<tr\s+class=["']list .+?["']>\s*<td class=["']list inline_header["'].*?>[^]+?<\/td>\s*<\/tr>[^]+?)(?:(?:<tr\s+class=['"]list .+?['"]><td class=['"]list inline_header['"].*?>)|(?:<\/table>))/
     const klasseRgx  = /(<tr\s+class=["']list .+?["']>\s*<td class=["']list inline_header["'].*?>([^]+?)<\/td>\s*<\/tr>([^]+))/
@@ -119,18 +122,18 @@ const matchKlassen = (tableStr: string) : RegExpMatchArray[] => {
     }
 }
 
-const matchHours = (childrenStr: string): UntisHour[] => {
+const matchHours = (childrenStr: string): {[hour:string]: UntisHour} => {
 //                                                                             Stunde                                     Vertreter                                                Fach                                           Raum                                      Vertretungs-Text
 //                                                                             1 - 2                                         DOB                                                   MAT                                            E10                                          Stattstunde
     const hourRgx  = /<tr class='list[^]*?'>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list"(?: align="center")>([^]+?)<\/td>\s*<\/tr>/
 
-    const results = matchAll(hourRgx, childrenStr).map(match => {return {
+    const results = mapToObj(matchAll(hourRgx, childrenStr), (match => [match[1], {
         stunde: match[1],
         vertreter: match[2],
         fach: match[3],
         raum: match[4],
         vtext: match[5]
-    }})
+    }]))
     return results
 }
 
@@ -226,7 +229,7 @@ interface UntisHour {
 
 interface UntisKlasse {
     name: string,
-    hours: UntisHour[]
+    hours: {[hour: string]: UntisHour}
 }
 
 interface UntisMOTD{
@@ -236,12 +239,12 @@ interface UntisMOTD{
 
 interface UntisDay {
     day: string,
-    motd: UntisMOTD,
-    klassen: UntisKlasse[]
+    motd: (UntisMOTD),
+    klassen: {[name: string]: UntisKlasse}
 }
 
 interface UntisData {
-    vplan: UntisDay[]
+    vplan: {[day: string]: UntisDay}
 }
 
 const update = async () => {

@@ -7,7 +7,7 @@ import Html as H exposing (..)
 import Html.Events as E
 import Html.Attributes as A
 import Parser exposing (..)
-import Set
+import Dict
 
 type alias UntisData = {
         vplan: VPlan
@@ -45,17 +45,23 @@ uHourDecoder = JD.map5 UntisHour
 uKlasseDecoder : Decoder UntisKlasse
 uKlasseDecoder = JD.map2 UntisKlasse
                 (JD.field "name" JD.string)
-                (JD.field "hours" (JD.list uHourDecoder))
+                (JD.field "hours" (d2ListDecoder uHourDecoder))
 
 uDayDecoder : Decoder UntisDay
 uDayDecoder = JD.map3 UntisDay
                 (JD.field "day" JD.string)
-                (JD.field "klassen" (JD.list uKlasseDecoder))
+                (JD.field "klassen" (d2ListDecoder uKlasseDecoder))
                 (JD.at ["motd", "content"] (JD.list JD.string))
 
 uDataDecoder : Decoder UntisData
 uDataDecoder = JD.map UntisData
-                    (JD.field "vplan" (JD.list uDayDecoder))
+                    (JD.field "vplan" (d2ListDecoder uDayDecoder))
+
+d2ListDecoder : Decoder a -> Decoder (List a)
+d2ListDecoder = JD.map dictToList << JD.dict
+
+dictToList : Dict.Dict k v -> List v
+dictToList = List.map Tuple.second << Dict.toList
 
 errToStr : Http.Error -> String
 errToStr e = case e of

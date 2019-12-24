@@ -11,7 +11,7 @@ var userLog = function (onUserReq) { return function (req, res, next) {
     if (req.method === "GET") {
         var cookies = parseCookies(req);
         onUserReq(req.path, cookies['accessTimestamp'] ? new Date(Number.parseInt(cookies['accessTimestamp'])) : null);
-        res.cookie('accessTimestamp', Date.now(), { maxAge: 99999999 });
+        res.cookie('accessTimestamp', Date.now(), { maxAge: 999999999999 });
     }
     next();
 }; };

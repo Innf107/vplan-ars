@@ -12,6 +12,18 @@ export function split<T>(a: T[], f: (x:T) => boolean) : [T[], T[]] {
         return [passed, [x, ...failed]]
 }
 
+export function mergeObjWith<T>(a: {[k:string]: T}, b: {[k:string]: T}, f: (x:T, y:T) => T): {[k:string]:T}{
+    const entriesA = Object.entries(a)
+    const entriesB = Object.entries(b)
+
+    const mergedEntries = mergeByWith(entriesA, entriesB, 
+        (x, y) => x[0] === y[0],
+        ([xk, xv], [yk, yv]) => [xk, f(xv, yv)] as [string, T]
+    )
+
+    return objFromEntries(mergedEntries)
+} 
+
 export function mergeByWith<T>(a: T[], b: T[], match: (x: T, y:T) => boolean, resolve: (x: T, y:T) => T) : T[]{
     if(a[0] === undefined)
         return b
@@ -52,3 +64,23 @@ export function logOnly<T>(msg: string, x: T): T{
 }
 
 export const staticFile = (_path: string) => (req, res) => res.sendFile(path.resolve(_path))
+
+export function mapToObj<A, C>(list: A[], f: (x: A) => [string, C]) : {[key:string]:C}{
+    if(list.length === 0)
+        return {}
+    const [x, ...xs] = list
+    const [k, v] = f(x)
+    return {[k]:v, ...mapToObj(xs, f)}
+}
+
+export function objFromEntries<V>(entries: [string, V][]){
+    if(entries.length === 0)
+        return {}
+    const [[k, v], ...xs] = entries
+    
+    return {...{[k]:v}, ...objFromEntries(xs)}
+}
+
+export function sortKeysBy<T>(x: {[k:string]:T}, f: (a: string, b:string) => number): {[k:string]:T} {
+    return objFromEntries(Object.entries(x).sort((x, y) => f(x[0], y[0])))
+}
