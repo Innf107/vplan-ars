@@ -13,6 +13,7 @@ import Status as S exposing (Status(..))
 main = Browser.document {init=init, subscriptions=subs, update=update, view=view}
 
 type alias Model = {
+        online: Bool,
         vplan: Status VPlan,
         kuerzel: Status (List StorageItem),
         loadingText: String,
@@ -26,6 +27,7 @@ type alias Model = {
 
 init : () -> (Model, Cmd Msg)
 init _ = ({
+            online=True,
             vplan=Loading,
             kuerzel=Loading,
             loadingText="",
@@ -44,9 +46,14 @@ init _ = ({
         Http.get {
             url="/json/kuerzel",
             expect=Http.expectJson ReceivedKuerzel decodeStorage
+        },
+        Http.get {
+            url="/ping",
+            expect=Http.expectString ReceivedPing
         }])
 
 type Msg = NOP
+         | ReceivedPing (Result Http.Error String)
          | ReceivedUData (Result Http.Error UntisData)
          | ReceivedKuerzel (Result Http.Error (List StorageItem))
          | UpdateLoadingText
@@ -62,6 +69,11 @@ type Msg = NOP
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model = case msg of
     NOP -> (model, Cmd.none)
+    ReceivedPing res -> case res of
+        Err _ -> ({model|online=False}, Cmd.none)
+        Ok s -> case s of
+            "\"true\"" -> ({model|online=True}, Cmd.none)
+            _ -> ({model|online=False}, Cmd.none)
     UpdateLoadingText -> ({model|loadingText=String.left (String.length model.loadingText + 1 |> modBy 11) "Loading..."}, Cmd.none)
     UpdateExpandedDays newKlassen -> ({model|expandedKlassen=newKlassen}, Cmd.none)
     ReceivedUData res -> ({model|vplan=S.map .vplan (S.fromResult errToStr res)}, Cmd.none)
@@ -111,6 +123,8 @@ viewError model error = [
 
 viewLoaded : Model -> VPlan -> List (Html Msg)
 viewLoaded model vplan = [
+        (if not model.online then h3 [A.class "alert"] [text "Offline! Das ist der letzte Stand des Vertretungsplans."]
+        else text ""),
         h1 [] [text "Vertretungsplan ARS"],
         case model.inFeedback of
             True  -> viewFeedback model

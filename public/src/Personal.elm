@@ -15,7 +15,9 @@ port saveToStorage : JE.Value -> Cmd msg
 
 main = Browser.document {init=init, subscriptions=subs, update=update, view=view}
 
-type alias Model = {panic: Maybe String,
+type alias Model = {
+                    online: Bool,
+                    panic: Maybe String,
                     storage: List StorageItem,
                     vplan: Status VPlan,
                     kuerzel: Status (List StorageItem),
@@ -24,7 +26,8 @@ type alias Model = {panic: Maybe String,
                     }
 
 init : JD.Value -> (Model, Cmd Msg)
-init storageItems = (let model = {panic=Nothing,
+init storageItems = (let model = {online=True,
+                                  panic=Nothing,
                                   storage=[],
                                   vplan=Loading,
                                   kuerzel=Loading,
@@ -35,8 +38,9 @@ init storageItems = (let model = {panic=Nothing,
                         getStorage model storageItems,
                          Cmd.batch [
                             Http.get {url="/json", expect=Http.expectJson ReceivedData uDataDecoder},
-                            Http.get {url="/json/kuerzel", expect=Http.expectJson ReceivedKuerzel decodeStorage}
-                            ])
+                            Http.get {url="/json/kuerzel", expect=Http.expectJson ReceivedKuerzel decodeStorage},
+                            Http.get {url="/ping", expect=Http.expectString ReceivedPing}
+                        ])
 
 getStorage : Model -> JD.Value -> Model
 getStorage model storageItems = case JD.decodeValue decodeStorage storageItems of
@@ -47,6 +51,7 @@ subs : Model -> Sub Msg
 subs model = Sub.none
 
 type Msg = NOP
+         | ReceivedPing (Result Http.Error String)
          | ReceivedData (Result Http.Error UntisData)
          | ReceivedKuerzel (Result Http.Error (List StorageItem))
          | UpdateSelectedDay Int
@@ -55,6 +60,12 @@ type Msg = NOP
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model = case msg of
     NOP -> (model, Cmd.none)
+    ReceivedPing res -> case res of
+        Err _ -> ({model|online=False}, Cmd.none)
+        Ok s -> case s of
+            "\"true\"" -> ({model|online=True}, Cmd.none)
+            _ -> ({model|online=False}, Cmd.none)
+
     ReceivedData res -> case res of
         Ok udata -> ({model|vplan=Loaded udata.vplan}, Cmd.none)
         Err e -> ({model|vplan=Error (errToStr e)}, Cmd.none)
@@ -86,6 +97,8 @@ viewPanic p = [
 viewLoaded : Model -> VPlan -> List (Html Msg)
 viewLoaded model vplan = [
         a [A.class "backButton", A.href "/"] [text "zurück"],
+        (if not model.online then h3 [A.class "alert"] [text "Offline! Das ist der letzte Stand des Vertretungsplans."]
+        else text ""),
         h1 [] [text "Vertretungsplan ARS"]]
         ++
         case (getAt model.selectedDay vplan) of

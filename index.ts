@@ -10,7 +10,7 @@ import Axios from 'axios'
 import http =require('http')
 import https = require('https')
 import sanitize = require('sanitize-filename')
-import {split, mergeByWith, matchAll, wait, log, logOnly, staticFile, mapToObj, mergeObjWith, sortKeysBy} from './library'
+import {split, mergeByWith, matchAll, wait, log, logOnly, staticFile, mapToObj, mergeObjWith} from './library'
 import userLog = require('./userLog')
 const app = express()
 const HTTPPORT = 5000
@@ -75,11 +75,11 @@ const parsePlan = async (n: number): Promise<UntisData> => {
 
 
     return {
-        vplan: sortKeysBy(mergeData({[dateStr]: {
+        vplan: mergeData({[dateStr]: {
             day: dateStr,
             motd,
             klassen,
-        } as UntisDay}, ((await parsePlan(n + 1)).vplan)), compareDates)
+        } as UntisDay}, ((await parsePlan(n + 1)).vplan))
     }
 }  
 
@@ -147,6 +147,7 @@ app.use(userLog((reqPath, lastVisit) => {
         totalUsers++;
 }))
 
+app.get('/ping', (req, res) => res.contentType('text/plain').send('"true"'))
 app.get('/pro', staticFile('public/index.html'))
 app.get('/beta', staticFile('public/beta.html'))
 app.get('/main.css', staticFile('public/main.css'))

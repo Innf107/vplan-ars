@@ -80,7 +80,3 @@ export function objFromEntries<V>(entries: [string, V][]){
     
     return {...{[k]:v}, ...objFromEntries(xs)}
 }
-
-export function sortKeysBy<T>(x: {[k:string]:T}, f: (a: string, b:string) => number): {[k:string]:T} {
-    return objFromEntries(Object.entries(x).sort((x, y) => f(x[0], y[0])))
-}

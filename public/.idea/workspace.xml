@@ -3,15 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="39dcbe99-b2f8-4b2f-92cf-e3ceecd3e620" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../TODO" beforeDir="false" afterPath="$PROJECT_DIR$/../TODO" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../library.js" beforeDir="false" afterPath="$PROJECT_DIR$/../library.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../library.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../library.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VPlanTypes.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/VPlanTypes.elm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/../tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../userLog.js" beforeDir="false" afterPath="$PROJECT_DIR$/../userLog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../userLog.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../userLog.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personal.js" beforeDir="false" afterPath="$PROJECT_DIR$/personal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.elm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Personal.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Personal.elm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Teacher.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Teacher.elm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sw.js" beforeDir="false" afterPath="$PROJECT_DIR$/sw.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teacher.js" beforeDir="false" afterPath="$PROJECT_DIR$/teacher.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +162,9 @@
       <workItem from="1576943179758" duration="868000" />
       <workItem from="1577028337580" duration="1417000" />
       <workItem from="1577047025140" duration="600000" />
-      <workItem from="1577191412288" duration="422000" />
+      <workItem from="1577191412288" duration="1030000" />
+      <workItem from="1577274489408" duration="49000" />
+      <workItem from="1577280104156" duration="2870000" />
     </task>
     <servers />
   </component>
@@ -187,13 +190,25 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
+    <state x="774" y="282" key="FileChooserDialogImpl" timestamp="1577274526278">
+      <screen x="62" y="0" width="1858" height="1080" />
+    </state>
+    <state x="774" y="282" key="FileChooserDialogImpl/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577274526278" />
     <state x="488" y="173" key="SettingsEditor" timestamp="1576943166549">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
     <state x="488" y="173" key="SettingsEditor/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1576943166549" />
-    <state x="672" y="366" key="com.intellij.ide.util.TipDialog" timestamp="1577191414602">
+    <state x="672" y="366" key="com.intellij.ide.util.TipDialog" timestamp="1577274494803">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
-    <state x="672" y="366" key="com.intellij.ide.util.TipDialog/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577191414602" />
+    <state x="672" y="366" key="com.intellij.ide.util.TipDialog/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577274494803" />
+    <state x="367" y="265" key="new project wizard" timestamp="1577274536287">
+      <screen x="62" y="0" width="1858" height="1080" />
+    </state>
+    <state x="367" y="265" key="new project wizard/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577274536287" />
+    <state x="655" y="247" width="672" height="677" key="run.anything.popup" timestamp="1577283213310">
+      <screen x="62" y="0" width="1858" height="1080" />
+    </state>
+    <state x="655" y="247" width="672" height="677" key="run.anything.popup/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577283213310" />
   </component>
 </project>

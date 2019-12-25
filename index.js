@@ -52,9 +52,9 @@ var HTTPSPORT = 5001;
 var UPDATERATE = 590000;
 var data;
 var parsePlan = function (n) { return __awaiter(_this, void 0, void 0, function () {
-    var url, res, data, dateRgx, dateStr, tableRgx, tableStr, klassen, motdAffectedRowRgx, motdAffected, motdContentRowRgxG, motdContentRowRgx, motdContentRows, motdContent, motd, refreshRgx, _a, _b, _c, _d, _e, _f;
-    return __generator(this, function (_g) {
-        switch (_g.label) {
+    var url, res, data, dateRgx, dateStr, tableRgx, tableStr, klassen, motdAffectedRowRgx, motdAffected, motdContentRowRgxG, motdContentRowRgx, motdContentRows, motdContent, motd, refreshRgx, _a, _b, _c, _d, _e;
+    return __generator(this, function (_f) {
+        switch (_f.label) {
             case 0:
                 url = "https://vplan.ars-hochtaunus.de/subst_" + n.toString().padStart(3, '0') + ".htm";
                 return [4 /*yield*/, axios_1["default"].get(url, {
@@ -65,7 +65,7 @@ var parsePlan = function (n) { return __awaiter(_this, void 0, void 0, function 
                         responseEncoding: 'binary'
                     })["catch"](function (_) { return null; })];
             case 1:
-                res = _g.sent();
+                res = _f.sent();
                 if (res === null)
                     return [2 /*return*/, library_1.log("resIsNull: ", { vplan: {} })];
                 data = iso88592.decode(res.data.toString('binary'));
@@ -94,22 +94,21 @@ var parsePlan = function (n) { return __awaiter(_this, void 0, void 0, function 
                 refreshRgx = /<meta http-equiv="refresh" content="12; URL=subst_001.htm">/;
                 if (refreshRgx.test(data))
                     return [2 /*return*/, {
-                            vplan: (_e = {}, _e[dateStr] = {
+                            vplan: (_d = {}, _d[dateStr] = {
                                 day: dateStr,
                                 motd: motd,
                                 klassen: klassen
-                            }, _e)
+                            }, _d)
                         }];
                 _a = {};
-                _b = library_1.sortKeysBy;
-                _c = mergeData;
-                _d = [(_f = {}, _f[dateStr] = {
+                _b = mergeData;
+                _c = [(_e = {}, _e[dateStr] = {
                         day: dateStr,
                         motd: motd,
                         klassen: klassen
-                    }, _f)];
+                    }, _e)];
                 return [4 /*yield*/, parsePlan(n + 1)];
-            case 2: return [2 /*return*/, (_a.vplan = _b.apply(void 0, [_c.apply(void 0, _d.concat([((_g.sent()).vplan)])), compareDates]),
+            case 2: return [2 /*return*/, (_a.vplan = _b.apply(void 0, _c.concat([((_f.sent()).vplan)])),
                     _a)];
         }
     });
@@ -165,6 +164,7 @@ app.use(userLog(function (reqPath, lastVisit) {
     if (lastVisit === null)
         totalUsers++;
 }));
+app.get('/ping', function (req, res) { return res.contentType('text/plain').send('"true"'); });
 app.get('/pro', library_1.staticFile('public/index.html'));
 app.get('/beta', library_1.staticFile('public/beta.html'));
 app.get('/main.css', library_1.staticFile('public/main.css'));

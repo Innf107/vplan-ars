@@ -83,7 +83,3 @@ function objFromEntries(entries) {
     var _b;
 }
 exports.objFromEntries = objFromEntries;
-function sortKeysBy(x, f) {
-    return objFromEntries(Object.entries(x).sort(function (x, y) { return f(x[0], y[0]); }));
-}
-exports.sortKeysBy = sortKeysBy;
