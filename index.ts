@@ -200,7 +200,7 @@ try {
     const credentials = {
         key: privateKey,
         cert: certificate,
-        //ca
+        ca: ca
     }
 
     if(!privateKey || !certificate)

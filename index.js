@@ -211,7 +211,8 @@ try {
     var ca = fs.read('/etc/letsencrypt/live/vplan-ars.spdns.de/chain.pem', 'utf8');
     var credentials = {
         key: privateKey,
-        cert: certificate
+        cert: certificate,
+        ca: ca
     };
     if (!privateKey || !certificate)
         throw new Error("credentials do not exist!");
