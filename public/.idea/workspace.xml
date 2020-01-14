@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="39dcbe99-b2f8-4b2f-92cf-e3ceecd3e620" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../TODO" beforeDir="false" afterPath="$PROJECT_DIR$/../TODO" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/personal.js" beforeDir="false" afterPath="$PROJECT_DIR$/personal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.elm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Personal.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Personal.elm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Teacher.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Teacher.elm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sw.js" beforeDir="false" afterPath="$PROJECT_DIR$/sw.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher.js" beforeDir="false" afterPath="$PROJECT_DIR$/teacher.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +154,9 @@
       <workItem from="1577047025140" duration="600000" />
       <workItem from="1577191412288" duration="1030000" />
       <workItem from="1577274489408" duration="49000" />
-      <workItem from="1577280104156" duration="3289000" />
+      <workItem from="1577280104156" duration="3677000" />
+      <workItem from="1577289756372" duration="9000" />
+      <workItem from="1577844273475" duration="64000" />
     </task>
     <servers />
   </component>
@@ -198,10 +190,10 @@
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
     <state x="488" y="173" key="SettingsEditor/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1576943166549" />
-    <state x="672" y="366" key="com.intellij.ide.util.TipDialog" timestamp="1577274494803">
+    <state x="672" y="366" key="com.intellij.ide.util.TipDialog" timestamp="1577289757551">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>
-    <state x="672" y="366" key="com.intellij.ide.util.TipDialog/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577274494803" />
+    <state x="672" y="366" key="com.intellij.ide.util.TipDialog/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577289757551" />
     <state x="367" y="265" key="new project wizard" timestamp="1577274536287">
       <screen x="62" y="0" width="1858" height="1080" />
     </state>

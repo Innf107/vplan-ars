@@ -2,12 +2,12 @@
 <html lang="de">
     <head>
         <meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="viewport" content="width=device-width, initial-scale=0.8, shrink-to-fit=no">
 	    <meta name="description" content="Inoffizieller Vertretungsplan der ARS">
         <meta name="google-site-verification" content="ofYOY0C0C1BSboF5GZWPqePsTHzN3eyNyY6TwCE1AQ4" />
         <title>VPlan ARS</title>
         <link rel="manifest" href="/manifest.webmanifest">
-        <link rel="stylesheet" href="select.css">
+        <!-- <link rel="stylesheet" href="select.css"> -->
         <script>
             if('serviceWorker' in navigator){
                 window.addEventListener('load', () => {
@@ -19,26 +19,31 @@
                 })
             }
         </script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
-    <body>
-        <h1><a href="/pro">VPlan Pro</a></h1>
-        <!--<h1><a href="/beta">VPlan Beta</a></h1>-->
-        <h1><a href="/teacher">VPlan Lehrer</a></h1>
-        <h1><a href="/personal">VPlan Personal (NEU!)</a></h1>
+    <body class="bg-dark">
+        <br>
+        <div class="container">
+            <div class="btn-group-vertical">
+                <div class="alert alert-primary">
+                    <h2>Viel Glück an alle Realschüler, die diese Woche ihre Abschlusspräsentation halten!</h2>
+                </div>
+                <a href="/pro" class="rounded-top btn btn-secondary btn-block"><h1 class="font-weight-bold">VPlan Pro</h1></a>
+                <a href="/teacher" class="btn btn-secondary btn-block"><h1 class="font-weight-bold">VPlan Lehrer</h1></a>
+                <a href="/personal" class="rounded-bottom btn btn-secondary btn-block"><h1 class="font-weight-bold">VPlan Personal <span class="badge badge-pill badge-info">NEU!</span></h1></a>
+            </div>
+        </div>
         <br>
         <br>
         <br>
         <br>
         <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <a href=https://www.instagram.com/vplan_ars/>Instagram</a>
-        <br>
-        <a href=https://chat.whatsapp.com/Ckwan6jvAtpLvBSgZ1StDL/>WhatsApp</a>
-        <br>
-        <a href="/json">JSON API</a>
+        <footer style="margin-top: auto;">
+            <div class="container">
+                <p><a href=https://www.instagram.com/vplan_ars/>Instagram</a></p>
+                <p><a href=https://chat.whatsapp.com/Ckwan6jvAtpLvBSgZ1StDL/>WhatsApp</a></p>
+                <p><a href="/json">JSON API</a></p>
+            </div>
+        </footer>
     </body>
 </html>
