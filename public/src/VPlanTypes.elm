@@ -45,7 +45,7 @@ uHourDecoder = JD.map5 UntisHour
 uKlasseDecoder : Decoder UntisKlasse
 uKlasseDecoder = JD.map2 UntisKlasse
                 (JD.field "name" JD.string)
-                (JD.field "hours" (d2ListDecoder uHourDecoder))
+                (JD.field "hours" (JD.list uHourDecoder))
 
 uDayDecoder : Decoder UntisDay
 uDayDecoder = JD.map3 UntisDay

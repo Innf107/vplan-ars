@@ -10,7 +10,8 @@ import Axios from 'axios'
 import http =require('http')
 import https = require('https')
 import sanitize = require('sanitize-filename')
-import {split, mergeByWith, matchAll, wait, log, logOnly, staticFile, mapToObj, mergeObjWith} from './library'
+import {split, mergeByWith, matchAll, wait, log, logOnly, staticFile, mapToObj, mergeObjWith, resolveAllFlat, mergeObjWithFlat, flatMap, 
+        flatten, id, mergeByWithFlat, objFromEntries, resolveAll, map} from './library'
 import userLog = require('./userLog')
 const app = express()
 const HTTPPORT = 5000
@@ -89,8 +90,15 @@ const mergeData = (a: {[day:string]:UntisDay}, b: {[day:string]:UntisDay}) : {[d
         day: x.day,
         motd: y.motd,
         klassen: mergeObjWith (x.klassen, y.klassen,
-            (x, y) => {return {name:x.name, hours: mergeObjWith (x.hours, y.hours, (x, y) => y)}}), //TODO: mergeKlassen(x.klassen, y.klassen)
+            (x, y) => {return {name:x.name, hours: [...x.hours, ...y.hours]}}),
     }})
+
+const mergeHoursFlat = ([kx, vx]:[string, UntisHour], [ky, vy]:[string, UntisHour]): {[k:string]:UntisHour}  => {
+    return {
+        [kx]:vx,
+        [ky + "'"]:vy
+    }
+}
 
 
 const compareDates = (x: string, y: string) => {
@@ -122,18 +130,18 @@ const matchKlassen = (tableStr: string) : RegExpMatchArray[] => {
     }
 }
 
-const matchHours = (childrenStr: string): {[hour:string]: UntisHour} => {
+const matchHours = (childrenStr: string): UntisHour[] => {
 //                                                                             Stunde                                     Vertreter                                                Fach                                           Raum                                      Vertretungs-Text
 //                                                                             1 - 2                                         DOB                                                   MAT                                            E10                                          Stattstunde
     const hourRgx  = /<tr class='list[^]*?'>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list"(?: align="center")>([^]+?)<\/td>\s*<\/tr>/
 
-    const results = mapToObj(matchAll(hourRgx, childrenStr), (match => [match[1], {
+    const results = map(matchAll(hourRgx, childrenStr), (match => {return {
         stunde: match[1],
         vertreter: match[2],
         fach: match[3],
         raum: match[4],
         vtext: match[5]
-    }]))
+    }}))
     return results
 }
 
@@ -230,7 +238,7 @@ interface UntisHour {
 
 interface UntisKlasse {
     name: string,
-    hours: {[hour: string]: UntisHour}
+    hours: UntisHour[]
 }
 
 interface UntisMOTD{
@@ -258,3 +266,6 @@ const update = async () => {
 fs.readAsync('../data/totalUsers').then(s => totalUsers = Number.parseInt(s))
 setInterval(update, UPDATERATE)
 update()
+
+
+export = {mergeData}

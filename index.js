@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -14,8 +15,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
         while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
                 case 0: case 1: t = op; break;
                 case 4: _.label++; return { value: op[1], done: false };
@@ -34,8 +35,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
-exports.__esModule = true;
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 var express = require("express");
 var xcss = require("prophet-xcss");
 var iso88592 = require("iso-8859-2");
@@ -51,8 +57,9 @@ var HTTPPORT = 5000;
 var HTTPSPORT = 5001;
 var UPDATERATE = 590000;
 var data;
-var parsePlan = function (n) { return __awaiter(_this, void 0, void 0, function () {
-    var url, res, data, dateRgx, dateStr, tableRgx, tableStr, klassen, motdAffectedRowRgx, motdAffected, motdContentRowRgxG, motdContentRowRgx, motdContentRows, motdContent, motd, refreshRgx, _a, _b, _c, _d, _e;
+var parsePlan = function (n) { return __awaiter(void 0, void 0, void 0, function () {
+    var url, res, data, dateRgx, dateStr, tableRgx, tableStr, klassen, motdAffectedRowRgx, motdAffected, motdContentRowRgxG, motdContentRowRgx, motdContentRows, motdContent, motd, refreshRgx, _a, _b, _c;
+    var _d, _e;
     return __generator(this, function (_f) {
         switch (_f.label) {
             case 0:
@@ -117,9 +124,18 @@ var mergeData = function (a, b) { return library_1.mergeObjWith(a, b, function (
     return {
         day: x.day,
         motd: y.motd,
-        klassen: library_1.mergeObjWith(x.klassen, y.klassen, function (x, y) { return { name: x.name, hours: library_1.mergeObjWith(x.hours, y.hours, function (x, y) { return y; }) }; })
+        klassen: library_1.mergeObjWith(x.klassen, y.klassen, function (x, y) { return { name: x.name, hours: __spreadArrays(x.hours, y.hours) }; })
     };
 }); };
+var mergeHoursFlat = function (_a, _b) {
+    var _c;
+    var kx = _a[0], vx = _a[1];
+    var ky = _b[0], vy = _b[1];
+    return _c = {},
+        _c[kx] = vx,
+        _c[ky + "'"] = vy,
+        _c;
+};
 var compareDates = function (x, y) {
     var xDate = Date.parse(x.match(/[0-9.]+/)[0]);
     var yDate = Date.parse(y.match(/[0-9.]+/)[0]);
@@ -141,20 +157,22 @@ var matchKlassen = function (tableStr) {
         return [];
     else {
         var remaining = tableStr.replace(match[1], '');
-        return [match[1].match(klasseRgx)].concat(matchKlassen(remaining));
+        return __spreadArrays([match[1].match(klasseRgx)], matchKlassen(remaining));
     }
 };
 var matchHours = function (childrenStr) {
     //                                                                             Stunde                                     Vertreter                                                Fach                                           Raum                                      Vertretungs-Text
     //                                                                             1 - 2                                         DOB                                                   MAT                                            E10                                          Stattstunde
     var hourRgx = /<tr class='list[^]*?'>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list" align="center">([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list"(?: align="center")?>([^]+?)<\/td>\s*<td class="list"(?: align="center")>([^]+?)<\/td>\s*<\/tr>/;
-    var results = library_1.mapToObj(library_1.matchAll(hourRgx, childrenStr), (function (match) { return [match[1], {
+    var results = library_1.map(library_1.matchAll(hourRgx, childrenStr), (function (match) {
+        return {
             stunde: match[1],
             vertreter: match[2],
             fach: match[3],
             raum: match[4],
             vtext: match[5]
-        }]; }));
+        };
+    }));
     return results;
 };
 //API
@@ -227,7 +245,7 @@ catch (_a) {
     httpserver.listen(HTTPPORT, function () { return console.log("HTTP Server listening on Port " + HTTPPORT); });
     console.log('cannot create HTTPS Server');
 }
-var update = function () { return __awaiter(_this, void 0, void 0, function () {
+var update = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, parsePlan(1)];
@@ -242,3 +260,4 @@ var update = function () { return __awaiter(_this, void 0, void 0, function () {
 fs.readAsync('../data/totalUsers').then(function (s) { return totalUsers = Number.parseInt(s); });
 setInterval(update, UPDATERATE);
 update();
+module.exports = { mergeData: mergeData };

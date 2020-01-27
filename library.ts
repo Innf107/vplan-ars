@@ -1,5 +1,6 @@
 import express = require('express')
 import path = require('path')
+import xcss = require('prophet-xcss')
 
 export function split<T>(a: T[], f: (x:T) => boolean) : [T[], T[]] {
     if(a.length === 0)
@@ -24,6 +25,18 @@ export function mergeObjWith<T>(a: {[k:string]: T}, b: {[k:string]: T}, f: (x:T,
     return objFromEntries(mergedEntries)
 } 
 
+export function mergeObjWithFlat<T>(a: {[k:string]: T}, b: {[k:string]: T}, f: (x:[string, T], y:[string, T]) => {[k:string]:T}): {[k:string]:T} {
+    const entriesA = Object.entries(a)
+    const entriesB = Object.entries(b)
+
+    const mergedEntries = mergeByWithFlat(entriesA, entriesB, 
+        (x, y) => x[0] === y[0],
+        (x, y) => Object.entries(f(x, y))
+    )
+
+    return objFromEntries(mergedEntries)
+}
+
 export function mergeByWith<T>(a: T[], b: T[], match: (x: T, y:T) => boolean, resolve: (x: T, y:T) => T) : T[]{
     if(a[0] === undefined)
         return b
@@ -35,10 +48,43 @@ export function mergeByWith<T>(a: T[], b: T[], match: (x: T, y:T) => boolean, re
 
 
     if(matched.length > 0){
-        return [[x, ...matched].reduce((x, y) => resolve(x, y)), ...mergeByWith(xs, failed, match, resolve)]
+        return [resolveAll([x, ...matched], resolve), ...mergeByWith(xs, failed, match, resolve)]
     }
     else
         return [x, ...mergeByWith(xs, b, match, resolve)]
+}
+
+export function mergeByWithFlat<T>(a: T[], b: T[], match: (x: T, y:T) => boolean, resolve: (x: T, y:T) => T[]) : T[]{
+    if(a[0] === undefined)
+        return b
+    if(b[0] === undefined)
+        return a
+
+    const [x, ...xs] = a
+    const [matched, failed] = split(b, y => match(x, y))
+
+
+    if(matched.length > 0){
+        return [...resolveAllFlat([x, ...matched], resolve), ...mergeByWithFlat(xs, failed, match, resolve)]
+    }
+    else
+        return [x, ...mergeByWithFlat(xs, b, match, resolve)]
+
+}
+
+export function resolveAllFlat<A>(a: A[], resolve:(x:A, y:A) => A[]):A[] {
+    if(a.length == 0)
+        return []
+    if(a.length == 1)
+        return [a[0]]
+    
+    const [x, y, ...xs] = a
+
+    return [...resolve(x, y), ...resolveAllFlat([y, ...xs], resolve)]
+}
+
+export function resolveAll<A>(a: A[], resolve: (x:A, y:A) => A):A {
+    return a.reduce(resolve)
 }
 
 export const matchAll = (rgx: RegExp, str: string): RegExpMatchArray[] => {
@@ -79,4 +125,19 @@ export function objFromEntries<V>(entries: [string, V][]){
     const [[k, v], ...xs] = entries
     
     return {...{[k]:v}, ...objFromEntries(xs)}
+}
+
+export function flatten<A>(xs: A[][]):A[]{return flatMap(xs, id)}
+
+export function flatMap<A, B>(l : A[], f:(x:A) => B[]):B[]{
+    if(l.length == 0)
+        return []
+    const [x, ...xs] = l
+    return [...f(x), ...flatMap(xs, f)]
+}
+
+export function id<A>(x:A){return x}
+
+export function map<A, B>(xs: A[], f:(x:A) => B):B[]{
+    return xs.map(f)
 }

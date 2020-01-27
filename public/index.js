@@ -6333,7 +6333,7 @@ var $author$project$VPlanTypes$uKlasseDecoder = A3(
 	A2(
 		$elm$json$Json$Decode$field,
 		'hours',
-		$author$project$VPlanTypes$d2ListDecoder($author$project$VPlanTypes$uHourDecoder)));
+		$elm$json$Json$Decode$list($author$project$VPlanTypes$uHourDecoder)));
 var $author$project$VPlanTypes$uDayDecoder = A4(
 	$elm$json$Json$Decode$map3,
 	$author$project$VPlanTypes$UntisDay,

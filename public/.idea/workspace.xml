@@ -30,7 +30,7 @@
     <elmProjects>
       <project path="$PROJECT_DIR$/elm.json" />
     </elmProjects>
-    <settings elmCompilerPath="/usr/local/bin/elm" elmFormatPath="/usr/local/bin/elm-format" elmTestPath="/usr/local/bin/elm-test" isElmFormatOnSaveEnabled="false" />
+    <settings elmCompilerPath="$USER_HOME$/.nvm/versions/node/v13.6.0/bin/elm" elmFormatPath="" elmTestPath="" isElmFormatOnSaveEnabled="false" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -56,15 +56,16 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Elm" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/elm.json" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="org.elm.workspace.ui.ElmWorkspaceConfigurable" />
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
@@ -157,6 +158,8 @@
       <workItem from="1577280104156" duration="3677000" />
       <workItem from="1577289756372" duration="9000" />
       <workItem from="1577844273475" duration="64000" />
+      <workItem from="1580147720746" duration="633000" />
+      <workItem from="1580148363443" duration="47000" />
     </task>
     <servers />
   </component>
@@ -182,17 +185,20 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="774" y="282" key="FileChooserDialogImpl" timestamp="1577274526278">
-      <screen x="62" y="0" width="1858" height="1080" />
+    <state x="1320" y="254" width="424" height="482" key="FileChooserDialogImpl" timestamp="1580148290995">
+      <screen x="0" y="34" width="1920" height="1046" />
     </state>
+    <state x="1320" y="254" width="424" height="482" key="FileChooserDialogImpl/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580148290995" />
     <state x="774" y="282" key="FileChooserDialogImpl/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577274526278" />
-    <state x="488" y="173" key="SettingsEditor" timestamp="1576943166549">
-      <screen x="62" y="0" width="1858" height="1080" />
+    <state x="610" y="82" width="1251" height="730" key="SettingsEditor" timestamp="1580148041030">
+      <screen x="0" y="34" width="1920" height="1046" />
     </state>
+    <state x="610" y="82" width="1251" height="730" key="SettingsEditor/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580148041030" />
     <state x="488" y="173" key="SettingsEditor/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1576943166549" />
-    <state x="672" y="366" key="com.intellij.ide.util.TipDialog" timestamp="1577289757551">
-      <screen x="62" y="0" width="1858" height="1080" />
+    <state x="630" y="388" key="com.intellij.ide.util.TipDialog" timestamp="1580148364186">
+      <screen x="0" y="34" width="1920" height="1046" />
     </state>
+    <state x="630" y="388" key="com.intellij.ide.util.TipDialog/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580148364186" />
     <state x="672" y="366" key="com.intellij.ide.util.TipDialog/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577289757551" />
     <state x="367" y="265" key="new project wizard" timestamp="1577274536287">
       <screen x="62" y="0" width="1858" height="1080" />
