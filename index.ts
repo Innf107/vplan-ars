@@ -10,8 +10,8 @@ import Axios from 'axios'
 import http =require('http')
 import https = require('https')
 import sanitize = require('sanitize-filename')
-import {split, mergeByWith, matchAll, wait, log, logOnly, staticFile, mapToObj, mergeObjWith, resolveAllFlat, mergeObjWithFlat, flatMap, 
-        flatten, id, mergeByWithFlat, objFromEntries, resolveAll, map} from './library'
+import {split, mergeByWith, matchAll, wait, log, logOnly, staticFile, mapToObj, mergeObjWith, resolveAllFlat, 
+        mergeObjWithFlat, flatMap, flatten, id, mergeByWithFlat, objFromEntries, resolveAll, map} from './library'
 import userLog = require('./userLog')
 const app = express()
 const HTTPPORT = 5000
@@ -218,6 +218,9 @@ try {
     httpsServer.listen(HTTPSPORT, () => console.log(`HTTPS Server listening on port ${HTTPSPORT}`))
     
     const httpserver = express()
+    httpserver.get('/.well-known/acme-challenge/:fileName', (req, res) => {
+        res.sendFile(`/.well-known/acme-challenge/${req.params.fileName}`)
+    })
     httpserver.get('*', (req, res) => res.redirect(`https://${req.headers.host}${req.url}`))
     httpserver.listen(HTTPPORT, () => console.log(`HTTP Server listening on Port ${HTTPPORT}`))
 }

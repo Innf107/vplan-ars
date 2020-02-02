@@ -159,7 +159,9 @@
       <workItem from="1577289756372" duration="9000" />
       <workItem from="1577844273475" duration="64000" />
       <workItem from="1580147720746" duration="633000" />
-      <workItem from="1580148363443" duration="47000" />
+      <workItem from="1580148363443" duration="653000" />
+      <workItem from="1580511336885" duration="535000" />
+      <workItem from="1580511895241" duration="16000" />
     </task>
     <servers />
   </component>
@@ -185,24 +187,25 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="1320" y="254" width="424" height="482" key="FileChooserDialogImpl" timestamp="1580148290995">
+    <state x="519" y="148" width="424" height="482" key="FileChooserDialogImpl" timestamp="1580511868308">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
-    <state x="1320" y="254" width="424" height="482" key="FileChooserDialogImpl/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580148290995" />
+    <state x="519" y="148" width="424" height="482" key="FileChooserDialogImpl/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580511868308" />
     <state x="774" y="282" key="FileChooserDialogImpl/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577274526278" />
-    <state x="610" y="82" width="1251" height="730" key="SettingsEditor" timestamp="1580148041030">
+    <state x="610" y="82" width="1251" height="730" key="SettingsEditor" timestamp="1580511905589">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
-    <state x="610" y="82" width="1251" height="730" key="SettingsEditor/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580148041030" />
+    <state x="610" y="82" width="1251" height="730" key="SettingsEditor/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580511905589" />
     <state x="488" y="173" key="SettingsEditor/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1576943166549" />
-    <state x="630" y="388" key="com.intellij.ide.util.TipDialog" timestamp="1580148364186">
+    <state x="630" y="388" key="com.intellij.ide.util.TipDialog" timestamp="1580511374099">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
-    <state x="630" y="388" key="com.intellij.ide.util.TipDialog/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580148364186" />
+    <state x="630" y="388" key="com.intellij.ide.util.TipDialog/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580511374099" />
     <state x="672" y="366" key="com.intellij.ide.util.TipDialog/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577289757551" />
-    <state x="367" y="265" key="new project wizard" timestamp="1577274536287">
-      <screen x="62" y="0" width="1858" height="1080" />
+    <state x="315" y="291" width="695" height="545" key="new project wizard" timestamp="1580511870265">
+      <screen x="0" y="34" width="1920" height="1046" />
     </state>
+    <state x="315" y="291" width="695" height="545" key="new project wizard/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580511870265" />
     <state x="367" y="265" key="new project wizard/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577274536287" />
     <state x="655" y="247" width="672" height="677" key="run.anything.popup" timestamp="1577283213310">
       <screen x="62" y="0" width="1858" height="1080" />
