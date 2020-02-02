@@ -221,7 +221,7 @@ try {
     httpserver.get('/.well-known/acme-challenge/:fileName', (req, res) => {
         res.sendFile(`/.well-known/acme-challenge/${req.params.fileName}`)
     })
-    httpserver.get('*', (req, res) => res.redirect(`https://${req.headers.host}${req.url}`))
+    httpserver.get(/^[^.]*$/, (req, res) => res.redirect(`https://${req.headers.host}${req.url}`))
     httpserver.listen(HTTPPORT, () => console.log(`HTTP Server listening on Port ${HTTPPORT}`))
 }
 catch{
