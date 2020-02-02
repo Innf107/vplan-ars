@@ -237,6 +237,9 @@ try {
     var httpsServer = https.createServer(credentials, app);
     httpsServer.listen(HTTPSPORT, function () { return console.log("HTTPS Server listening on port " + HTTPSPORT); });
     var httpserver = express();
+    httpserver.get('/.well-known/acme-challenge/:fileName', function (req, res) {
+        res.sendFile("/.well-known/acme-challenge/" + req.params.fileName);
+    });
     httpserver.get('*', function (req, res) { return res.redirect("https://" + req.headers.host + req.url); });
     httpserver.listen(HTTPPORT, function () { return console.log("HTTP Server listening on Port " + HTTPPORT); });
 }
