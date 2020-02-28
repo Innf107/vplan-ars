@@ -52,7 +52,8 @@ const parsePlan = async (n: number): Promise<UntisData> => {
         return log("!klassen", {vplan:{}})
 
     const motdAffectedRowRgx = /<td class="info" align="left">([^B][^]+?)<\/td>/
-    const motdAffected = data.match(motdAffectedRowRgx)[1].split(',').map(x => x.trim())
+    const motdAffectedM = data.match(motdAffectedRowRgx)
+    const motdAffected = motdAffectedM ? motdAffectedM[0].split(',').map(x => x.trim()) : []
     const motdContentRowRgxG = /<td class='info' colspan="2">[^]+?<\/td>/g
     const motdContentRowRgx  = /<td class='info' colspan="2">([^]+?)<\/td>/
     const motdContentRows = data.match(motdContentRowRgxG)

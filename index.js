@@ -58,7 +58,7 @@ var HTTPSPORT = 5001;
 var UPDATERATE = 590000;
 var data;
 var parsePlan = function (n) { return __awaiter(void 0, void 0, void 0, function () {
-    var url, res, data, dateRgx, dateStr, tableRgx, tableStr, klassen, motdAffectedRowRgx, motdAffected, motdContentRowRgxG, motdContentRowRgx, motdContentRows, motdContent, motd, refreshRgx, _a, _b, _c;
+    var url, res, data, dateRgx, dateStr, tableRgx, tableStr, klassen, motdAffectedRowRgx, motdAffectedM, motdAffected, motdContentRowRgxG, motdContentRowRgx, motdContentRows, motdContent, motd, refreshRgx, _a, _b, _c;
     var _d, _e;
     return __generator(this, function (_f) {
         switch (_f.label) {
@@ -89,7 +89,8 @@ var parsePlan = function (n) { return __awaiter(void 0, void 0, void 0, function
                 if (!klassen)
                     return [2 /*return*/, library_1.log("!klassen", { vplan: {} })];
                 motdAffectedRowRgx = /<td class="info" align="left">([^B][^]+?)<\/td>/;
-                motdAffected = data.match(motdAffectedRowRgx)[1].split(',').map(function (x) { return x.trim(); });
+                motdAffectedM = data.match(motdAffectedRowRgx);
+                motdAffected = motdAffectedM ? motdAffectedM[0].split(',').map(function (x) { return x.trim(); }) : [];
                 motdContentRowRgxG = /<td class='info' colspan="2">[^]+?<\/td>/g;
                 motdContentRowRgx = /<td class='info' colspan="2">([^]+?)<\/td>/;
                 motdContentRows = data.match(motdContentRowRgxG);
