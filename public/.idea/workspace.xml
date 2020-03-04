@@ -61,6 +61,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Elm" />
+    <property name="go.import.settings.migrated" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/elm.json" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -162,6 +163,7 @@
       <workItem from="1580148363443" duration="653000" />
       <workItem from="1580511336885" duration="535000" />
       <workItem from="1580511895241" duration="16000" />
+      <workItem from="1583336719645" duration="1915000" />
     </task>
     <servers />
   </component>
@@ -192,10 +194,10 @@
     </state>
     <state x="519" y="148" width="424" height="482" key="FileChooserDialogImpl/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580511868308" />
     <state x="774" y="282" key="FileChooserDialogImpl/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577274526278" />
-    <state x="610" y="82" width="1251" height="730" key="SettingsEditor" timestamp="1580511905589">
+    <state x="610" y="82" width="1251" height="730" key="SettingsEditor" timestamp="1583336724620">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
-    <state x="610" y="82" width="1251" height="730" key="SettingsEditor/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580511905589" />
+    <state x="610" y="82" width="1251" height="730" key="SettingsEditor/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1583336724620" />
     <state x="488" y="173" key="SettingsEditor/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1576943166549" />
     <state x="630" y="388" key="com.intellij.ide.util.TipDialog" timestamp="1580511374099">
       <screen x="0" y="34" width="1920" height="1046" />

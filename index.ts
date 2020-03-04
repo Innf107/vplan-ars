@@ -10,6 +10,7 @@ import Axios from 'axios'
 import http =require('http')
 import https = require('https')
 import sanitize = require('sanitize-filename')
+import cors = require('cors')
 import {split, mergeByWith, matchAll, wait, log, logOnly, staticFile, mapToObj, mergeObjWith, resolveAllFlat, 
         mergeObjWithFlat, flatMap, flatten, id, mergeByWithFlat, objFromEntries, resolveAll, map} from './library'
 import userLog = require('./userLog')
@@ -148,6 +149,8 @@ const matchHours = (childrenStr: string): UntisHour[] => {
 
 //API
 app.use(xcss([`./public`]))
+
+app.use(cors())
 
 let totalUsers = 0
 

@@ -50,6 +50,7 @@ var axios_1 = require("axios");
 var http = require("http");
 var https = require("https");
 var sanitize = require("sanitize-filename");
+var cors = require("cors");
 var library_1 = require("./library");
 var userLog = require("./userLog");
 var app = express();
@@ -178,6 +179,7 @@ var matchHours = function (childrenStr) {
 };
 //API
 app.use(xcss(["./public"]));
+app.use(cors());
 var totalUsers = 0;
 app.use(userLog(function (reqPath, lastVisit) {
     if (lastVisit === null)
