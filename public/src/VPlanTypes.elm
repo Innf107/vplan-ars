@@ -304,7 +304,7 @@ resolveKuerzel kuerzel ve = case ve of
 
 viewKlasse : UntisKlasse -> List StorageItem -> List (Html msg)
 viewKlasse klasse kuerzel =
-        tr [A.class "klasse expanded"] [
+        tr [A.class "klasse expanded klasseHeader"] [
             th [A.class "klasse expanded", A.colspan 5] [
                 button [A.class "klasse expanded"] [text klasse.name]
             ]

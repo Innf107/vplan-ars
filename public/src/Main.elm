@@ -128,7 +128,6 @@ viewLoaded : Model -> VPlan -> List (Html Msg)
 viewLoaded model vplan = [
         (if not model.online then h3 [A.class "alert"] [text "Offline! Das ist der letzte Stand des Vertretungsplans."]
         else text ""),
-        h1 [] [text "Vertretungsplan ARS"],
         case model.inFeedback of
             True  -> viewFeedback model
             False -> case getAt model.selectedDay vplan of
@@ -141,8 +140,11 @@ viewDay model vplan day =
     let dayAmount = List.length vplan in
     div [] [
         --a [A.class "backButton", A.href "/"] [text "zurück"],
-        L.lazy2 (\dayA selDay -> h3 [A.class "amountHeader"] [text <| (String.fromInt <| selDay + 1) ++ " / " ++ String.fromInt dayA]) dayAmount model.selectedDay,
-        L.lazy (\day_ -> h3 [A.class "dateHeader"] [text day_]) day.day,
+        div [A.class "headers"] [
+            h1 [] [text "Vertretungsplan ARS"],
+            L.lazy2 (\dayA selDay -> h3 [A.class "amountHeader"] [text <| (String.fromInt <| selDay + 1) ++ " / " ++ String.fromInt dayA]) dayAmount model.selectedDay,
+            L.lazy (\day_ -> h3 [A.class "dateHeader"] [text day_]) day.day
+        ],
         L.lazy (\() -> button [A.class "bleft",  onClick <| UpdateSelectedDay ((model.selectedDay - 1) |> modBy dayAmount)] [text "<—"]) (),
         L.lazy (\() -> button [A.class "bright", onClick <| UpdateSelectedDay ((model.selectedDay + 1) |> modBy dayAmount)] [text "—>"]) (),
         button [A.classList [("resolveKuerzel", True), ("active", model.resolveKuerzel)], onClick (UpdateKuerzelResolve (not model.resolveKuerzel))] [text "Kürzel auflösen"],
@@ -153,7 +155,7 @@ viewDay model vplan day =
 
 viewKlasseCollapsed : Model -> UntisKlasse -> List (Html Msg)
 viewKlasseCollapsed model klasse = [
-        tr [A.class "klasse collapsed"] [
+        tr [A.class "klasse collapsed klasseHeader"] [
             th [A.class "klasse collapsed", A.colspan 5] [
                 button [A.class "klasse collapsed", onClick (UpdateExpandedDays (klasse.name::model.expandedKlassen))] [text <| "➤" ++ klasse.name]
             ]
@@ -162,7 +164,7 @@ viewKlasseCollapsed model klasse = [
 
 viewKlasseExpanded : Model -> UntisKlasse -> List (Html Msg)
 viewKlasseExpanded model klasse =
-        tr [A.class "klasse expanded"] [
+        tr [A.class "klasse expanded klasseHeader"] [
             th [A.class "klasse expanded", A.colspan 5] [
                 button [A.class "klasse expanded", onClick (UpdateExpandedDays (delete klasse.name model.expandedKlassen))] [text <| "▼" ++ klasse.name]
             ]
@@ -180,10 +182,10 @@ viewKlasseExpanded model klasse =
 
 viewMOTD : Model -> UntisDay -> Html Msg
 viewMOTD model day =
-    ul [A.class "motd"] <|
-        li [A.class "motd header"] [
+    div [A.class "motd"] <|
+        div [A.class "motd header"] [
             button [A.class "motd header", E.onClick (UpdateMOTDExpansion (not model.expandedMOTD))] [text <| (if model.expandedMOTD then "⯆" else "➤") ++ " Nachrichten zum Tag" ]
-        ]::(if model.expandedMOTD then List.map (\m -> li [A.class "motd elem"] [text m]) day.motd else [])
+        ]::(if model.expandedMOTD then List.map (\m -> div [A.class "motd elem"] [text m]) day.motd else [])
 
 viewFeedback : Model -> Html Msg
 viewFeedback model = div [] [

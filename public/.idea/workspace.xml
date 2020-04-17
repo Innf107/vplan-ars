@@ -4,7 +4,6 @@
     <list default="true" id="39dcbe99-b2f8-4b2f-92cf-e3ceecd3e620" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/Main.elmo" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/Main.elmo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmi" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmi" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmo" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/d.dat" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/d.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
@@ -165,7 +164,7 @@
       <workItem from="1586260704295" duration="9000" />
       <workItem from="1587141895005" duration="2000" />
       <workItem from="1587141905753" duration="1670000" />
-      <workItem from="1587143587231" duration="587000" />
+      <workItem from="1587143587231" duration="4579000" />
     </task>
     <servers />
   </component>
