@@ -244,3 +244,23 @@ button.motd.header{
     background-color: var(--switchActiveBG);
     color: var(--swithActiveFG);
 }
+
+
+.navbar {
+    display: grid;
+    gap: 0;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+    margin-bottom: 1%;
+}
+
+.navbar * {
+    background-color: #5f5f5f;
+    padding: 1rem;
+    text-align: center;
+    color: black;
+}
+
+.navbar .active {
+    background-color: rgb(0, 184, 168);
+}

@@ -3,6 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="39dcbe99-b2f8-4b2f-92cf-e3ceecd3e620" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/Main.elmo" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/Main.elmo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmi" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmi" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmo" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/d.dat" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/d.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personal.js" beforeDir="false" afterPath="$PROJECT_DIR$/personal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.elm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Personal.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Personal.elm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Teacher.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Teacher.elm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/VPlanTypes.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/VPlanTypes.elm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/teacher.js" beforeDir="false" afterPath="$PROJECT_DIR$/teacher.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +64,6 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -80,17 +91,23 @@
       <method v="2" />
     </configuration>
     <configuration name="buildFast.sh" type="ShConfigurationType">
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
       <option name="SCRIPT_PATH" value="$PROJECT_DIR$/buildFast.sh" />
       <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
       <option name="SCRIPT_WORKING_DIRECTORY" value="" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
       <option name="INTERPRETER_PATH" value="/bin/bash" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <method v="2" />
     </configuration>
     <configuration name="build.sh" type="ShConfigurationType">
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
       <option name="SCRIPT_PATH" value="$PROJECT_DIR$/build.sh" />
       <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
       <option name="SCRIPT_WORKING_DIRECTORY" value="" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
       <option name="INTERPRETER_PATH" value="/bin/bash" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <method v="2" />
@@ -99,26 +116,6 @@
       <item itemvalue="Shell Script.build.sh" />
       <item itemvalue="Shell Script.buildFast.sh" />
     </list>
-  </component>
-  <component name="SbtLocalSettings">
-    <option name="projectSyncType">
-      <map>
-        <entry key="$PROJECT_DIR$/../../VPlanAkka" value="PREVIEW" />
-        <entry key="$USER_HOME$/IdeaProjects/workbench-example-app" value="PREVIEW" />
-      </map>
-    </option>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -164,6 +161,11 @@
       <workItem from="1580511336885" duration="535000" />
       <workItem from="1580511895241" duration="16000" />
       <workItem from="1583336719645" duration="1915000" />
+      <workItem from="1583409415428" duration="11000" />
+      <workItem from="1586260704295" duration="9000" />
+      <workItem from="1587141895005" duration="2000" />
+      <workItem from="1587141905753" duration="1670000" />
+      <workItem from="1587143587231" duration="587000" />
     </task>
     <servers />
   </component>
@@ -180,38 +182,29 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="519" y="148" width="424" height="482" key="FileChooserDialogImpl" timestamp="1580511868308">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
     <state x="519" y="148" width="424" height="482" key="FileChooserDialogImpl/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580511868308" />
-    <state x="774" y="282" key="FileChooserDialogImpl/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577274526278" />
-    <state x="610" y="82" width="1251" height="730" key="SettingsEditor" timestamp="1583336724620">
+    <state x="610" y="82" width="1251" height="730" key="SettingsEditor" timestamp="1586260711135">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
-    <state x="610" y="82" width="1251" height="730" key="SettingsEditor/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1583336724620" />
-    <state x="488" y="173" key="SettingsEditor/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1576943166549" />
+    <state x="610" y="82" width="1251" height="730" key="SettingsEditor/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1586260711135" />
     <state x="630" y="388" key="com.intellij.ide.util.TipDialog" timestamp="1580511374099">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
     <state x="630" y="388" key="com.intellij.ide.util.TipDialog/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580511374099" />
-    <state x="672" y="366" key="com.intellij.ide.util.TipDialog/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577289757551" />
     <state x="315" y="291" width="695" height="545" key="new project wizard" timestamp="1580511870265">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
     <state x="315" y="291" width="695" height="545" key="new project wizard/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580511870265" />
-    <state x="367" y="265" key="new project wizard/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577274536287" />
-    <state x="655" y="247" width="672" height="677" key="run.anything.popup" timestamp="1577283213310">
-      <screen x="62" y="0" width="1858" height="1080" />
-    </state>
-    <state x="655" y="247" width="672" height="677" key="run.anything.popup/62.0.1858.1080/1920.15.1680.1050@62.0.1858.1080" timestamp="1577283213310" />
   </component>
 </project>

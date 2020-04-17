@@ -103,11 +103,14 @@ subs model = case model.vplan of
 view : Model -> Browser.Document Msg
 view model = {
             title="VPlan ARS",
-            body=case model.vplan of
+            body=
+            viewNavbar 0 ++
+            case model.vplan of
                 Loading -> viewLoading model
                 Error e -> viewError model e
                 Loaded x-> viewLoaded model x
         }
+
 
 viewLoading : Model -> List (Html Msg)
 viewLoading model = [
@@ -137,7 +140,7 @@ viewDay : Model -> VPlan -> UntisDay -> Html Msg
 viewDay model vplan day =
     let dayAmount = List.length vplan in
     div [] [
-        a [A.class "backButton", A.href "/"] [text "zurück"],
+        --a [A.class "backButton", A.href "/"] [text "zurück"],
         L.lazy2 (\dayA selDay -> h3 [A.class "amountHeader"] [text <| (String.fromInt <| selDay + 1) ++ " / " ++ String.fromInt dayA]) dayAmount model.selectedDay,
         L.lazy (\day_ -> h3 [A.class "dateHeader"] [text day_]) day.day,
         L.lazy (\() -> button [A.class "bleft",  onClick <| UpdateSelectedDay ((model.selectedDay - 1) |> modBy dayAmount)] [text "<—"]) (),

@@ -6921,7 +6921,6 @@ var $author$project$Main$UpdateKuerzelResolve = function (a) {
 var $author$project$Main$UpdateSelectedDay = function (a) {
 	return {$: 6, a: a};
 };
-var $elm$html$Html$a = _VirtualDom_node('a');
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$core$List$filter = F2(
 	function (isGood, list) {
@@ -6961,12 +6960,6 @@ var $elm$core$List$concatMap = F2(
 			A2($elm$core$List$map, f, list));
 	});
 var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$html$Html$Attributes$href = function (url) {
-	return A2(
-		$elm$html$Html$Attributes$stringProperty,
-		'href',
-		_VirtualDom_noJavaScriptUri(url));
-};
 var $elm$virtual_dom$VirtualDom$lazy = _VirtualDom_lazy;
 var $elm$html$Html$Lazy$lazy = $elm$virtual_dom$VirtualDom$lazy;
 var $elm$virtual_dom$VirtualDom$lazy2 = _VirtualDom_lazy2;
@@ -8125,17 +8118,6 @@ var $author$project$Main$viewDay = F3(
 			_List_Nil,
 			_List_fromArray(
 				[
-					A2(
-					$elm$html$Html$a,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$class('backButton'),
-							$elm$html$Html$Attributes$href('/')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text('zurück')
-						])),
 					A3(
 					$elm$html$Html$Lazy$lazy2,
 					F2(
@@ -8380,21 +8362,90 @@ var $author$project$Main$viewLoading = function (model) {
 			_List_Nil)
 		]);
 };
+var $elm$html$Html$a = _VirtualDom_node('a');
+var $elm$html$Html$Attributes$href = function (url) {
+	return A2(
+		$elm$html$Html$Attributes$stringProperty,
+		'href',
+		_VirtualDom_noJavaScriptUri(url));
+};
+var $author$project$VPlanTypes$viewNavbar = function (n) {
+	var mActive = F2(
+		function (m, xs) {
+			return _Utils_eq(n, m) ? _List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('active')
+				]) : xs;
+		});
+	return _List_fromArray(
+		[
+			A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('navbar')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$a,
+					A2(
+						mActive,
+						0,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$href('/pro')
+							])),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Pro')
+						])),
+					A2(
+					$elm$html$Html$a,
+					A2(
+						mActive,
+						1,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$href('/teacher')
+							])),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Lehrer')
+						])),
+					A2(
+					$elm$html$Html$a,
+					A2(
+						mActive,
+						2,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$href('/personal')
+							])),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Personal')
+						]))
+				]))
+		]);
+};
 var $author$project$Main$view = function (model) {
 	return {
-		af: function () {
-			var _v0 = model.I;
-			switch (_v0.$) {
-				case 0:
-					return $author$project$Main$viewLoading(model);
-				case 1:
-					var e = _v0.a;
-					return A2($author$project$Main$viewError, model, e);
-				default:
-					var x = _v0.a;
-					return A2($author$project$Main$viewLoaded, model, x);
-			}
-		}(),
+		af: _Utils_ap(
+			$author$project$VPlanTypes$viewNavbar(0),
+			function () {
+				var _v0 = model.I;
+				switch (_v0.$) {
+					case 0:
+						return $author$project$Main$viewLoading(model);
+					case 1:
+						var e = _v0.a;
+						return A2($author$project$Main$viewError, model, e);
+					default:
+						var x = _v0.a;
+						return A2($author$project$Main$viewLoaded, model, x);
+				}
+			}()),
 		bi: 'VPlan ARS'
 	};
 };

@@ -320,6 +320,17 @@ viewKlasse klasse kuerzel =
             )
         klasse.hours
 
+viewNavbar : Int -> List (Html msg)
+viewNavbar n = let mActive m xs = if n == m then [A.class "active"] else xs in
+    [
+        div [A.class "navbar"]
+        [ a (mActive 0 [A.href "/pro"])      [text "Pro"]
+        , a (mActive 1 [A.href "/teacher"])  [text "Lehrer"]
+        , a (mActive 2 [A.href "/personal"]) [text "Personal"]
+        ]
+    ]
+
+
 strFromBool : Bool -> String
 strFromBool b = case b of
     True -> "true"

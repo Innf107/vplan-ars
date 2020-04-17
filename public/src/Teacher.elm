@@ -69,6 +69,7 @@ view : Model -> Browser.Document Msg
 view model = {
         title="VPlan Lehrer",
         body=
+            viewNavbar 1 ++
             (case model.vplan of
                 Loading  -> viewLoading model
                 Error e  -> viewError model e
@@ -89,7 +90,7 @@ viewError model error = [
 
 viewLoaded : Model -> VPlan -> List (Html Msg)
 viewLoaded model vplan = [
-        a [A.class "backButton", A.href "/"] [text "zurück"],
+        --a [A.class "backButton", A.href "/"] [text "zurück"],
         (if not model.online then h3 [A.class "alert"] [text "Offline! Das ist der letzte Stand des Vertretungsplans."]
         else text ""),
         h1 [] [text "Vertretungsplan Lehrer"]]

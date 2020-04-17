@@ -76,7 +76,9 @@ update msg model = case msg of
 view : Model -> Browser.Document Msg
 view model = {
         title="VPlan Personal",
-        body=case model.panic of
+        body=
+        viewNavbar 2 ++
+        case model.panic of
             Just p -> viewPanic p
             Nothing -> case model.vplan of
                 Loading  -> viewLoading
@@ -96,7 +98,7 @@ viewPanic p = [
 
 viewLoaded : Model -> VPlan -> List (Html Msg)
 viewLoaded model vplan = [
-        a [A.class "backButton", A.href "/"] [text "zurück"],
+        --a [A.class "backButton", A.href "/"] [text "zurück"],
         (if not model.online then h3 [A.class "alert"] [text "Offline! Das ist der letzte Stand des Vertretungsplans."]
         else text ""),
         h1 [] [text "Vertretungsplan ARS"]]

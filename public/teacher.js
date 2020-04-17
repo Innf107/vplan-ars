@@ -7016,7 +7016,6 @@ var $author$project$Teacher$viewError = F2(
 					]))
 			]);
 	});
-var $elm$html$Html$a = _VirtualDom_node('a');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -7027,12 +7026,6 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 	});
 var $elm$html$Html$Attributes$class = $elm$html$Html$Attributes$stringProperty('className');
 var $elm$html$Html$h3 = _VirtualDom_node('h3');
-var $elm$html$Html$Attributes$href = function (url) {
-	return A2(
-		$elm$html$Html$Attributes$stringProperty,
-		'href',
-		_VirtualDom_noJavaScriptUri(url));
-};
 var $author$project$Teacher$UpdateSelectedDay = function (a) {
 	return {$: 4, a: a};
 };
@@ -7799,17 +7792,6 @@ var $author$project$Teacher$viewLoaded = F2(
 		return _Utils_ap(
 			_List_fromArray(
 				[
-					A2(
-					$elm$html$Html$a,
-					_List_fromArray(
-						[
-							$elm$html$Html$Attributes$class('backButton'),
-							$elm$html$Html$Attributes$href('/')
-						]),
-					_List_fromArray(
-						[
-							$elm$html$Html$text('zurück')
-						])),
 					(!model.z) ? A2(
 					$elm$html$Html$h3,
 					_List_fromArray(
@@ -7872,21 +7854,91 @@ var $author$project$Teacher$viewLoading = function (model) {
 				]))
 		]);
 };
+var $elm$html$Html$a = _VirtualDom_node('a');
+var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$html$Html$Attributes$href = function (url) {
+	return A2(
+		$elm$html$Html$Attributes$stringProperty,
+		'href',
+		_VirtualDom_noJavaScriptUri(url));
+};
+var $author$project$VPlanTypes$viewNavbar = function (n) {
+	var mActive = F2(
+		function (m, xs) {
+			return _Utils_eq(n, m) ? _List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('active')
+				]) : xs;
+		});
+	return _List_fromArray(
+		[
+			A2(
+			$elm$html$Html$div,
+			_List_fromArray(
+				[
+					$elm$html$Html$Attributes$class('navbar')
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$elm$html$Html$a,
+					A2(
+						mActive,
+						0,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$href('/pro')
+							])),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Pro')
+						])),
+					A2(
+					$elm$html$Html$a,
+					A2(
+						mActive,
+						1,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$href('/teacher')
+							])),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Lehrer')
+						])),
+					A2(
+					$elm$html$Html$a,
+					A2(
+						mActive,
+						2,
+						_List_fromArray(
+							[
+								$elm$html$Html$Attributes$href('/personal')
+							])),
+					_List_fromArray(
+						[
+							$elm$html$Html$text('Personal')
+						]))
+				]))
+		]);
+};
 var $author$project$Teacher$view = function (model) {
 	return {
-		aW: function () {
-			var _v0 = model.E;
-			switch (_v0.$) {
-				case 0:
-					return $author$project$Teacher$viewLoading(model);
-				case 1:
-					var e = _v0.a;
-					return A2($author$project$Teacher$viewError, model, e);
-				default:
-					var v = _v0.a;
-					return A2($author$project$Teacher$viewLoaded, model, v);
-			}
-		}(),
+		aW: _Utils_ap(
+			$author$project$VPlanTypes$viewNavbar(1),
+			function () {
+				var _v0 = model.E;
+				switch (_v0.$) {
+					case 0:
+						return $author$project$Teacher$viewLoading(model);
+					case 1:
+						var e = _v0.a;
+						return A2($author$project$Teacher$viewError, model, e);
+					default:
+						var v = _v0.a;
+						return A2($author$project$Teacher$viewLoaded, model, v);
+				}
+			}()),
 		bg: 'VPlan Lehrer'
 	};
 };
