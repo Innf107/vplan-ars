@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 2adb45ea6344aafccfeaba6638a26577a57abbbe46d83b4c01500bb46de83d69
+-- hash: fb301b5d1c9c77d337191bc5499c64d2d3be12dde18e26742c2a63c0edd8b4e6
 
 name:           VPlanHS
 version:        0.1.0.0
@@ -40,6 +40,7 @@ library
     , http-client
     , http-client-tls
     , http-types
+    , regex-tdfa
     , scalpel
     , scotty
     , text
@@ -51,6 +52,7 @@ executable VPlanHS-exe
   other-modules:
       Scraper
       Types
+      XCSS
       Paths_VPlanHS
   hs-source-dirs:
       app
@@ -64,6 +66,7 @@ executable VPlanHS-exe
     , http-client
     , http-client-tls
     , http-types
+    , regex-tdfa
     , scalpel
     , scotty
     , text
@@ -87,6 +90,7 @@ test-suite VPlanHS-test
     , http-client
     , http-client-tls
     , http-types
+    , regex-tdfa
     , scalpel
     , scotty
     , text

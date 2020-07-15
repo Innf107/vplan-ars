@@ -17,9 +17,7 @@ import Control.Applicative
 
 managerSettings :: HTTP.ManagerSettings
 managerSettings = HTTP.tlsManagerSettings {
-        HTTP.managerModifyRequest = \req -> do
-            req' <- HTTP.managerModifyRequest HTTP.tlsManagerSettings req
-            return (HTTP.applyBasicAuth "vplan" "ars2013" req')
+        HTTP.managerModifyRequest = return . HTTP.applyBasicAuth "vplan" "ars2013"
         }
 
 
@@ -80,3 +78,16 @@ data KlasseData = KlasseName String
                 | KlasseHour Hour
                 deriving (Show, Eq)
 
+scrapeAll :: IO VPlan
+scrapeAll = mconcat <$> scrapeAll' 1
+    where
+        scrapeAll' :: Int -> IO [VPlan]
+        scrapeAll' i = do
+            mvp <- scrapePage i
+            case mvp of
+                Nothing -> return []
+                Just (x, lastPage) -> case lastPage of
+                    True -> return [x]
+                    False -> do
+                        mvps <- scrapeAll' (i + 1)
+                        return $ x:mvps

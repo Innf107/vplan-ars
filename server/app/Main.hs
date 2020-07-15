@@ -4,6 +4,7 @@ module Main where
 import Lib
 import Types
 import Scraper
+import XCSS
 import qualified Data.Aeson as A
 import qualified Data.ByteString.Lazy.UTF8 as BLU
 import qualified Data.ByteString.Lazy.Char8 as BLC
@@ -25,7 +26,7 @@ port :: Int
 port = 5000
 
 updateRate :: Second
-updateRate = 30
+updateRate = 5 * 60
 
 type Second = Double
 
@@ -37,10 +38,10 @@ main = do
     scotty port $ do
         S.get "/ping" $ S.text "\"true\""
         S.get "/pro" $ file "../public/index.html"
-        S.get "/main.css" $ file "../public/main.css"
-        S.get "/select.css" $ file "../public/select.css"
-        S.get "/teacher.css" $ file "../public/teacher.css"
-        S.get "/" $ file "../public/select.html"
+        S.get "/main.css" $ xcss "../public/main.css"
+        S.get "/select.css" $ xcss "../public/select.css"
+        S.get "/teacher.css" $ xcss "../public/teacher.css"
+        S.get "/" $ file "../public/index.html"
         S.get "/robots.txt" $ file "../robots.txt"
         S.get "/index.js" $ file "../public/index.js"
         S.get "/teacher" $ file "../public/teacher.html"
@@ -60,30 +61,13 @@ main = do
                 Just ks -> json $ (map (\(k, v) -> Kuerzel k v)) ks
         S.get "/json" $ liftIO (readMVar vpVar) >>= json
         S.put "/feedback" $ text "NYI"
-        S.get "/*" $ file "../404.html"
+        S.get (regex ".") $ file "../public/404.html"
 
 updateVPlan :: MVar VPlan -> IO ()
 updateVPlan vpVar = do
-        let loop = do
-                v <- scrapeAll
-                takeMVar vpVar
-                putMVar vpVar v
-                threadDelay $ floor $ 1e6 * updateRate
-                loop
-        loop
-
-
-scrapeAll :: IO VPlan
-scrapeAll = mconcat <$> scrapeAll' 1
-    where
-        scrapeAll' :: Int -> IO [VPlan]
-        scrapeAll' i = do
-            mvp <- scrapePage i
-            case mvp of 
-                Nothing -> return []
-                Just (x, lastPage) -> case lastPage of
-                    True -> return [x]
-                    False -> do
-                        mvps <- scrapeAll' (i + 1)
-                        return $ x:mvps
+            v <- scrapeAll
+            takeMVar vpVar
+            putMVar vpVar v
+            threadDelay $ floor $ 1e6 * updateRate
+            updateVPlan vpVar
 
