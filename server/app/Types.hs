@@ -14,6 +14,8 @@ import Data.List as L
 
 --TODO: Keep Strikethrough
 
+data Kuerzel = Kuerzel {key::String, value::String} deriving (Show, Eq, Generic, ToJSON, FromJSON)
+
 newtype VPlan = VPlan {vplan::[Day]} deriving (Show, Eq, Generic)
 
 instance ToJSON VPlan where

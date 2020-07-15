@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 17558af39e313c0adae52398532b461e902d652adeda792c15e90831a6eb6db6
+-- hash: 2adb45ea6344aafccfeaba6638a26577a57abbbe46d83b4c01500bb46de83d69
 
 name:           VPlanHS
 version:        0.1.0.0
@@ -41,6 +41,7 @@ library
     , http-client-tls
     , http-types
     , scalpel
+    , scotty
     , text
     , utf8-string
   default-language: Haskell2010
@@ -64,6 +65,7 @@ executable VPlanHS-exe
     , http-client-tls
     , http-types
     , scalpel
+    , scotty
     , text
     , utf8-string
   default-language: Haskell2010
@@ -86,6 +88,7 @@ test-suite VPlanHS-test
     , http-client-tls
     , http-types
     , scalpel
+    , scotty
     , text
     , utf8-string
   default-language: Haskell2010

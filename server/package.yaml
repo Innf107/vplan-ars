@@ -30,6 +30,7 @@ dependencies:
 - http-client
 - http-client-tls
 - http-types
+- scotty
 
 library:
   source-dirs: src
