@@ -25,10 +25,10 @@ import Control.Monad.IO.Class (liftIO)
 port :: Int
 port = 5000
 
-updateRate :: Second
+updateRate :: Seconds
 updateRate = 5 * 60
 
-type Second = Double
+type Seconds = Double
 
 main :: IO ()
 main = do
@@ -48,6 +48,7 @@ main = do
         S.get "/teacher.js" $ file "../public/teacher.js"
         S.get "/personal" $ file "../public/personal.html"
         S.get "/personal.js" $ file "../public/personal.js"
+        S.get "/personal.css" $ file "../public/personal.css"
         S.get "/sw.js" $ file "../public/sw.js"
         S.get "/manifest.webmanifest" $ file "../manifest.webmanifest"
         S.get "/logoMain.png" $ file "../logoMain.png"
@@ -61,7 +62,7 @@ main = do
                 Just ks -> json $ (map (\(k, v) -> Kuerzel k v)) ks
         S.get "/json" $ liftIO (readMVar vpVar) >>= json
         S.put "/feedback" $ text "NYI"
-        S.get (regex ".") $ file "../public/404.html"
+        notFound $ file "../public/404.html"
 
 updateVPlan :: MVar VPlan -> IO ()
 updateVPlan vpVar = do

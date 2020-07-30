@@ -14,7 +14,6 @@ xcss p = do
     userAgent <- (fromMaybe "") <$> S.header ("user-agent")
     let mobile :: Bool
         mobile = (TL.unpack userAgent) =~ ("(Android)|(iPhone)" :: String)
-    liftIO $ print userAgent
     f <- liftIO $ BLU.toString <$> BLC.readFile p
     setHeader "content-type" "text/css"
     raw $ BLU.fromString (xcssStr mobile f)

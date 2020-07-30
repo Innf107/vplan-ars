@@ -72,7 +72,7 @@ scrapePage i = do
         klasseHour :: Scraper String KlasseData
         klasseHour = KlasseHour <$> hour
 
-        hour = (\(s:v:f:r:vt:_) -> Hour s v f r vt) <$> texts ("td" @: [hasClass "list"])
+        hour = (\(s:v:f:r:vt:_) -> Hour s v f r vt) <$> innerHTMLs ("td" @: [hasClass "list"])
 
 data KlasseData = KlasseName String
                 | KlasseHour Hour

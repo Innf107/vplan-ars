@@ -22,11 +22,12 @@
     --primary-darker_OLD: #0E0E52;
 
     --secondary: #ed6b00;
+    --secondary-dark: #7c3800;
 
 
-    --larger: 300%;
-    --large: 200%;
-    --slightly-large: 150%;
+    --larger: 300% + 200%;
+    --large: 200% + 150%;
+    --slightly-large: 150% + 125%;
     --medium: 100%;}
 
 body {
@@ -71,7 +72,7 @@ h3 {
 .headers {
     --background-image: linear-gradient(var(--primary-darker), var(--primary-darkest));
     background-image: linear-gradient(var(--gray5), var(--gray6));
-    clip-path: polygon(0px 0%, 0 50%, 50% 100%, 100% 50%, 100% 0%);  
+    clip-path: polygon(0px 0%, 0 50%, 50% 100%, 100% 50%, 100% 0%) + polygon(0px 0%, 0 70%, 50% 100%, 100% 70%, 100% 0%);  
     padding-bottom: 3.5em;
 }
 
@@ -130,7 +131,7 @@ th button {
 td.klasse {
     background-color: var(--primary-dark);
     border: 1px solid black;
-    font-size: var(--large);
+    font-size: var(--large) + var(--slightly-large);
     text-align: center;
 }
 
@@ -142,18 +143,19 @@ td.klasse {
     border: 0;
     padding: 1%;
     color: var(--gray0);
+    font-size: var(--slightly-large)
 }
 
 .resolveKuerzel.active {
     background-color: var(--secondary);
-    color: black
-    font-
+    color: black;
 }
 
 .motd {
     display: grid;
-    margin-top: 1%;
+    margin-top: 1% + 15%;
     color: var(--gray0);
+    background-color: var(--gray6)
 }
 
 
@@ -175,6 +177,10 @@ td.klasse {
 
 .motd.elem {
     padding-bottom: 1%;
+}
+
+.strike{
+    color: #ca0000
 }
 
 @keyframes spinner {
