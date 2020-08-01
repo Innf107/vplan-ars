@@ -26,7 +26,7 @@ port :: Int
 port = 5000
 
 updateRate :: Seconds
-updateRate = 5 * 60
+updateRate = 60
 
 type Seconds = Double
 
@@ -48,7 +48,7 @@ main = do
         S.get "/teacher.js" $ file "../public/teacher.js"
         S.get "/personal" $ file "../public/personal.html"
         S.get "/personal.js" $ file "../public/personal.js"
-        S.get "/personal.css" $ file "../public/personal.css"
+        S.get "/personal.css" $ xcss "../public/personal.css"
         S.get "/sw.js" $ file "../public/sw.js"
         S.get "/manifest.webmanifest" $ file "../manifest.webmanifest"
         S.get "/logoMain.png" $ file "../logoMain.png"
