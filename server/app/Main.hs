@@ -60,7 +60,7 @@ main = do
             case ks of
                 Nothing -> raiseStatus (toEnum 500) "Invalid 'kuerzel.json'"
                 Just ks -> json $ (map (\(k, v) -> Kuerzel k v)) ks
-        S.get "/json" $ liftIO (readMVar vpVar) >>= json
+        S.get "/json" $ setHeader "Access-Control-Allow-Origin" "*" >> liftIO (readMVar vpVar) >>= json
         S.put "/feedback" $ text "NYI"
         notFound $ file "../public/404.html"
 
