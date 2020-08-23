@@ -1,4 +1,6 @@
 {-#LANGUAGE OverloadedStrings#-}
+{-#LANGUAGE DeriveGeneric#-}
+{-# LANGUAGE DeriveAnyClass #-}
 module Main where
 
 import Lib
@@ -22,22 +24,29 @@ import Control.Monad
 import Control.Monad.IO.Class (liftIO)
 import Control.Exception
 import System.IO
+import GHC.Generics
 
+data Config = Config {
+        updateRate:: Double,
+        port::Int
+    } 
+    deriving (Show, Eq, Generic, A.FromJSON, A.ToJSON)
 
-port :: Int
-port = 5000
-
-updateRate :: Seconds
-updateRate = 10
-
-type Seconds = Double
+defaultConfig = Config {
+    updateRate=60,
+    port=5000
+}
 
 main :: IO ()
 main = do
+    mconfig <- A.eitherDecodeFileStrict "config.json"
+    config <- case mconfig of
+        Right c -> return c
+        Left e -> hPutStrLn stderr ("Cannot read config file 'config.json'. Reverting to default: " ++ show e) >> return defaultConfig
     vp <- scrapeAll
     vpVar <- newMVar vp
-    forkIO $ updateVPlan vpVar
-    scotty port $ do
+    forkIO $ updateVPlan config vpVar
+    scotty (port config) $ do
         S.get "/ping" $ S.text "\"true\""
         S.get "/pro" $ file "../public/index.html"
         S.get "/main.css" $ xcss "../public/main.css"
@@ -66,15 +75,15 @@ main = do
         S.put "/feedback" $ text "NYI"
         notFound $ file "../public/404.html"
 
-updateVPlan :: MVar VPlan -> IO ()
-updateVPlan vpVar = do
+updateVPlan :: Config -> MVar VPlan -> IO ()
+updateVPlan config vpVar = do
             v <- scrapeAll `catch` scrapeHandler
             takeMVar vpVar
             putMVar vpVar v
-            threadDelay $ floor $ 1e6 * updateRate
-            updateVPlan vpVar
+            threadDelay $ floor $ 1e6 * updateRate config
+            updateVPlan config vpVar
             where
                 scrapeHandler :: SomeException -> IO VPlan
                 scrapeHandler e = hPutStrLn stderr ("Error scraping vplan: " ++ show e) >> readMVar vpVar
-            
+
 
