@@ -28,7 +28,7 @@ port :: Int
 port = 5000
 
 updateRate :: Seconds
-updateRate = 10
+updateRate = 60
 
 type Seconds = Double
 
