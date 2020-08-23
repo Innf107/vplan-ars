@@ -20,13 +20,15 @@ import Control.Concurrent
 import qualified Data.Map as M
 import Control.Monad
 import Control.Monad.IO.Class (liftIO)
+import Control.Exception
+import System.IO
 
 
 port :: Int
 port = 5000
 
 updateRate :: Seconds
-updateRate = 60
+updateRate = 10
 
 type Seconds = Double
 
@@ -66,9 +68,13 @@ main = do
 
 updateVPlan :: MVar VPlan -> IO ()
 updateVPlan vpVar = do
-            v <- scrapeAll
+            v <- scrapeAll `catch` scrapeHandler
             takeMVar vpVar
             putMVar vpVar v
             threadDelay $ floor $ 1e6 * updateRate
             updateVPlan vpVar
+            where
+                scrapeHandler :: SomeException -> IO VPlan
+                scrapeHandler e = hPutStrLn stderr ("Error scraping vplan: " ++ show e) >> readMVar vpVar
+            
 
