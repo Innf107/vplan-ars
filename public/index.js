@@ -7031,7 +7031,7 @@ var $author$project$Main$viewKlasseCollapsed = F2(
 				$elm$html$Html$tr,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('klasse collapsed')
+						$elm$html$Html$Attributes$class('klasse collapsed klasseHeader')
 					]),
 				_List_fromArray(
 					[
@@ -7969,7 +7969,7 @@ var $author$project$Main$viewKlasseExpanded = F2(
 				$elm$html$Html$tr,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('klasse expanded')
+						$elm$html$Html$Attributes$class('klasse expanded klasseHeader')
 					]),
 				_List_fromArray(
 					[
@@ -8054,18 +8054,16 @@ var $author$project$Main$viewKlasseExpanded = F2(
 var $author$project$Main$UpdateMOTDExpansion = function (a) {
 	return {$: 8, a: a};
 };
-var $elm$html$Html$li = _VirtualDom_node('li');
 var $elm$html$Html$Events$onClick = function (msg) {
 	return A2(
 		$elm$html$Html$Events$on,
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
-var $elm$html$Html$ul = _VirtualDom_node('ul');
 var $author$project$Main$viewMOTD = F2(
 	function (model, day) {
 		return A2(
-			$elm$html$Html$ul,
+			$elm$html$Html$div,
 			_List_fromArray(
 				[
 					$elm$html$Html$Attributes$class('motd')
@@ -8073,7 +8071,7 @@ var $author$project$Main$viewMOTD = F2(
 			A2(
 				$elm$core$List$cons,
 				A2(
-					$elm$html$Html$li,
+					$elm$html$Html$div,
 					_List_fromArray(
 						[
 							$elm$html$Html$Attributes$class('motd header')
@@ -8098,7 +8096,7 @@ var $author$project$Main$viewMOTD = F2(
 					$elm$core$List$map,
 					function (m) {
 						return A2(
-							$elm$html$Html$li,
+							$elm$html$Html$div,
 							_List_fromArray(
 								[
 									$elm$html$Html$Attributes$class('motd elem')
@@ -8118,39 +8116,55 @@ var $author$project$Main$viewDay = F3(
 			_List_Nil,
 			_List_fromArray(
 				[
-					A3(
-					$elm$html$Html$Lazy$lazy2,
-					F2(
-						function (dayA, selDay) {
-							return A2(
-								$elm$html$Html$h3,
-								_List_fromArray(
-									[
-										$elm$html$Html$Attributes$class('amountHeader')
-									]),
-								_List_fromArray(
-									[
-										$elm$html$Html$text(
-										$elm$core$String$fromInt(selDay + 1) + (' / ' + $elm$core$String$fromInt(dayA)))
-									]));
-						}),
-					dayAmount,
-					model.u),
 					A2(
-					$elm$html$Html$Lazy$lazy,
-					function (day_) {
-						return A2(
-							$elm$html$Html$h3,
+					$elm$html$Html$div,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$class('headers')
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$elm$html$Html$h1,
+							_List_Nil,
 							_List_fromArray(
 								[
-									$elm$html$Html$Attributes$class('dateHeader')
-								]),
-							_List_fromArray(
-								[
-									$elm$html$Html$text(day_)
-								]));
-					},
-					day.aV),
+									$elm$html$Html$text('Vertretungsplan ARS')
+								])),
+							A3(
+							$elm$html$Html$Lazy$lazy2,
+							F2(
+								function (dayA, selDay) {
+									return A2(
+										$elm$html$Html$h3,
+										_List_fromArray(
+											[
+												$elm$html$Html$Attributes$class('amountHeader')
+											]),
+										_List_fromArray(
+											[
+												$elm$html$Html$text(
+												$elm$core$String$fromInt(selDay + 1) + (' / ' + $elm$core$String$fromInt(dayA)))
+											]));
+								}),
+							dayAmount,
+							model.u),
+							A2(
+							$elm$html$Html$Lazy$lazy,
+							function (day_) {
+								return A2(
+									$elm$html$Html$h3,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$class('dateHeader')
+										]),
+									_List_fromArray(
+										[
+											$elm$html$Html$text(day_)
+										]));
+							},
+							day.aV)
+						])),
 					A2(
 					$elm$html$Html$Lazy$lazy,
 					function (_v0) {
@@ -8321,13 +8335,6 @@ var $author$project$Main$viewLoaded = F2(
 					[
 						$elm$html$Html$text('Offline! Das ist der letzte Stand des Vertretungsplans.')
 					])) : $elm$html$Html$text(''),
-				A2(
-				$elm$html$Html$h1,
-				_List_Nil,
-				_List_fromArray(
-					[
-						$elm$html$Html$text('Vertretungsplan ARS')
-					])),
 				function () {
 				var _v0 = model.L;
 				if (_v0) {

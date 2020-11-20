@@ -1,0 +1,98 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: fb301b5d1c9c77d337191bc5499c64d2d3be12dde18e26742c2a63c0edd8b4e6
+
+name:           VPlanHS
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/Github username here/VPlanHS#readme>
+homepage:       https://github.com/Github username here/VPlanHS#readme
+bug-reports:    https://github.com/Github username here/VPlanHS/issues
+author:         Author name here
+maintainer:     Author email here
+copyright:      2019 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/Github username here/VPlanHS
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_VPlanHS
+  hs-source-dirs:
+      src
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , bytestring
+    , containers
+    , http-client
+    , http-client-tls
+    , http-types
+    , regex-tdfa
+    , scalpel
+    , scotty
+    , text
+    , utf8-string
+  default-language: Haskell2010
+
+executable VPlanHS-exe
+  main-is: Main.hs
+  other-modules:
+      Scraper
+      Types
+      XCSS
+      Paths_VPlanHS
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      VPlanHS
+    , aeson
+    , base >=4.7 && <5
+    , bytestring
+    , containers
+    , http-client
+    , http-client-tls
+    , http-types
+    , regex-tdfa
+    , scalpel
+    , scotty
+    , text
+    , utf8-string
+  default-language: Haskell2010
+
+test-suite VPlanHS-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_VPlanHS
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      VPlanHS
+    , aeson
+    , base >=4.7 && <5
+    , bytestring
+    , containers
+    , http-client
+    , http-client-tls
+    , http-types
+    , regex-tdfa
+    , scalpel
+    , scotty
+    , text
+    , utf8-string
+  default-language: Haskell2010

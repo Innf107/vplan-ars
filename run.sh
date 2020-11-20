@@ -1,0 +1,2 @@
+cd server
+stack run

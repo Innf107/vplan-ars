@@ -3,18 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="39dcbe99-b2f8-4b2f-92cf-e3ceecd3e620" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/Main.elmo" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/Main.elmo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmi" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmi" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmo" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/VPlanTypes.elmo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elm-stuff/0.19.1/d.dat" beforeDir="false" afterPath="$PROJECT_DIR$/elm-stuff/0.19.1/d.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/personal.js" beforeDir="false" afterPath="$PROJECT_DIR$/personal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.elm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Personal.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Personal.elm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Teacher.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/Teacher.elm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/VPlanTypes.elm" beforeDir="false" afterPath="$PROJECT_DIR$/src/VPlanTypes.elm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/teacher.js" beforeDir="false" afterPath="$PROJECT_DIR$/teacher.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +65,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="org.elm.workspace.ui.ElmWorkspaceConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
@@ -165,7 +153,9 @@
       <workItem from="1586260704295" duration="9000" />
       <workItem from="1587141895005" duration="2000" />
       <workItem from="1587141905753" duration="1670000" />
-      <workItem from="1587143587231" duration="587000" />
+      <workItem from="1587143587231" duration="5180000" />
+      <workItem from="1587245883246" duration="236000" />
+      <workItem from="1587308493350" duration="45000" />
     </task>
     <servers />
   </component>
@@ -194,17 +184,17 @@
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
     <state x="519" y="148" width="424" height="482" key="FileChooserDialogImpl/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580511868308" />
-    <state x="610" y="82" width="1251" height="730" key="SettingsEditor" timestamp="1586260711135">
+    <state x="610" y="82" width="1251" height="730" key="SettingsEditor" timestamp="1587245953330">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
-    <state x="610" y="82" width="1251" height="730" key="SettingsEditor/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1586260711135" />
+    <state x="610" y="82" width="1251" height="730" key="SettingsEditor/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1587245953330" />
     <state x="630" y="388" key="com.intellij.ide.util.TipDialog" timestamp="1580511374099">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
     <state x="630" y="388" key="com.intellij.ide.util.TipDialog/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580511374099" />
-    <state x="315" y="291" width="695" height="545" key="new project wizard" timestamp="1580511870265">
+    <state x="315" y="291" width="695" height="545" key="new project wizard" timestamp="1587308532465">
       <screen x="0" y="34" width="1920" height="1046" />
     </state>
-    <state x="315" y="291" width="695" height="545" key="new project wizard/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1580511870265" />
+    <state x="315" y="291" width="695" height="545" key="new project wizard/0.34.1920.1046/1920.0.1680.1050@0.34.1920.1046" timestamp="1587308532465" />
   </component>
 </project>

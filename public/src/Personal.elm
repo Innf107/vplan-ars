@@ -100,8 +100,7 @@ viewLoaded : Model -> VPlan -> List (Html Msg)
 viewLoaded model vplan = [
         --a [A.class "backButton", A.href "/"] [text "zurück"],
         (if not model.online then h3 [A.class "alert"] [text "Offline! Das ist der letzte Stand des Vertretungsplans."]
-        else text ""),
-        h1 [] [text "Vertretungsplan ARS"]]
+        else text "")]
         ++
         case (getAt model.selectedDay vplan) of
             Just x  -> viewDay model vplan x
@@ -111,8 +110,11 @@ viewLoaded model vplan = [
 viewDay : Model -> VPlan -> UntisDay -> List (Html Msg)
 viewDay model vplan day = let dayAmount = List.length vplan in
     [
-        L.lazy2 (\dayA selDay -> h3 [A.class "amountHeader"] [text <| (String.fromInt <| selDay + 1) ++ " / " ++ String.fromInt dayA]) dayAmount model.selectedDay,
-        L.lazy (\day_ -> h3 [A.class "dateHeader"] [text day_]) day.day,
+        div [A.class "headers"] [
+            h1 [] [text "Vertretungsplan ARS"],
+            L.lazy2 (\dayA selDay -> h3 [A.class "amountHeader"] [text <| (String.fromInt <| selDay + 1) ++ " / " ++ String.fromInt dayA]) dayAmount model.selectedDay,
+            L.lazy (\day_ -> h3 [A.class "dateHeader"] [text day_]) day.day
+        ],
         L.lazy (\() -> button [A.class "bleft",  E.onClick <| UpdateSelectedDay ((model.selectedDay - 1) |> modBy dayAmount)] [text "<—"]) (),
         L.lazy (\() -> button [A.class "bright", E.onClick <| UpdateSelectedDay ((model.selectedDay + 1) |> modBy dayAmount)] [text "—>"]) (),
         button [A.classList [("resolveKuerzel", True), ("active", sGet "resolveKuerzel" model.storage |> Maybe.map boolFromString |> Maybe.withDefault False)], onClick (UpdateStorage (sSave {key="resolveKuerzel", value=strFromBool <| Maybe.withDefault False <| Maybe.map not <| Maybe.map boolFromString <| sGet "resolveKuerzel" model.storage} model.storage))] [text "Kürzel auflösen"],
