@@ -29,13 +29,8 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
-
-    - name: Install dependencies
-      working-directory: server
-      run: |
-        stack update
-        stack build --only-dependencies
     - name: Build
+      working-directory: server
       run: stack build
     - name: Run tests
       run: stack test
