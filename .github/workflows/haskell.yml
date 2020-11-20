@@ -31,6 +31,7 @@ jobs:
           ${{ runner.os }}-
 
     - name: Install dependencies
+      working-directory: server
       run: |
         stack update
         stack build --only-dependencies
