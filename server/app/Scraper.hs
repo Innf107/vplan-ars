@@ -29,7 +29,7 @@ scrapePage i = do
         ("https://vplan.ars-hochtaunus.de/subst_" ++ (padLeft '0' 3 (show i)) ++ ".htm") vplanWithLastPage
     where
         vplanWithLastPage :: Scraper String (VPlan, Bool)
-        vplanWithLastPage = (,) <$> vplan <*> ((=="12; URL=subst_001.htm") <$> attr "content" ("meta" @: ["http-equiv" @= "refresh"]))
+        vplanWithLastPage = (,) <$> vplan <*> (("; URL=subst_001.htm"`isSuffixOf`) <$> attr "content" ("meta" @: ["http-equiv" @= "refresh"]))
 
         vplan :: Scraper String VPlan
         vplan = (VPlan . pure) <$> day
